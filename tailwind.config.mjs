@@ -56,6 +56,10 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        white: 'hsl(var(--white))',
+        blue: 'hsl(var(--blue))',
+        yellow: 'hsl(var(--yellow))',
+        green: 'hsl(var(--green))',
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
@@ -94,8 +98,10 @@ const config = {
         warning: 'hsl(var(--warning))',
       },
       fontFamily: {
+        // heading and body fonts provided via CSS variables in globals.css
+        sans: ['var(--font-body)'],
+        heading: ['var(--font-heading)'],
         mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
       },
       keyframes: {
         'accordion-down': {
