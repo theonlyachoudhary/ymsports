@@ -21,7 +21,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   }, [setHeaderTheme])
 
   return (
-    <section className="relative bg-[#fbfaf6] ">
+    <section className="relative bg-white ">
       
       <div className="container mx-auto px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -37,6 +37,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
             )}
 
             {/* Headline */}
+            {/* Hardcoded for now until I figure out a better way to handle individual words styling */}
             {headline && (
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                 WHERE <span className="text-red-700">FAITH</span> MEETS{' '}
@@ -81,16 +82,16 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
             )}
           </div>
 
-          {/* Media Section - Glued to right edge */}
+          {/* Media Section*/}
           {media && typeof media === 'object' && (
-  <div className="lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:max-w-[55%]">
-    <Media
-      imgClassName="w-full h-auto"
-      priority
-      resource={media}
-    />
-  </div>
-)}
+            <div className="lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:max-w-[55%]">
+              <Media
+                imgClassName="w-full h-auto"
+                priority
+                resource={media}
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

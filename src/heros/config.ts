@@ -26,7 +26,6 @@ export const hero: Field = {
       required: true,
     },
 
-    // Optional structured text fields
     {
       name: 'tagline',
       type: 'text',
@@ -60,14 +59,12 @@ export const hero: Field = {
       label: 'Rich Text (optional)',
     },
 
-    // Links
     linkGroup({
       overrides: {
         maxRows: 2,
       },
     }),
 
-    // Media
     {
       name: 'media',
       type: 'upload',
