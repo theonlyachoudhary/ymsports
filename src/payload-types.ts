@@ -92,7 +92,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    coaches: CoachesSelect<false> | CoachesSelect<true>;
+    coaches: CoachesSelect1<false> | CoachesSelect1<true>;
     programs: ProgramsSelect1<false> | ProgramsSelect1<true>;
     camps: CampsSelect<false> | CampsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
@@ -199,7 +199,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | Programs | Values)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | Programs | Values | Coaches)[];
   meta?: {
     title?: string | null;
     /**
@@ -781,6 +781,17 @@ export interface Values {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Coaches".
+ */
+export interface Coaches {
+  title: string;
+  description: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'coaches';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "coaches".
  */
 export interface Coach {
@@ -1174,6 +1185,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         programs?: T | ProgramsSelect<T>;
         values?: T | ValuesSelect<T>;
+        coaches?: T | CoachesSelect<T>;
       };
   meta?:
     | T
@@ -1298,6 +1310,16 @@ export interface ValuesSelect<T extends boolean = true> {
         icon?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Coaches_select".
+ */
+export interface CoachesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -1472,7 +1494,7 @@ export interface UsersSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "coaches_select".
  */
-export interface CoachesSelect<T extends boolean = true> {
+export interface CoachesSelect1<T extends boolean = true> {
   name?: T;
   bio?: T;
   role?: T;

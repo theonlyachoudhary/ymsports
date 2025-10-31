@@ -12,6 +12,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 // Our custom blocks
 import { ProgramsBlock } from '@/blocks/Programs/Component'
 import { ValuesBlock } from '@/blocks/Values/Component'
+import { CoachesBlock } from '@/blocks/Coaches/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -21,6 +22,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   programs: ProgramsBlock,
   values: ValuesBlock,
+  coaches: CoachesBlock,
 }
 
 export const RenderBlocks: React.FC<{

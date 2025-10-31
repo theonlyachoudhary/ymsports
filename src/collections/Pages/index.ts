@@ -16,7 +16,7 @@ import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 // Import our custom blocks here
 import { Programs } from '../../blocks/Programs/config'
 import { Values } from '../../blocks/Values/config'
-
+import { Coaches } from '../../blocks/Coaches/config'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -77,7 +77,16 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               // Add your custom blocks here
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Programs, Values],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                Programs,
+                Values,
+                Coaches,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
