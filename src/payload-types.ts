@@ -771,9 +771,53 @@ export interface Form {
 export interface Programs {
   title: string;
   description: string;
+  ageGroups: {
+    label: string;
+    color?: string | null;
+    id?: string | null;
+  }[];
+  programs: (number | Program)[];
+  /**
+   * Optional decorative side image (replaces rectangles)
+   */
+  sideImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'programs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "programs".
+ */
+export interface Program {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  ageGroup: 'u6' | 'u8' | 'u10' | 'u12';
+  /**
+   * Enter a HEX code like #C4571B
+   */
+  themeColor: string;
+  /**
+   * e.g. Register Now For Ages 5 to 7
+   */
+  buttonText?: string | null;
+  /**
+   * e.g. /register#5-7
+   */
+  buttonLink?: string | null;
+  /**
+   * Upload side pattern. Replaces default rectangles in design.
+   */
+  sideImage?: (number | null) | Media;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -799,20 +843,12 @@ export interface Values {
 export interface Coaches {
   title: string;
   description: string;
+  featuredCoaches?: (number | Coach)[] | null;
+  ctaText?: string | null;
+  ctaLink?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'coaches';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialsBlock".
- */
-export interface TestimonialsBlock {
-  title: string;
-  description: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'testimonials';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -834,22 +870,14 @@ export interface Coach {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "programs".
+ * via the `definition` "TestimonialsBlock".
  */
-export interface Program {
-  id: number;
+export interface TestimonialsBlock {
   title: string;
-  subtitle: string;
   description: string;
-  ageGroup: 'u6' | 'u8' | 'u10' | 'u12';
-  themeColor: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1320,6 +1348,15 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface ProgramsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  ageGroups?:
+    | T
+    | {
+        label?: T;
+        color?: T;
+        id?: T;
+      };
+  programs?: T;
+  sideImage?: T;
   id?: T;
   blockName?: T;
 }
@@ -1348,6 +1385,9 @@ export interface ValuesSelect<T extends boolean = true> {
 export interface CoachesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  featuredCoaches?: T;
+  ctaText?: T;
+  ctaLink?: T;
   id?: T;
   blockName?: T;
 }
@@ -1552,6 +1592,9 @@ export interface ProgramsSelect1<T extends boolean = true> {
   description?: T;
   ageGroup?: T;
   themeColor?: T;
+  buttonText?: T;
+  buttonLink?: T;
+  sideImage?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

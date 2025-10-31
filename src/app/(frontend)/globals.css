@@ -100,13 +100,15 @@
   }
 }
 
+/* change global background color here  */
 @layer base {
   * {
     @apply border-border;
   }
   body {
     font-family: var(--font-body);
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-[#FFF9F2] text-foreground min-h-[100vh] flex flex-col;
+    
   }
 }
 
@@ -122,4 +124,10 @@ html[data-theme='light'] {
 /* Apply heading font to headings globally */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+}
+
+/* for 3D flip rendering */
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
