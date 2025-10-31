@@ -13,6 +13,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { ProgramsBlock } from '@/blocks/Programs/Component'
 import { ValuesBlock } from '@/blocks/Values/Component'
 import { CoachesBlock } from '@/blocks/Coaches/Component'
+import { TestimonialsBlock } from './Testimonials/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -23,6 +24,7 @@ const blockComponents = {
   programs: ProgramsBlock,
   values: ValuesBlock,
   coaches: CoachesBlock,
+  testimonials: TestimonialsBlock,
 }
 
 export const RenderBlocks: React.FC<{

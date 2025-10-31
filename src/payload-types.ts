@@ -199,7 +199,17 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | Programs | Values | Coaches)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | Programs
+    | Values
+    | Coaches
+    | TestimonialsBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -792,6 +802,17 @@ export interface Coaches {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  title: string;
+  description: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "coaches".
  */
 export interface Coach {
@@ -1186,6 +1207,7 @@ export interface PagesSelect<T extends boolean = true> {
         programs?: T | ProgramsSelect<T>;
         values?: T | ValuesSelect<T>;
         coaches?: T | CoachesSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1318,6 +1340,16 @@ export interface ValuesSelect<T extends boolean = true> {
  * via the `definition` "Coaches_select".
  */
 export interface CoachesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   id?: T;

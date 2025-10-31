@@ -17,6 +17,7 @@ import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { Programs } from '../../blocks/Programs/config'
 import { Values } from '../../blocks/Values/config'
 import { Coaches } from '../../blocks/Coaches/config'
+import { Testimonials } from '../../blocks/Testimonials/config'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -86,6 +87,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Programs,
                 Values,
                 Coaches,
+                Testimonials,
               ],
               required: true,
               admin: {
