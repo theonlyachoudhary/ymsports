@@ -4,8 +4,8 @@ import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 import { slugField } from 'payload'
 
-export const Programs: CollectionConfig = {
-  slug: 'programs',
+export const Program: CollectionConfig = {
+  slug: 'program',
   access: {
     create: authenticated,
     delete: authenticated,
