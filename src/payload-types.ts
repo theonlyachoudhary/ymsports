@@ -93,7 +93,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     coaches: CoachesSelect<false> | CoachesSelect<true>;
-    programs: ProgramsSelect<false> | ProgramsSelect<true>;
+    programs: ProgramsSelect1<false> | ProgramsSelect1<true>;
     camps: CampsSelect<false> | CampsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -199,7 +199,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | Programs | Values)[];
   meta?: {
     title?: string | null;
     /**
@@ -753,6 +753,34 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Programs".
+ */
+export interface Programs {
+  title: string;
+  description: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'programs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Values".
+ */
+export interface Values {
+  title: string;
+  description: string;
+  valueCards: {
+    title: string;
+    description: string;
+    icon: number | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'values';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "coaches".
  */
 export interface Coach {
@@ -1144,6 +1172,8 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        programs?: T | ProgramsSelect<T>;
+        values?: T | ValuesSelect<T>;
       };
   meta?:
     | T
@@ -1240,6 +1270,34 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Programs_select".
+ */
+export interface ProgramsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Values_select".
+ */
+export interface ValuesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  valueCards?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1428,7 +1486,7 @@ export interface CoachesSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "programs_select".
  */
-export interface ProgramsSelect<T extends boolean = true> {
+export interface ProgramsSelect1<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   description?: T;

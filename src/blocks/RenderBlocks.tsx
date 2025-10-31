@@ -2,11 +2,16 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
+// Import block components here after you create them !!!
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+
+// Our custom blocks
+import { ProgramsBlock } from '@/blocks/Programs/Component'
+import { ValuesBlock } from '@/blocks/Values/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -14,6 +19,8 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  programs: ProgramsBlock,
+  values: ValuesBlock,
 }
 
 export const RenderBlocks: React.FC<{

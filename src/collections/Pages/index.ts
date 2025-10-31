@@ -13,6 +13,10 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 
+// Import our custom blocks here
+import { Programs } from '../../blocks/Programs/config'
+import { Values } from '../../blocks/Values/config'
+
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -72,7 +76,8 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              // Add your custom blocks here
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Programs, Values],
               required: true,
               admin: {
                 initCollapsed: true,

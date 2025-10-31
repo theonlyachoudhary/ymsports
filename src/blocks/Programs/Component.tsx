@@ -1,3 +1,4 @@
+'use client'
 import type { Program as ProgramProps } from 'src/payload-types'
 
 import { cn } from '@/utilities/ui'
@@ -6,7 +7,7 @@ import { useEffect } from 'react'
 
 import { SectionHeader } from '@/components/SectionHeader'
 import { Program } from 'src/payload-types'
-import { Card } from '@/components/Card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 
 type Props = {
   className?: string
@@ -53,10 +54,15 @@ export const ProgramsBlock: React.FC<Props> = ({ className, title, description }
         spacing="sm"
         containerClassName="w-full ml-0"
       />
-      <div className="flex flex-wrap justify-center items-center gap-8">
-        {programs.map((program, idx) => (
-          <Card key={program?.id ?? idx} className=""></Card>
-        ))}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {programs.map((programs, idx) => {
+          return (
+            <Card
+              key={programs?.id ?? idx}
+              className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col"
+            ></Card>
+          )
+        })}
       </div>
     </section>
   )
