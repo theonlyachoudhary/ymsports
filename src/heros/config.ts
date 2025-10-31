@@ -1,5 +1,4 @@
 import type { Field } from 'payload'
-
 import {
   FixedToolbarFeature,
   HeadingFeature,
@@ -19,54 +18,66 @@ export const hero: Field = {
       defaultValue: 'lowImpact',
       label: 'Type',
       options: [
-        {
-          label: 'None',
-          value: 'none',
-        },
-        {
-          label: 'High Impact',
-          value: 'highImpact',
-        },
-        {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
-        },
-        {
-          label: 'Low Impact',
-          value: 'lowImpact',
-        },
+        { label: 'None', value: 'none' },
+        { label: 'High Impact', value: 'highImpact' },
+        { label: 'Medium Impact', value: 'mediumImpact' },
+        { label: 'Low Impact', value: 'lowImpact' },
       ],
       required: true,
     },
+
+    // Optional structured text fields
+    {
+      name: 'tagline',
+      type: 'text',
+      label: 'Tagline',
+      required: false,
+    },
+    {
+      name: 'headline',
+      type: 'text',
+      label: 'Headline',
+      required: false,
+    },
+    {
+      name: 'subtext',
+      type: 'textarea',
+      label: 'Subtext',
+      required: false,
+    },
+
     {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
+        features: ({ rootFeatures }) => [
+          ...rootFeatures,
+          HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+          FixedToolbarFeature(),
+          InlineToolbarFeature(),
+        ],
       }),
-      label: false,
+      label: 'Rich Text (optional)',
     },
+
+    // Links
     linkGroup({
       overrides: {
         maxRows: 2,
       },
     }),
+
+    // Media
     {
       name: 'media',
       type: 'upload',
-      admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
-      },
       relationTo: 'media',
       required: true,
+      admin: {
+        condition: (_, { type } = {}) =>
+          ['highImpact', 'mediumImpact'].includes(type),
+      },
     },
   ],
-  label: false,
+  label: 'Hero',
 }

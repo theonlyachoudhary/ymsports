@@ -158,6 +158,9 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    tagline?: string | null;
+    headline?: string | null;
+    subtext?: string | null;
     richText?: {
       root: {
         type: string;
@@ -1178,6 +1181,9 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
+        tagline?: T;
+        headline?: T;
+        subtext?: T;
         richText?: T;
         links?:
           | T
