@@ -6,6 +6,13 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
+//Add your collections here
+import { Coaches } from './collections/Coaches'
+import { Programs } from './collections/Programs'
+import { Camps } from './collections/Camps'
+
+import { Testimonials } from './collections/Testimonials'
+
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -64,7 +71,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, Coaches, Programs, Camps, Testimonials],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
