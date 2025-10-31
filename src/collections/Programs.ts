@@ -48,6 +48,38 @@ export const Programs: CollectionConfig = {
       label: 'Theme Color (Hex Code)',
       type: 'text',
       required: true,
+      admin: {
+        description: 'Enter a HEX code like #C4571B',
+      },
+    },
+    {
+      name: 'buttonText',
+      label: 'Button Text',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'e.g. Register Now For Ages 5 to 7',
+      },
+    },
+    {
+      name: 'buttonLink',
+      label: 'Button Link (URL)',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'e.g. /register#5-7',
+      },
+    },
+    {
+      name: 'sideImage',
+      label: 'Optional Side Image (for design)',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      admin: {
+        description:
+          'Upload side pattern. Replaces default rectangles in design.',
+      },
     },
     slugField({
       position: undefined,

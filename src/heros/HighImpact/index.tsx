@@ -21,7 +21,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   }, [setHeaderTheme])
 
   return (
-    <section className="relative bg-white ">
+    <section className=" relative bg-[#FFF9F2]">
       
       <div className="container mx-auto px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -30,7 +30,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
             {/* Tagline */}
             {tagline && (
               <div className="mb-6">
-                <span className="inline-block bg-red-50 text-red-700 text-xs sm:text-sm font-medium px-3 py-1.5 rounded">
+                <span className="inline-block bg-[#E7B9A9] text-[#5B2C0E]text-xs sm:text-sm font-medium px-3 py-1.5 rounded">
                   {tagline}
                 </span>
               </div>
@@ -40,8 +40,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
             {/* Hardcoded for now until I figure out a better way to handle individual words styling */}
             {headline && (
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                WHERE <span className="text-red-700">FAITH</span> MEETS{' '}
-                <span className="text-red-700">FITNESS</span>
+                WHERE <span className="text-[#5B2C0E]">FAITH</span> MEETS{' '}
+                <span className="text-[#5B2C0E]">FITNESS</span>
               </h1>
             )}
 
@@ -65,7 +65,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 {links[0] && (
                   <CMSLink
                     {...links[0].link}
-                    className="inline-flex items-center justify-center bg-red-700 text-white px-6 py-3 rounded font-semibold text-sm hover:bg-red-800 transition-colors duration-200"
+                    className="inline-flex items-center justify-center text-[#5B2C0E] text-white px-6 py-3 rounded font-semibold text-sm hover:bg-red-800 transition-colors duration-200"
                   >
                     {links[0].label}
                   </CMSLink>
