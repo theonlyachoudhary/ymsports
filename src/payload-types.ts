@@ -777,10 +777,6 @@ export interface Programs {
     id?: string | null;
   }[];
   programs: (number | Program)[];
-  /**
-   * Optional decorative side image (replaces rectangles)
-   */
-  sideImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'programs';
@@ -1356,7 +1352,6 @@ export interface ProgramsSelect<T extends boolean = true> {
         id?: T;
       };
   programs?: T;
-  sideImage?: T;
   id?: T;
   blockName?: T;
 }

@@ -11,22 +11,16 @@ export const Programs: Block = {
       type: 'array',
       required: true,
       fields: [
-        { name: 'label', type: 'text', required: true },     
-        { name: 'color', type: 'text', defaultValue: 'orange' } 
+        { name: 'label', type: 'text', required: true },
+        { name: 'color', type: 'text', defaultValue: 'orange' },
       ],
     },
     {
       name: 'programs',
       type: 'relationship',
-      relationTo: 'programs', 
+      relationTo: 'programs',
       hasMany: true,
       required: true,
-    },
-    {
-      name: 'sideImage',
-      type: 'upload',
-      relationTo: 'media',
-      admin: { description: 'Optional decorative side image (replaces rectangles)' },
     },
   ],
 }
