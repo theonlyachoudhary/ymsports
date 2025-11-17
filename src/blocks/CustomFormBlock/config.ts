@@ -1,66 +1,66 @@
-import { Block } from "payload/types";
+import { Block } from 'payload'
 
 export const CustomFormBlock: Block = {
-  slug: "customFormBlock",
+  slug: 'customFormBlock',
   labels: {
-    singular: "Custom Form Block",
-    plural: "Custom Form Blocks",
+    singular: 'Custom Form Block',
+    plural: 'Custom Form Blocks',
   },
   fields: [
     {
-      name: "title",
-      type: "text",
+      name: 'title',
+      type: 'text',
       required: true,
     },
 
     {
-      name: "fields",
-      type: "array",
-      labels: { singular: "Field", plural: "Fields" },
+      name: 'fields',
+      type: 'array',
+      labels: { singular: 'Field', plural: 'Fields' },
       required: true,
       fields: [
         {
-          name: "label",
-          type: "text",
+          name: 'label',
+          type: 'text',
           required: true,
         },
         {
-          name: "type",
-          type: "select",
+          name: 'type',
+          type: 'select',
           required: true,
           options: [
-            { label: "Text", value: "text" },
-            { label: "Email", value: "email" },
-            { label: "Number", value: "number" },
-            { label: "Textarea", value: "textarea" },
+            { label: 'Text', value: 'text' },
+            { label: 'Email', value: 'email' },
+            { label: 'Number', value: 'number' },
+            { label: 'Textarea', value: 'textarea' },
           ],
         },
         {
-          name: "required",
-          type: "checkbox",
+          name: 'required',
+          type: 'checkbox',
           defaultValue: false,
         },
       ],
     },
 
     {
-      name: "buttonLabel",
-      type: "text",
-      defaultValue: "Submit",
+      name: 'buttonLabel',
+      type: 'text',
+      defaultValue: 'Submit',
       required: true,
     },
 
     {
-      name: "image",
-      type: "upload",
-      relationTo: "media",
-      label: "Optional Image",
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Optional Image',
     },
 
     {
-      name: "backgroundColor",
-      type: "text",
-      defaultValue: "#f7f4ed",
+      name: 'backgroundColor',
+      type: 'text',
+      defaultValue: '#f7f4ed',
     },
   ],
-};
+}

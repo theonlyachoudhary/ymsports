@@ -1,29 +1,29 @@
-import { Block } from "payload/types";
+import { Block } from 'payload'
 
 export const DualFeatureBanner: Block = {
-  slug: "dualFeatureBanner",
+  slug: 'dualFeatureBanner',
   labels: {
-    singular: "Dual Feature Banner",
-    plural: "Dual Feature Banners",
+    singular: 'Dual Feature Banner',
+    plural: 'Dual Feature Banners',
   },
   fields: [
     {
-      name: "left",
-      type: "group",
+      name: 'left',
+      type: 'group',
       fields: [
-        { name: "title", type: "text", required: true },
-        { name: "link", type: "text", required: true },
-        { name: "image", type: "upload", relationTo: "media", required: true },
+        { name: 'title', type: 'text', required: true },
+        { name: 'link', type: 'text', required: true },
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
       ],
     },
     {
-      name: "right",
-      type: "group",
+      name: 'right',
+      type: 'group',
       fields: [
-        { name: "title", type: "text", required: true },
-        { name: "link", type: "text", required: true },
-        { name: "image", type: "upload", relationTo: "media", required: true },
+        { name: 'title', type: 'text', required: true },
+        { name: 'link', type: 'text', required: true },
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
       ],
     },
   ],
-};
+}
