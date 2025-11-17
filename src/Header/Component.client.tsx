@@ -1,42 +1,113 @@
 'use client'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
+
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
-
 import type { Header } from '@/payload-types'
-
-import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Hamburger } from '@/components/Hamburger'
 
-interface HeaderClientProps {
-  data: Header
-}
-
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
-  /* Storing the value in a useState to avoid hydration errors */
-  const [theme, setTheme] = useState<string | null>(null)
-  const { headerTheme, setHeaderTheme } = useHeaderTheme()
+export default function HeaderClient({ data }: { data: Header }) {
   const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [shrink, setShrink] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const [lastScrollY, setLastScrollY] = useState(0)
 
+  // For smooth hide/show on scroll
   useEffect(() => {
-    setHeaderTheme(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const onScroll = () => {
+      const current = window.scrollY
+      setShrink(current > 10)
+
+      if (current > lastScrollY && current > 120) {
+        setHidden(true)
+      } else {
+        setHidden(false)
+      }
+
+      setLastScrollY(current)
+    }
+
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [lastScrollY])
+
+  // Close mobile on route change
+  useEffect(() => {
+    setMobileOpen(false)
   }, [pathname])
 
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
+  const isHome = pathname === '/'
 
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
-        <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
-        </Link>
+    <motion.header
+      initial={{ y: 0 }}
+      animate={{ y: hidden ? -110 : 0 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      className={`
+        fixed top-0 left-0 z-50 w-full
+        border-b border-black/5
+        transition-all duration-300
+        ${shrink ? 'h-16' : 'h-20'}
+        ${isHome ? 'backdrop-blur-md bg-white/15 border-white/10' : 'bg-background'}
+      `}
+    >
+      <div className="max-w-[1320px] mx-auto h-full px-8 flex items-center justify-between">
+        
+        {/* LOGO */}
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+        >
+          <Link href="/" className="font-heading text-[28px] tracking-wide">
+            YMS
+          </Link>
+        </motion.div>
+
+        {/* DESKTOP NAV */}
         <HeaderNav data={data} />
+
+        {/* MOBILE BUTTON */}
+        <button
+          className="md:hidden text-foreground"
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-label="Toggle navigation"
+        >
+        <Hamburger open={mobileOpen} />
+        </button>
       </div>
-    </header>
+
+      <div className="yms-geo-line w-full" />
+
+      {/* MOBILE NAV */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="
+              md:hidden
+              absolute
+              top-full
+              left-0
+              w-full
+              bg-white
+              rounded-b-3xl
+              shadow-lg
+              pt-6 pb-8 px-8
+              z-[200]
+            "
+          >
+            <HeaderNav data={data} mobile />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+    </motion.header>
   )
 }

@@ -1,25 +1,124 @@
 'use client'
 
-import React from 'react'
-
-import type { Header as HeaderType } from '@/payload-types'
-
-import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
-import { SearchIcon } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
+import type { Header } from '@/payload-types'
 
-export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
+export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boolean }) {
+  const pathname = usePathname()
   const navItems = data?.navItems || []
 
+  // -------------------
+  // MOBILE VERSION
+  // -------------------
+  if (mobile) {
+    return (
+      <motion.nav
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -12 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+        className="flex flex-col gap-4 pt-4"
+      >
+        {navItems.map((item, i) => {
+          const href = item.link?.url || '#'
+          const active = pathname === href
+
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.05 * i }}
+              className="mb-4"
+            >
+              <Link
+                href={href}
+                className={`text-lg font-sans ${
+                  active ? 'text-foreground' : 'text-foreground/70'
+                }`}
+              >
+                {item.link?.label}
+              </Link>
+            </motion.div>
+          )
+        })}
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.05 * navItems.length }}
+          className="mt-4"
+        >
+          <Link
+            href="/register"
+            className="mt-6 w-full text-center font-heading text-[18px] tracking-wide bg-green text-primary-foreground py-3 px-6 rounded-full shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
+          >
+            Register
+          </Link>
+        </motion.div>
+      </motion.nav>
+    )
+  }
+
+  // -------------------
+  // DESKTOP VERSION
+  // -------------------
   return (
-    <nav className="flex gap-3 items-center">
-      {navItems.map(({ link }, i) => {
-        return <CMSLink key={i} {...link} appearance="link" />
+    <motion.nav
+      className="hidden md:flex items-center gap-12"
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+    >
+      {navItems.map((item, i) => {
+        const href = item.link?.url || '#'
+        const active = pathname === href
+
+        return (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
+            className="relative"
+          >
+            <Link
+              href={href}
+              className={`yms-link font-sans text-[15px] tracking-wide ${
+                active ? 'text-foreground' : 'text-foreground/70'
+              } hover:text-foreground transition`}
+            >
+              {item.link?.label}
+            </Link>
+
+            {/* animated underline */}
+            {active && (
+              <motion.div
+                layoutId="nav-underline"
+                className="absolute left-1/2 -bottom-1 w-1.5 h-1.5 rounded-full bg-foreground"
+                initial={false}
+                animate={{ x: '-50%' }}
+                transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+              />
+            )}
+          </motion.div>
+        )
       })}
-      <Link href="/search">
-        <span className="sr-only">Search</span>
-        <SearchIcon className="w-5 text-primary" />
-      </Link>
-    </nav>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.05 * navItems.length }}
+      >
+        <Link
+          href="/register"
+          className="yms-cta font-heading text-[16px] tracking-wide px-8 py-2 rounded-full bg-green text-primary-foreground shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
+        >
+          Register
+        </Link>
+      </motion.div>
+    </motion.nav>
   )
 }

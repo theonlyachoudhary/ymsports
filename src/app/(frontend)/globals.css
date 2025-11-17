@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Bebas+Neue&family=Open+Sans:wght@300;400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@300;400;600;700&display=swap');
 
 @layer base {
   h1,
@@ -20,6 +21,9 @@
     /* Fonts */
     --font-heading: 'Bebas Neue', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     --font-body: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    --font-geist-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+    --font-script: 'Beau Rivage', cursive;
+    --font-spartan: 'League Spartan', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 
     /* Color variables (H S% L%) - primary set to #632713 */
     --primary: 15 68% 23%; /* #632713 */
@@ -32,7 +36,6 @@
     --green: 119 45% 38%; /* #628b35 */
 
     /* Map background/foreground to new white override */
-    --background: var(--white);
     --foreground: 222.2 12% 8%; /* keep a dark foreground for text */
 
     --card: 240 5% 96%;
@@ -103,11 +106,10 @@
 /* change global background color here  */
 @layer base {
   * {
-    @apply border-border;
   }
   body {
     font-family: var(--font-body);
-    @apply bg-[#FFF9F2] text-foreground min-h-[100vh] flex flex-col;
+    @apply text-foreground min-h-screen bg-[#FBFAF6] ;
     
   }
 }
@@ -131,3 +133,141 @@ h1, h2, h3, h4, h5, h6 {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
+/* nav styles  */
+.yms-link {
+  position: relative;
+  text-decoration: none;
+  transition: opacity 150ms ease, color 150ms ease;
+}
+
+.yms-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  transform: translateX(-50%);
+  background: currentColor;
+  border-radius: 999px;
+  transition: width 200ms ease;
+}
+
+.yms-link:hover::after,
+.yms-link-active::after {
+  width: 100%;
+}
+
+.yms-active-dot::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--primary-foreground);
+  border-radius: 999px;
+}
+.glass {
+  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* subtle geometric line under header */
+.yms-geo-line {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.04) 0,
+    rgba(0, 0, 0, 0.04) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  height: 1px;
+}
+
+/* scroll-hide helper */
+.yms-header {
+  transition:
+    height 200ms ease,
+    transform 200ms ease,
+    backdrop-filter 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+.yms-header.hidden {
+  transform: translateY(-100%);
+}
+
+/* CTA ripple / glint */
+.yms-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.yms-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+  transform: skewX(-15deg);
+  opacity: 0;
+}
+
+.yms-cta:hover::after {
+  animation: yms-glint 650ms ease-out forwards;
+}
+
+@keyframes yms-glint {
+  0% {
+    left: -150%;
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    left: 250%;
+    opacity: 0;
+  }
+}
+
+/* focus-visible for accessibility */
+.yms-link:focus-visible,
+.yms-cta:focus-visible {
+  outline: 3px solid rgba(0, 200, 83, 0.5);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* feature blocks */
+.clip-diagonal {
+  clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@keyframes fadeUp {
+  0% { 
+    opacity: 0; 
+    transform: translateY(12px); 
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.5s ease-out forwards;
+}
+
+

@@ -8,6 +8,7 @@ import {
 
 import { linkGroup } from '@/fields/linkGroup'
 
+// MUST REFACTOR
 export const hero: Field = {
   name: 'hero',
   type: 'group',
@@ -44,6 +45,30 @@ export const hero: Field = {
       label: 'Subtext',
       required: false,
     },
+    {
+      name: 'headlineTop',
+      label: 'Top Line (e.g. WHERE)',
+      type: 'text',
+    },
+    
+    {
+      name: 'headlineScript',
+      label: 'Script Word (e.g. Faith)',
+      type: 'text',
+    },
+    
+    {
+      name: 'headlineBottom',
+      label: 'Bottom Line (e.g. MEETS FITNESS)',
+      type: 'text',
+    },
+    
+    {
+      name: 'headlineEmphasis',
+      label: 'Emphasis Word (e.g. FITNESS)',
+      type: 'text',
+    },
+
 
     {
       name: 'richText',

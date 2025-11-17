@@ -32,6 +32,12 @@ export const Testimonials: CollectionConfig = {
       type: 'textarea',
       required: true,
     },
+    {
+      name: 'location',
+      label: 'Location',
+      type: 'text',
+      required: false,
+    },
     slugField({
       position: undefined,
     }),

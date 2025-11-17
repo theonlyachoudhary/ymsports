@@ -56,6 +56,10 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        brand: {
+          primary: '#632713',
+          cream: '#FBFAF6',
+        },
         white: 'hsl(var(--white))',
         blue: 'hsl(var(--blue))',
         yellow: 'hsl(var(--yellow))',
@@ -102,6 +106,9 @@ const config = {
         sans: ['var(--font-body)'],
         heading: ['var(--font-heading)'],
         mono: ['var(--font-geist-mono)'],
+        script: ['var(--font-script)'],
+        spartan: ['var(--font-spartan)'],
+        
       },
       keyframes: {
         'accordion-down': {

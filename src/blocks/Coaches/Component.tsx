@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import type { Coach as CoachDoc, Coaches as CoachesBlockDoc } from 'src/payload-types'
+import type { Coach as CoachDoc, Coaches as CoachesBlockDoc } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
 type Props = {
@@ -9,8 +9,6 @@ type Props = {
   title?: string
   description?: string
   featuredCoaches?: CoachDoc[]
-  ctaText?: string
-  ctaLink?: string
 } & CoachesBlockDoc
 
 export const CoachesBlock: React.FC<Props> = ({
@@ -18,8 +16,6 @@ export const CoachesBlock: React.FC<Props> = ({
   title,
   description,
   featuredCoaches,
-  ctaText,
-  ctaLink,
 }) => {
   const [fetched, setFetched] = useState<CoachDoc[]>([])
   const [loading, setLoading] = useState(false)
@@ -55,99 +51,61 @@ export const CoachesBlock: React.FC<Props> = ({
   if (!coaches?.length) return null
 
   return (
-    <section className={cn('w-full bg-[#FFF9F2] py-20 px-6', className)}>
-      {/* Header*/}
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-end">
-        <div className="md:w-1/2 text-center md:text-right">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#5B2C0E] uppercase tracking-wide">
-            {title}
-          </h2>
-          <p className="mt-3 text-base md:text-lg text-[#545454] md:ml-auto leading-relaxed">
+    <section className={cn('w-full bg-[#FAF7EF] py-24 px-6', className)}>
+      
+      {/* HEADER */}
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="font-heading uppercase tracking-tight text-black 
+                       text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+          {title}
+        </h2>
+
+        {description && (
+          <p className="mt-4 text-lg font-sans text-neutral-700">
             {description}
           </p>
-        </div>
+        )}
       </div>
 
-      {/* Grid*/}
-      <div className="mt-14 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      {/* GRID */}
+      <div className="mt-20 max-w-7xl mx-auto 
+                      grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
+                      gap-12">
         {coaches.map((c, i) => {
           const img = (c.profilePicture as any)?.url as string | undefined
+
           return (
             <div
               key={c.id ?? i}
-              className="group [perspective:1000px] h-[380px] cursor-pointer"
+              className="bg-white rounded-3xl shadow-md overflow-hidden"
             >
-              <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                {/* FRONT */}
-                <div className="absolute inset-0 rounded-xl border border-[#E6E0D8] bg-white shadow-sm flex flex-col items-center justify-between p-4 backface-hidden">
-                  <div className="w-full aspect-[4/3] overflow-hidden rounded-md bg-[#FAD9D2]">
-                    {img ? (
-                      <img
-                        src={img}
-                        alt={c.name ?? 'Coach'}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="h-full w-full grid place-items-center text-[#5B2C0E]/70 text-sm">
-                        No photo
-                      </div>
-                    )}
-                  </div>
-                  <div className="w-full text-center mt-3">
-                    <h3 className="text-base font-extrabold uppercase text-[#2B2B2B]">
-                      {c.name}
-                    </h3>
-                    {c.role && (
-                      <span className="mt-1 inline-block rounded-md bg-[#5B2C0E] px-2.5 py-1 text-[11px] font-semibold leading-none text-white">
-                        {c.role}
-                      </span>
-                    )}
-                  </div>
-                  <div className="w-full flex justify-end mt-3">
-                    <div className="rounded-md bg-[#5B2C0E] text-white h-8 w-8 flex items-center justify-center">
-                      →
-                    </div>
-                  </div>
-                </div>
+              {/* IMAGE */}
+              <div className="w-full aspect-[4/5] bg-neutral-200">
+                {img ? (
+                  <img
+                    src={img}
+                    alt={c.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-neutral-300 animate-pulse" />
+                )}
+              </div>
 
-                {/* BACK */}
-                <div className="absolute inset-0 rounded-xl border border-[#E6E0D8] bg-white shadow-sm flex flex-col justify-between p-4 [transform:rotateY(180deg)] backface-hidden">
-                  <div>
-                    <h3 className="text-base font-extrabold uppercase text-[#2B2B2B]">
-                      {c.name}
-                    </h3>
-                    {c.role && (
-                      <span className="mt-1 inline-block rounded-md bg-[#5B2C0E] px-2.5 py-1 text-[11px] font-semibold leading-none text-white">
-                        {c.role}
-                      </span>
-                    )}
-                    <p className="mt-3 text-sm text-[#3B3B3B] leading-relaxed">
-                      {c.bio}
-                    </p>
-                  </div>
-                  <div className="flex justify-start mt-4">
-                    <div className="rounded-md bg-[#5B2C0E] text-white h-8 w-8 flex items-center justify-center">
-                      ←
-                    </div>
-                  </div>
-                </div>
+              {/* TEXT AREA */}
+              <div className="py-6 px-5 text-center">
+                <h3 className="font-heading text-2xl uppercase text-black tracking-wide">
+                  {c.name}
+                </h3>
+
+                <p className="font-sans text-neutral-600 text-sm mt-1">
+                  {c.role || 'Coach'}
+                </p>
               </div>
             </div>
           )
         })}
       </div>
-
-      {/* CTA*/}
-      {ctaText && (
-        <div className="mt-14 text-center">
-          <a
-            href={ctaLink || '#'}
-            className="inline-block rounded-md border border-[#5B2C0E] px-5 py-2 text-sm font-semibold text-[#5B2C0E] hover:bg-[#5B2C0E]/10 transition"
-          >
-            {ctaText}
-          </a>
-        </div>
-      )}
     </section>
   )
 }

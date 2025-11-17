@@ -1,79 +1,99 @@
 'use client'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
+
 import React, { useEffect } from 'react'
 import type { Page } from '@/payload-types'
+import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import RichText from '@/components/RichText'
 
 export const HighImpactHero: React.FC<Page['hero']> = ({
-  tagline,
+  type,
+  headlineTop,
+  headlineScript,
+  headlineBottom,
+  headlineEmphasis,
   headline,
-  subtext,
   links,
   media,
-  richText,
 }) => {
   const { setHeaderTheme } = useHeaderTheme()
 
   useEffect(() => {
-    setHeaderTheme('dark')
+    setHeaderTheme('light')
   }, [setHeaderTheme])
 
+  if (type !== 'highImpact') return null
+
   return (
-    <section className=" relative bg-[#FFF9F2]">
-      
-      <div className="container mx-auto px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Text Section */}
-          <div className="max-w-xl">
-            {/* Tagline */}
-            {tagline && (
-              <div className="mb-6">
-                <span className="inline-block bg-[#E7B9A9] text-[#5B2C0E]text-xs sm:text-sm font-medium px-3 py-1.5 rounded">
-                  {tagline}
+    <section className="relative w-full min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
+      <div className="w-full max-w-[1600px]">
+        <div className="relative w-full h-[75vh] sm:h-[80vh] lg:h-[85vh] overflow-hidden rounded-2xl shadow-2xl">
+
+          {/* Background Image */}
+          {media && typeof media === 'object' && (
+            <Media
+              resource={media}
+              imgClassName="absolute inset-0 w-full h-full object-cover"
+              priority
+            />
+          )}
+
+          {/* Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+          {/* Content */}
+          <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10 lg:p-16 gap-10">
+
+            {/* TEXT */}
+            <div className="text-white leading-none space-y-3">
+
+              {/* LINE 1 = WHERE Faith */}
+              <div className="flex flex-wrap items-baseline gap-4">
+                {/* WHERE */}
+                <span className="font-heading uppercase tracking-tight 
+                  text-7xl lg:text-8xl xl:text-9xl">
+                  {headlineTop || 'WHERE'}
+                </span>
+
+                {/* Faith (script) */}
+                <span className="font-script 
+                  text-7xl lg:text-8xl xl:text-9xl">
+                  {headlineScript || 'Faith'}
                 </span>
               </div>
-            )}
 
-            {/* Headline */}
-            {/* Hardcoded for now until I figure out a better way to handle individual words styling */}
-            {headline && (
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                WHERE <span className="text-[#5B2C0E]">FAITH</span> MEETS{' '}
-                <span className="text-[#5B2C0E]">FITNESS</span>
-              </h1>
-            )}
+              {/* LINE 2 = MEETS FITNESS */}
+              <div className="flex flex-wrap items-baseline gap-4">
+                <span className="font-heading uppercase tracking-tight 
+                  text-7xl lg:text-8xl xl:text-9xl">
+                  {headlineBottom || 'MEETS'}
+                </span>
 
-            {/* Subtext */}
-            {subtext && (
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-8">
-                {subtext}
-              </p>
-            )}
-
-            {/* Fallback to richText */}
-            {!tagline && !headline && !subtext && richText && (
-              <div className="prose prose-lg max-w-none mb-8">
-                <RichText content={richText} />
+                <span className="font-heading uppercase tracking-tight 
+                  text-7xl lg:text-8xl xl:text-9xl">
+                  {headlineEmphasis || 'FITNESS'}
+                </span>
               </div>
-            )}
+            </div>
 
-            {/* CTA Buttons */}
-            {links && links.length > 0 && (
-              <div className="flex flex-wrap gap-4">
-                {links[0] && (
+            {/* BUTTONS */}
+            {links?.length > 0 && (
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4">
+                {links[0]?.link && (
                   <CMSLink
                     {...links[0].link}
-                    className="inline-flex items-center justify-center text-[#5B2C0E] text-white px-6 py-3 rounded font-semibold text-sm hover:bg-red-800 transition-colors duration-200"
+                    className="px-10 py-4 rounded-full bg-[#31D952] text-white font-semibold text-lg
+                    transition-all hover:bg-[#28b945] hover:scale-105 text-center"
                   >
                     {links[0].label}
                   </CMSLink>
                 )}
-                {links[1] && (
+
+                {links[1]?.link && (
                   <CMSLink
                     {...links[1].link}
-                    className="inline-flex items-center justify-center border border-gray-900 text-gray-900 px-6 py-3 rounded font-semibold text-sm hover:bg-gray-50 transition-colors duration-200"
+                    className="px-10 py-4 rounded-full bg-white text-neutral-900 font-semibold text-lg
+                    transition-all hover:bg-neutral-100 hover:scale-105 text-center"
                   >
                     {links[1].label}
                   </CMSLink>
@@ -81,17 +101,6 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               </div>
             )}
           </div>
-
-          {/* Media Section*/}
-          {media && typeof media === 'object' && (
-            <div className="lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:max-w-[55%]">
-              <Media
-                imgClassName="w-full h-auto"
-                priority
-                resource={media}
-              />
-            </div>
-          )}
         </div>
       </div>
     </section>

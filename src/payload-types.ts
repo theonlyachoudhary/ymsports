@@ -161,6 +161,10 @@ export interface Page {
     tagline?: string | null;
     headline?: string | null;
     subtext?: string | null;
+    headlineTop?: string | null;
+    headlineScript?: string | null;
+    headlineBottom?: string | null;
+    headlineEmphasis?: string | null;
     richText?: {
       root: {
         type: string;
@@ -212,6 +216,100 @@ export interface Page {
     | Values
     | Coaches
     | TestimonialsBlock
+    | {
+        left: {
+          title: string;
+          link: string;
+          image: number | Media;
+        };
+        right: {
+          title: string;
+          link: string;
+          image: number | Media;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'dualFeatureBanner';
+      }
+    | {
+        title: string;
+        tournaments?:
+          | {
+              image?: (number | null) | Media;
+              name: string;
+              description?: string | null;
+              date: string;
+              location: string;
+              /**
+               * Optional external link
+               */
+              link?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'tournaments';
+      }
+    | {
+        title: string;
+        content: string;
+        image?: (number | null) | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'imageTextBlock';
+      }
+    | {
+        title: string;
+        content: string;
+        buttonText?: string | null;
+        buttonLink?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'textImageCardBlock';
+      }
+    | {
+        title: string;
+        subtitle?: string | null;
+        align?: ('center' | 'left') | null;
+        paddingSize?: ('lg' | 'md' | 'sm') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pageHeaderBlock';
+      }
+    | {
+        title: string;
+        description?: string | null;
+        backgroundColor?: string | null;
+        iconType?: ('down' | 'up') | null;
+        camps?:
+          | {
+              name: string;
+              buttonLabel?: string | null;
+              buttonLink?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'ageGroupBlock';
+      }
+    | {
+        title: string;
+        fields: {
+          label: string;
+          type: 'text' | 'email' | 'number' | 'textarea';
+          required?: boolean | null;
+          id?: string | null;
+        }[];
+        buttonLabel: string;
+        image?: (number | null) | Media;
+        backgroundColor?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'customFormBlock';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -875,9 +973,31 @@ export interface Coach {
 export interface TestimonialsBlock {
   title: string;
   description: string;
+  /**
+   * Optional: select featured testimonials.
+   */
+  testimonials?: (number | Testimonial)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: number;
+  name: string;
+  occupation: string;
+  testimonial: string;
+  location?: string | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -903,23 +1023,6 @@ export interface Camp {
    * Select the related program
    */
   program: number | Program;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials".
- */
-export interface Testimonial {
-  id: number;
-  name: string;
-  occupation: string;
-  testimonial: string;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -1212,6 +1315,10 @@ export interface PagesSelect<T extends boolean = true> {
         tagline?: T;
         headline?: T;
         subtext?: T;
+        headlineTop?: T;
+        headlineScript?: T;
+        headlineBottom?: T;
+        headlineEmphasis?: T;
         richText?: T;
         links?:
           | T
@@ -1242,6 +1349,110 @@ export interface PagesSelect<T extends boolean = true> {
         values?: T | ValuesSelect<T>;
         coaches?: T | CoachesSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        dualFeatureBanner?:
+          | T
+          | {
+              left?:
+                | T
+                | {
+                    title?: T;
+                    link?: T;
+                    image?: T;
+                  };
+              right?:
+                | T
+                | {
+                    title?: T;
+                    link?: T;
+                    image?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        tournaments?:
+          | T
+          | {
+              title?: T;
+              tournaments?:
+                | T
+                | {
+                    image?: T;
+                    name?: T;
+                    description?: T;
+                    date?: T;
+                    location?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        imageTextBlock?:
+          | T
+          | {
+              title?: T;
+              content?: T;
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        textImageCardBlock?:
+          | T
+          | {
+              title?: T;
+              content?: T;
+              buttonText?: T;
+              buttonLink?: T;
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pageHeaderBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              align?: T;
+              paddingSize?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ageGroupBlock?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              backgroundColor?: T;
+              iconType?: T;
+              camps?:
+                | T
+                | {
+                    name?: T;
+                    buttonLabel?: T;
+                    buttonLink?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        customFormBlock?:
+          | T
+          | {
+              title?: T;
+              fields?:
+                | T
+                | {
+                    label?: T;
+                    type?: T;
+                    required?: T;
+                    id?: T;
+                  };
+              buttonLabel?: T;
+              image?: T;
+              backgroundColor?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
@@ -1398,6 +1609,7 @@ export interface CoachesSelect<T extends boolean = true> {
 export interface TestimonialsBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  testimonials?: T;
   id?: T;
   blockName?: T;
 }
@@ -1630,6 +1842,7 @@ export interface TestimonialsSelect<T extends boolean = true> {
   name?: T;
   occupation?: T;
   testimonial?: T;
+  location?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

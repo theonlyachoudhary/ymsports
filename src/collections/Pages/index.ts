@@ -18,6 +18,14 @@ import { Programs } from '../../blocks/Programs/config'
 import { Values } from '../../blocks/Values/config'
 import { Coaches } from '../../blocks/Coaches/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
+import { DualFeatureBanner } from '../../blocks/DualFeatureBanner/config'
+import { TournamentsBlock } from '../../blocks/Tournaments/config'
+import { ImageTextBlock } from '../../blocks/ImageTextBlock/config'
+import { TextImageCardBlock } from '../../blocks/TextImageCardBlock/config'
+import { PageHeaderBlock } from '../../blocks/PageHeaderBlock/config'
+import { AgeGroupBlock } from '../../blocks/AgeGroupBlock/config'
+import { CustomFormBlock } from '../../blocks/CustomFormBlock/config'
+
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -88,6 +96,13 @@ export const Pages: CollectionConfig<'pages'> = {
                 Values,
                 Coaches,
                 Testimonials,
+                DualFeatureBanner,
+                TournamentsBlock,
+                ImageTextBlock,
+                TextImageCardBlock,
+                PageHeaderBlock,
+                AgeGroupBlock,
+                CustomFormBlock,
               ],
               required: true,
               admin: {

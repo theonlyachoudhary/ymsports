@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -16,6 +17,32 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
+import { Bebas_Neue, Open_Sans, Beau_Rivage, League_Spartan } from 'next/font/google'
+
+const bebas = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-heading',
+})
+
+const openSans = Open_Sans({
+  weight: ['300','400','600','700'],
+  subsets: ['latin'],
+  variable: '--font-body',
+})
+
+const beauRivage = Beau_Rivage({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-script',
+})
+
+export const spartan = League_Spartan({
+  subsets: ['latin'],
+  weight: ['600','700','800','900'], 
+  variable: '--font-spartan', 
+});
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
@@ -26,7 +53,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body className={`${bebas.variable} ${openSans.variable} ${beauRivage.variable} ${spartan.variable}`}>
         <Providers>
           <AdminBar
             adminBarProps={{

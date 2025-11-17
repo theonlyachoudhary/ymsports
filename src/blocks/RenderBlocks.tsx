@@ -14,6 +14,13 @@ import { ProgramsBlock } from '@/blocks/Programs/Component'
 import { ValuesBlock } from '@/blocks/Values/Component'
 import { CoachesBlock } from '@/blocks/Coaches/Component'
 import { TestimonialsBlock } from './Testimonials/Component'
+import { DualFeatureBanner } from '@/blocks/DualFeatureBanner/Component'
+import { TournamentsBlock } from '@/blocks/Tournaments/Component'
+import { ImageTextBlock } from '@/blocks/ImageTextBlock/Component'
+import { TextImageCardBlock } from '@/blocks/TextImageCardBlock/Component'
+import { PageHeaderBlock } from '@/blocks/PageHeaderBlock/Component'
+import { AgeGroupBlock } from '@/blocks/AgeGroupBlock/Component'
+import { CustomFormBlock } from '@/blocks/CustomFormBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -25,6 +32,14 @@ const blockComponents = {
   values: ValuesBlock,
   coaches: CoachesBlock,
   testimonials: TestimonialsBlock,
+  tournaments: TournamentsBlock,
+  dualFeatureBanner: DualFeatureBanner,
+  imageTextBlock: ImageTextBlock,
+  textImageCardBlock: TextImageCardBlock,
+  pageHeaderBlock: PageHeaderBlock,
+  ageGroupBlock: AgeGroupBlock,
+  customFormBlock: CustomFormBlock,
+
 }
 
 export const RenderBlocks: React.FC<{

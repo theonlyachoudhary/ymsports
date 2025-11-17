@@ -14,5 +14,15 @@ export const Testimonials: Block = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'testimonials',
+      type: 'relationship',
+      relationTo: 'testimonials',
+      hasMany: true,
+      required: false,
+      admin: {
+        description: 'Optional: select featured testimonials.',
+      },
+    }
   ],
 }
