@@ -93,15 +93,7 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
               {item.link?.label}
             </Link>
 
-            {active && (
-              <motion.div
-                layoutId="nav-underline"
-                className="absolute left-1/2 -bottom-1 w-1.5 h-1.5 rounded-full bg-foreground"
-                initial={false}
-                animate={{ x: '-50%' }}
-                transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-              />
-            )}
+             
           </motion.div>
         )
       })}

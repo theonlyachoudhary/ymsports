@@ -21,6 +21,10 @@ import { TextImageCardBlock } from '@/blocks/TextImageCardBlock/Component'
 import { PageHeaderBlock } from '@/blocks/PageHeaderBlock/Component'
 import { AgeGroupBlock } from '@/blocks/AgeGroupBlock/Component'
 import { CustomFormBlock } from '@/blocks/CustomFormBlock/Component'
+import { HighlightsBlock } from '@/blocks/HighlightsBlock/Component'
+import { SocialsBlock } from '@/blocks/SocialsBlock/Component'
+import { FAQBlock } from '@/blocks/FAQBlock/Component'
+import { InfoBlock } from '@/blocks/InfoBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -39,7 +43,10 @@ const blockComponents = {
   pageHeaderBlock: PageHeaderBlock,
   ageGroupBlock: AgeGroupBlock,
   customFormBlock: CustomFormBlock,
-
+  highlightsBlock: HighlightsBlock,
+  socialsBlock: SocialsBlock,
+  faqBlock: FAQBlock,
+  infoBlock: InfoBlock,
 }
 
 export const RenderBlocks: React.FC<{
