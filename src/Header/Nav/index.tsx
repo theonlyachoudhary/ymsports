@@ -93,7 +93,6 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
               {item.link?.label}
             </Link>
 
-            {/* animated underline */}
             {active && (
               <motion.div
                 layoutId="nav-underline"

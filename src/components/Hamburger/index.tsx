@@ -9,7 +9,6 @@ export function Hamburger({ open }: { open: boolean }) {
       initial={false}
       animate={open ? "open" : "closed"}
     >
-      {/* Top line */}
       <motion.span
         className="absolute h-[2px] w-7 bg-foreground rounded-full"
         variants={{
@@ -19,7 +18,6 @@ export function Hamburger({ open }: { open: boolean }) {
         transition={{ duration: 0.35, ease: "easeInOut" }}
       />
 
-      {/* Middle line */}
       <motion.span
         className="absolute h-[2px] w-7 bg-foreground rounded-full"
         variants={{
@@ -29,7 +27,6 @@ export function Hamburger({ open }: { open: boolean }) {
         transition={{ duration: 0.25 }}
       />
 
-      {/* Bottom line */}
       <motion.span
         className="absolute h-[2px] w-7 bg-foreground rounded-full"
         variants={{
