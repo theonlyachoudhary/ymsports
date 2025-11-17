@@ -4,6 +4,9 @@ import type { Program } from 'src/payload-types'
 import { SectionHeader } from '@/components/SectionHeader'
 import { cn } from '@/utilities/ui'
 import { Card, CardContent } from '@/components/ui/card'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
+import { Button } from '@/components/ui/button'
 
 type Props = {
   title?: string
@@ -12,27 +15,48 @@ type Props = {
   className?: string
 }
 
-export const ProgramsBlock: React.FC<Props> = ({
-  title,
-  description,
-  programs = [],
-  className,
-}) => {
+export const ProgramsBlock: React.FC<Props> = ({ title, description, className }) => {
+  const [programs, setPrograms] = useState<Program[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const res = await fetch('/api/programs?limit=6&depth=1')
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`)
+        }
+
+        setPrograms((await res.json()).docs)
+      } catch (err) {
+        console.error('Error fetching programs:', err)
+
+        setError(err instanceof Error ? err.message : 'Unknown error')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchPrograms()
+  }, [])
+
+  if (loading) {
+    return <p className="mx-auto text-center">Loading programs...</p>
+  }
+
+  if (error) {
+    return <p className="mx-auto text-center">Error loading programs: {error}</p>
+  }
   return (
-    <section
-      className={cn(
-        'w-full bg-[#FFF9F2] py-16 px-4 md:px-8 rounded-t-[20px]',
-        className
-      )}
-    >
+    <section className={cn('w-full bg-[#FFF9F2] py-16 px-4 md:px-8 rounded-t-[20px]', className)}>
       {/* Header */}
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-extrabold text-[#5B2C0E] uppercase tracking-wide">
           {title}
         </h2>
-        <p className="mt-3 text-base md:text-lg text-[#545454] max-w-2xl mx-auto">
-          {description}
-        </p>
+        <p className="mt-3 text-base md:text-lg text-[#545454] max-w-2xl mx-auto">{description}</p>
 
         {/* Static Age Tags */}
         <div className="flex flex-wrap justify-center gap-3 mt-6">
@@ -65,76 +89,18 @@ export const ProgramsBlock: React.FC<Props> = ({
               <CardContent className="p-8 flex flex-col md:flex-row justify-between gap-8 relative">
                 {/* Left Text Section */}
                 <div className="flex-1">
-                  <h3
-                    className="text-xl font-extrabold uppercase"
-                    style={{ color }}
-                  >
+                  <h3 className="text-xl font-extrabold uppercase" style={{ color }}>
                     {p.title}
                   </h3>
-                  <p
-                    className="text-sm font-semibold uppercase mt-1"
-                    style={{ color }}
-                  >
+                  <p className="text-sm font-semibold uppercase mt-1" style={{ color }}>
                     {p.subtitle}
                   </p>
-                  <p className="mt-3 text-[#333] leading-relaxed max-w-prose">
-                    {p.description}
-                  </p>
+                  <p className="mt-3 text-[#333] leading-relaxed max-w-prose">{p.description}</p>
 
                   {p.buttonText && (
-                    <a
-                      href={p.buttonLink ?? '#'}
-                      className="mt-6 inline-block rounded-md px-5 py-2 text-sm font-semibold transition hover:opacity-90"
-                      style={{
-                        border: `1.5px solid ${color}`,
-                        color,
-                      }}
-                    >
+                    <Button className="mt-6" variant="default" style={{ color }}>
                       {p.buttonText}
-                    </a>
-                  )}
-                </div>
-
-                {/* Right Decorative Section */}
-                <div className="hidden md:block relative flex-shrink-0 md:w-[260px] overflow-visible">
-                  {p.sideImage?.url ? (
-                    <img
-                      src={p.sideImage.url}
-                      alt={p.sideImage.alt ?? ''}
-                      className="absolute right-[0px] top-1/2 -translate-y-1/2 w-[280px] max-w-none object-contain"
-                    />
-                  ) : (
-                    <div className="absolute right-[-40px] top-1/2 -translate-y-1/2 flex gap-10">
-                      {/* Boys column */}
-                      <div className="flex flex-col items-center gap-3">
-                        <span className="rotate-90 text-xs tracking-widest text-[#5B2C0E] font-semibold">
-                          BOYS
-                        </span>
-                        <div
-                          className="w-16 h-20 rounded-md"
-                          style={{ border: `2px solid ${color}` }}
-                        />
-                        <div
-                          className="w-16 h-14 rounded-md"
-                          style={{ border: `2px solid ${color}` }}
-                        />
-                      </div>
-
-                      {/* Girls column */}
-                      <div className="flex flex-col items-center gap-3">
-                        <span className="rotate-90 text-xs tracking-widest text-[#5B2C0E] font-semibold">
-                          GIRLS
-                        </span>
-                        <div
-                          className="w-16 h-20 rounded-md"
-                          style={{ border: `2px solid ${color}` }}
-                        />
-                        <div
-                          className="w-16 h-14 rounded-md"
-                          style={{ border: `2px solid ${color}` }}
-                        />
-                      </div>
-                    </div>
+                    </Button>
                   )}
                 </div>
               </CardContent>
