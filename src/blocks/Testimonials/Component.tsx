@@ -17,9 +17,9 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
   const [index, setIndex] = useState(0)
   const [progress, setProgress] = useState(0)
 
-  const DURATION = 5000 
+  const DURATION = 5000
 
-  // LOAD + MERGE
+  // LOAD & MERGE
   useEffect(() => {
     const load = async () => {
       try {
@@ -39,7 +39,7 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
     load()
   }, [testimonials])
 
-  // AUTO-ADVANCE + PROGRESS BAR
+  // AUTO ADVANCE
   useEffect(() => {
     setProgress(0)
 
@@ -47,7 +47,6 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
       setIndex((i) => (i + 1) % merged.length)
     }, DURATION)
 
-    // progress animation
     const progressInterval = setInterval(() => {
       setProgress((p) => (p >= 100 ? 100 : p + 2))
     }, DURATION / 50)
@@ -61,11 +60,6 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
   if (merged.length === 0) {
     return (
       <section className="py-24 bg-[#FAF7EF] text-center">
-        <div className="flex items-center justify-center gap-6 mb-10">
-          <span className="h-[1px] w-12 bg-black" />
-          <p className="uppercase tracking-wide font-sans text-black">{title}</p>
-          <span className="h-[1px] w-12 bg-black" />
-        </div>
         <p className="text-neutral-500">No testimonials found.</p>
       </section>
     )
@@ -90,20 +84,37 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
       </div>
 
       {/* CARD + ARROWS */}
-      <div className="relative max-w-4xl mx-auto flex items-center justify-center px-4">
-
+      <div
+        className="
+          relative
+          max-w-4xl mx-auto 
+          flex items-center justify-center 
+          px-4 touch-pan-x
+        "
+        onTouchStart={(e) => (window as any).touchStartX = e.touches[0].clientX}
+        onTouchEnd={(e) => {
+          const startX = (window as any).touchStartX
+          const endX = e.changedTouches[0].clientX
+          if (startX - endX > 50) next()
+          if (endX - startX > 50) prev()
+        }}
+      >
+        {/* DESKTOP ARROWS ONLY */}
         <button
           onClick={prev}
-          className="absolute left-0 -ml-8 md:-ml-12 
-                     w-12 h-12 rounded-full border border-black 
-                     flex items-center justify-center 
-                     hover:bg-black hover:text-white transition"
+          className="
+            hidden md:flex
+            absolute left-0 -ml-12
+            w-12 h-12 rounded-full border border-black 
+            items-center justify-center 
+            hover:bg-black hover:text-white transition
+          "
         >
           <ChevronLeft size={22} />
         </button>
 
-        <div className="bg-white rounded-2xl shadow-sm p-12 text-center max-w-2xl">
-          <p className="text-2xl md:text-3xl text-neutral-700 leading-snug italic transition-opacity duration-500">
+        <div className="bg-white rounded-2xl shadow-sm p-8 md:p-12 text-center max-w-2xl">
+          <p className="text-xl md:text-3xl text-neutral-700 leading-snug italic transition-opacity duration-500">
             “{t.testimonial}”
           </p>
 
@@ -113,7 +124,6 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
             {t.occupation && <p className="text-neutral-400 text-xs">{t.occupation}</p>}
           </div>
 
-          {/* PROGRESS BAR UNDER CARD */}
           <div className="w-full bg-neutral-200 h-1 rounded-full mt-8 overflow-hidden">
             <div
               className="h-full bg-black transition-all duration-200"
@@ -124,10 +134,13 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
 
         <button
           onClick={next}
-          className="absolute right-0 -mr-8 md:-mr-12
-                     w-12 h-12 rounded-full border border-black 
-                     flex items-center justify-center 
-                     hover:bg-black hover:text-white transition"
+          className="
+            hidden md:flex
+            absolute right-0 -mr-12
+            w-12 h-12 rounded-full border border-black 
+            items-center justify-center 
+            hover:bg-black hover:text-white transition
+          "
         >
           <ChevronRight size={22} />
         </button>

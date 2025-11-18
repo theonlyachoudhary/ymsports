@@ -306,6 +306,15 @@ export interface Page {
         buttonLabel: string;
         image?: (number | null) | Media;
         backgroundColor?: string | null;
+        showInfo?: boolean | null;
+        infoTitle?: string | null;
+        infoSections?:
+          | {
+              label: string;
+              body: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'customFormBlock';
@@ -1490,6 +1499,15 @@ export interface PagesSelect<T extends boolean = true> {
               buttonLabel?: T;
               image?: T;
               backgroundColor?: T;
+              showInfo?: T;
+              infoTitle?: T;
+              infoSections?:
+                | T
+                | {
+                    label?: T;
+                    body?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

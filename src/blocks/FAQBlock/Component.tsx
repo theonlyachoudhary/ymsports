@@ -66,7 +66,7 @@ export function FAQBlock({ title, description, image, faqs }) {
 
         {/* RIGHT COLUMN – TALL FEATURE IMAGE */}
         {image && (
-          <div className="flex justify-center md:justify-end">
+          <div className="hidden md:flex justify-end">
             <div className="w-full max-w-xl h-[450px] md:h-[550px] lg:h-[600px] rounded-3xl overflow-hidden shadow-md">
               <Image
                 src={image.url}

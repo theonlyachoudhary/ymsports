@@ -35,9 +35,9 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
             >
               <Link
                 href={href}
-                className={`text-lg font-sans ${
-                  active ? 'text-foreground' : 'text-foreground/70'
-                }`}
+                className={`text-lg font-sans drop-shadow-sm ${
+                  active ? 'text-white' : 'text-white/70'
+                } hover:text-white transition`}
               >
                 {item.link?.label}
               </Link>
@@ -53,7 +53,7 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
         >
           <Link
             href="/register"
-            className="mt-6 w-full text-center font-heading text-[18px] tracking-wide bg-green text-primary-foreground py-3 px-6 rounded-full shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
+            className="mt-6 w-full text-center font-heading text-[18px] tracking-wide bg-green text-primary-foreground py-3 px-6 rounded-full shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
           >
             Register
           </Link>
@@ -67,7 +67,7 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
   // -------------------
   return (
     <motion.nav
-      className="hidden md:flex items-center gap-12"
+      className="hidden md:flex items-center gap-12 backdrop-blur-md bg-white/5 px-4 py-2 rounded-full"
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -86,14 +86,12 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
           >
             <Link
               href={href}
-              className={`yms-link font-sans text-[15px] tracking-wide ${
-                active ? 'text-foreground' : 'text-foreground/70'
-              } hover:text-foreground transition`}
+              className={`yms-link font-sans text-[15px] tracking-wide drop-shadow-sm ${
+                active ? 'text-black' : 'text-black/70'
+              } hover:text-black transition`}
             >
               {item.link?.label}
             </Link>
-
-             
           </motion.div>
         )
       })}
@@ -105,7 +103,7 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
       >
         <Link
           href="/register"
-          className="yms-cta font-heading text-[16px] tracking-wide px-8 py-2 rounded-full bg-green text-primary-foreground shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
+          className="yms-cta font-heading text-[16px] tracking-wide px-8 py-2 rounded-full bg-green text-primary-foreground shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
         >
           Register
         </Link>

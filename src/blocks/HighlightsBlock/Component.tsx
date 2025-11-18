@@ -10,15 +10,10 @@ export function HighlightsBlock({ title, images }) {
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   const dragging = useRef(false);
 
-  const next = () => {
-    setIndex((prev) => (prev + 1) % images.length);
-  };
+  const next = () => setIndex((prev) => (prev + 1) % images.length);
+  const prev = () => setIndex((prev) => (prev - 1 + images.length) % images.length);
 
-  const prev = () => {
-    setIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  // AUTOPLAY — pauses on hover
+  // AUTOPLAY
   const startAutoplay = () => {
     stopAutoplay();
     autoplayRef.current = setInterval(() => {
@@ -35,9 +30,9 @@ export function HighlightsBlock({ title, images }) {
     return () => stopAutoplay();
   }, []);
 
-  // SWIPE / DRAG CONTROLS
+  // DRAG CONTROLS
   const dragX = useMotionValue(0);
-  const rotate = useTransform(dragX, [-200, 200], [-2, 2]); // 3D effect
+  const rotate = useTransform(dragX, [-200, 200], [-2, 2]);
 
   const handleDragEnd = (_, info) => {
     dragging.current = false;
@@ -47,7 +42,7 @@ export function HighlightsBlock({ title, images }) {
   };
 
   return (
-    <section className="w-full flex flex-col items-center py-16 px-6 select-none">
+    <section className="w-full flex flex-col items-center py-16 px-6 select-none overflow-hidden">
       <h2 className="font-bebas text-5xl mb-10">{title}</h2>
 
       <div
@@ -55,11 +50,12 @@ export function HighlightsBlock({ title, images }) {
         onMouseEnter={stopAutoplay}
         onMouseLeave={startAutoplay}
       >
-        {/* LEFT BUTTON */}
+        {/* LEFT ARROW — hidden on mobile */}
         <button
           onClick={prev}
           className="
-            absolute -left-16 top-1/2 -translate-y-1/2 
+            hidden md:flex
+            absolute left-0 -ml-10 top-1/2 -translate-y-1/2
             bg-white shadow-lg p-3 rounded-full 
             hover:scale-110 transition
           "
@@ -70,8 +66,7 @@ export function HighlightsBlock({ title, images }) {
         {/* SLIDER */}
         <div className="overflow-hidden w-full">
           <motion.div
-            className="flex gap-6"
-            style={{ x: `-${index * 100}%` }}
+            className="flex gap-4"
             animate={{ x: `-${index * 100}%` }}
             transition={{ duration: 0.55, ease: "easeInOut" }}
           >
@@ -83,28 +78,20 @@ export function HighlightsBlock({ title, images }) {
                 style={{ rotate }}
                 onDragStart={() => (dragging.current = true)}
                 onDragEnd={handleDragEnd}
-                className={`
+                className="
                   shrink-0 
-                  w-[33%] max-md:w-[50%] max-sm:w-[80%]
+                  w-full md:w-[33%] sm:w-[50%]
                   rounded-2xl overflow-hidden 
-                  border-4 
-                  transition-all duration-100
-                  ${
-                    index === i
-                      ? "border-transparent shadow-xl"
-                      : "border-transparent"
-                  }
-                `}
+                  border-4 border-transparent 
+                  transition-all duration-200
+                "
               >
-                <motion.div
-                  whileHover={{ scale: 1.04 }}
-                  transition={{ duration: 0.3 }}
-                >
+                <motion.div whileHover={{ scale: 1.04 }} transition={{ duration: 0.3 }}>
                   <Image
                     src={imgObj.image.url}
                     alt="Highlight"
-                    width={800}
-                    height={800}
+                    width={1200}
+                    height={1200}
                     className="object-cover w-full h-[320px]"
                   />
                 </motion.div>
@@ -113,11 +100,12 @@ export function HighlightsBlock({ title, images }) {
           </motion.div>
         </div>
 
-        {/* RIGHT BUTTON */}
+        {/* RIGHT ARROW — hidden on mobile */}
         <button
           onClick={next}
           className="
-            absolute -right-16 top-1/2 -translate-y-1/2 
+            hidden md:flex
+            absolute right-0 -mr-10 top-1/2 -translate-y-1/2
             bg-white shadow-lg p-3 rounded-full 
             hover:scale-110 transition
           "
@@ -126,7 +114,7 @@ export function HighlightsBlock({ title, images }) {
         </button>
       </div>
 
-      {/* DOT INDICATORS */}
+      {/* DOTS */}
       <div className="flex gap-3 mt-8">
         {images.map((_, i) => (
           <motion.div

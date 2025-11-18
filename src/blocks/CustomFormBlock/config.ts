@@ -1,4 +1,4 @@
-import { Block } from 'payload'
+import { Block } from 'payload';
 
 export const CustomFormBlock: Block = {
   slug: 'customFormBlock',
@@ -62,5 +62,42 @@ export const CustomFormBlock: Block = {
       type: 'text',
       defaultValue: '#f7f4ed',
     },
+
+    /* ⭐ OPTIONAL INFO SECTION ⭐ */
+    {
+      name: 'showInfo',
+      type: 'checkbox',
+      label: 'Show Info Section',
+      defaultValue: false,
+    },
+
+    {
+      name: 'infoTitle',
+      type: 'text',
+      admin: {
+        condition: (_, siblingData) => siblingData.showInfo,
+      },
+    },
+
+    {
+      name: 'infoSections',
+      type: 'array',
+      labels: { singular: 'Info Row', plural: 'Info Rows' },
+      admin: {
+        condition: (_, s) => s.showInfo,
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'body',
+          type: 'textarea',
+          required: true,
+        },
+      ],
+    },
   ],
-}
+};
