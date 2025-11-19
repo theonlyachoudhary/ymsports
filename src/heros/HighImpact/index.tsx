@@ -51,13 +51,13 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               <div className="flex flex-wrap items-baseline gap-4">
                 {/* WHERE */}
                 <span className="font-heading uppercase tracking-tight 
-                  text-7xl lg:text-8xl xl:text-9xl">
+                  text-5xl sm:text-6xl lg:text-8xl xl:text-9xl">
                   {headlineTop || 'WHERE'}
                 </span>
 
                 {/* Faith (script) */}
                 <span className="font-script 
-                  text-7xl lg:text-8xl xl:text-9xl">
+                  text-5xl sm:text-6xl lg:text-8xl xl:text-9xl">
                   {headlineScript || 'Faith'}
                 </span>
               </div>
@@ -65,12 +65,12 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               {/* LINE 2 = MEETS FITNESS */}
               <div className="flex flex-wrap items-baseline gap-4">
                 <span className="font-heading uppercase tracking-tight 
-                  text-7xl lg:text-8xl xl:text-9xl">
+                  text-5xl sm:text-6xl lg:text-8xl xl:text-9xl">
                   {headlineBottom || 'MEETS'}
                 </span>
 
                 <span className="font-heading uppercase tracking-tight 
-                  text-7xl lg:text-8xl xl:text-9xl">
+                  text-5xl sm:text-6xl lg:text-8xl xl:text-9xl">
                   {headlineEmphasis || 'FITNESS'}
                 </span>
               </div>
@@ -82,7 +82,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 {links[0]?.link && (
                   <CMSLink
                     {...links[0].link}
-                    className="px-10 py-4 rounded-full bg-[#31D952] text-white font-semibold text-lg
+                    className="px-6 py-3 text-base sm:px-10 sm:py-4 sm:text-lg rounded-full bg-[#31D952] text-white font-semibold
                     transition-all hover:bg-[#28b945] hover:scale-105 text-center"
                   >
                     {links[0].label}

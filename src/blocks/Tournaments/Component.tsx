@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Media } from '@/components/Media'
+import {ChevronRight} from 'lucide-react'
 
 export function TournamentsBlock({
   title,
@@ -87,7 +88,7 @@ export function TournamentsBlock({
                       group-hover:bg-black group-hover:text-white
                     "
                   >
-                    →
+                    <ChevronRight className="w-5 h-5" />
                   </div>
                 </div>
               </div>

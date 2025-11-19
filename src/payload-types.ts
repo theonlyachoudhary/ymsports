@@ -232,7 +232,7 @@ export interface Page {
         blockType: 'dualFeatureBanner';
       }
     | {
-        title: string;
+        title?: string | null;
         tournaments?:
           | {
               image?: (number | null) | Media;
@@ -306,9 +306,62 @@ export interface Page {
         buttonLabel: string;
         image?: (number | null) | Media;
         backgroundColor?: string | null;
+        showInfo?: boolean | null;
+        infoTitle?: string | null;
+        infoSections?:
+          | {
+              label: string;
+              body: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'customFormBlock';
+      }
+    | {
+        title?: string | null;
+        images: {
+          image: number | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'highlightsBlock';
+      }
+    | {
+        title?: string | null;
+        items: {
+          name: string;
+          value: string;
+          link?: string | null;
+          color?: string | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'socialsBlock';
+      }
+    | {
+        title?: string | null;
+        description?: string | null;
+        image?: (number | null) | Media;
+        faqs: {
+          question: string;
+          answer: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'faqBlock';
+      }
+    | {
+        phone: string;
+        location?: string | null;
+        businessHours?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'infoBlock';
       }
   )[];
   meta?: {
@@ -936,7 +989,7 @@ export interface Values {
  */
 export interface Coaches {
   title: string;
-  description: string;
+  description?: string | null;
   featuredCoaches?: (number | Coach)[] | null;
   ctaText?: string | null;
   ctaLink?: string | null;
@@ -1446,6 +1499,69 @@ export interface PagesSelect<T extends boolean = true> {
               buttonLabel?: T;
               image?: T;
               backgroundColor?: T;
+              showInfo?: T;
+              infoTitle?: T;
+              infoSections?:
+                | T
+                | {
+                    label?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        highlightsBlock?:
+          | T
+          | {
+              title?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        socialsBlock?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    name?: T;
+                    value?: T;
+                    link?: T;
+                    color?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faqBlock?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              faqs?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        infoBlock?:
+          | T
+          | {
+              phone?: T;
+              location?: T;
+              businessHours?: T;
               id?: T;
               blockName?: T;
             };

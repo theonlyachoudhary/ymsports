@@ -18,18 +18,18 @@ export const ImageTextBlock: React.FC<ImageTextBlockProps> = ({
   image,
 }) => {
   return (
-    <section className="py-32 "> 
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
-        
+    <section className="py-24">
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+
         {/* IMAGE */}
         <div className="w-full flex justify-center">
-          <div className="w-[420px] h-[420px] md:w-[500px] md:h-[500px] rounded-2xl overflow-hidden shadow-md bg-neutral-300">
+          <div className="w-full max-w-[420px] aspect-square md:max-w-[500px] rounded-2xl overflow-hidden shadow-md bg-neutral-300">
             {image?.url && (
               <Image
                 src={image.url}
                 alt={image.alt || 'Image'}
-                width={600}
-                height={600}
+                width={800}
+                height={800}
                 className="w-full h-full object-cover"
               />
             )}

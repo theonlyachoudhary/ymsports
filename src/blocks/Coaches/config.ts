@@ -6,7 +6,7 @@ export const Coaches: Block = {
   labels: { singular: 'Coaches', plural: 'Coaches' },
   fields: [
     { name: 'title', type: 'text', required: true },
-    { name: 'description', type: 'textarea', required: true },
+    { name: 'description', type: 'textarea', required: false },
 
     // (Optional) pick specific coaches to feature; leave empty to show latest
     {
@@ -18,7 +18,6 @@ export const Coaches: Block = {
       required: false,
     },
 
-    // Block-level CTA (optional)
     { name: 'ctaText', label: 'CTA Text', type: 'text' },
     { name: 'ctaLink', label: 'CTA Link', type: 'text' },
   ],

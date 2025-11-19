@@ -25,6 +25,10 @@ import { TextImageCardBlock } from '../../blocks/TextImageCardBlock/config'
 import { PageHeaderBlock } from '../../blocks/PageHeaderBlock/config'
 import { AgeGroupBlock } from '../../blocks/AgeGroupBlock/config'
 import { CustomFormBlock } from '../../blocks/CustomFormBlock/config'
+import { HighlightsBlock } from '../../blocks/HighlightsBlock/config'
+import { SocialsBlock } from '../../blocks/SocialsBlock/config'
+import { FAQBlock } from '../../blocks/FAQBlock/config'
+import { InfoBlock } from '../../blocks/InfoBlock/config'
 
 import {
   MetaDescriptionField,
@@ -103,6 +107,10 @@ export const Pages: CollectionConfig<'pages'> = {
                 PageHeaderBlock,
                 AgeGroupBlock,
                 CustomFormBlock,
+                HighlightsBlock,
+                SocialsBlock,
+                FAQBlock,
+                InfoBlock,
               ],
               required: true,
               admin: {

@@ -49,6 +49,7 @@ export default function HeaderClient({ data }: { data: Header }) {
       className={`
         fixed top-0 left-0 z-50 w-full
         border-b border-black/5
+        glass
         transition-all duration-300
         ${shrink ? 'h-16' : 'h-20'}
         ${isHome ? 'backdrop-blur-md bg-white/15 border-white/10' : 'bg-background'}

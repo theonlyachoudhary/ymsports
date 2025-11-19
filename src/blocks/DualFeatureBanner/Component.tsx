@@ -14,8 +14,8 @@ export function DualFeatureBanner({ left, right }) {
           href={left.link}
           className="absolute left-0 right-0 h-full overflow-hidden rounded-l-xl md:rounded-l-2xl pointer-events-auto left-clip"
           style={{ 
-            width: '80%',
-            clipPath: 'polygon(0 0, calc(100% - 2vw) 0, calc(100% - 40vw) 100%, 0 100%)'
+            width: '65%',
+clipPath: 'polygon(0 0, 100% 0, 50% 100%, 0 100%)'
           }}
         >
           <motion.div
@@ -45,8 +45,8 @@ export function DualFeatureBanner({ left, right }) {
           href={right.link}
           className="absolute right-0 h-full overflow-hidden rounded-r-xl md:rounded-r-2xl pointer-events-auto right-clip"
           style={{ 
-            width: '80%',
-            clipPath: 'polygon(40vw 0, 100% 0, 100% 100%, 2vw 100%)'
+            width: '65%',
+clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 0 100%)'
           }}
         >
           <motion.div
