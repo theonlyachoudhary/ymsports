@@ -1,52 +1,25 @@
-import { Block } from 'payload'
+import { Block } from 'payload';
 
 export const TournamentsBlock: Block = {
   slug: 'tournaments',
   labels: {
-    singular: 'Tournaments',
-    plural: 'Tournaments',
+    singular: 'Tournaments Block',
+    plural: 'Tournaments Blocks',
   },
   fields: [
     {
       name: 'title',
       type: 'text',
-      required: false,
     },
     {
       name: 'tournaments',
-      type: 'array',
-      minRows: 1,
-      fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-        },
-        {
-          name: 'name',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-        },
-        {
-          name: 'date',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'location',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'link',
-          type: 'text',
-          admin: { description: 'Optional external link' },
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'tournaments',
+      hasMany: true,
+      required: false,
+      admin: {
+        description: 'Select tournaments to display',
+      },
     },
   ],
-}
+};
