@@ -1,3 +1,7 @@
+'use client'
+
+import { motion } from 'framer-motion'
+
 export function PageHeaderBlock({ title, subtitle, align, paddingSize }) {
   const pad = {
     lg: "py-28 px-6 md:px-12",
@@ -9,18 +13,42 @@ export function PageHeaderBlock({ title, subtitle, align, paddingSize }) {
 
   return (
     <section className="w-full flex justify-center">
-      <div className={`min-w-[85vw] bg-[#f7f4ed] rounded-2xl shadow-sm ${pad}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 35 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.85,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className={`min-w-[100vw] bg-[#F5F1E8] rounded-2xl shadow-sm ${pad}`}
+      >
 
-        <h1
+        {/* TITLE */}
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.75,
+            ease: [0.16, 1, 0.3, 1],
+            delay: 0.12,
+          }}
           className={`font-bebas
             text-6xl sm:text-6xl md:text-8xl xl:text-9xl
             ${alignment}`}
         >
           {title}
-        </h1>
+        </motion.h1>
 
+        {/* SUBTITLE */}
         {subtitle && (
-          <p
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.75,
+              ease: [0.16, 1, 0.3, 1],
+              delay: 0.22,
+            }}
             className={`mt-6
               w-full sm:w-4/5 md:w-2/3 lg:w-1/2
               mx-auto
@@ -29,10 +57,10 @@ export function PageHeaderBlock({ title, subtitle, align, paddingSize }) {
               ${alignment}`}
           >
             {subtitle}
-          </p>
+          </motion.p>
         )}
 
-      </div>
+      </motion.div>
     </section>
   );
 }

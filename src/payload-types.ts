@@ -76,6 +76,7 @@ export interface Config {
     programs: Program;
     camps: Camp;
     testimonials: Testimonial;
+    tournaments: Tournament;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -96,6 +97,7 @@ export interface Config {
     programs: ProgramsSelect1<false> | ProgramsSelect1<true>;
     camps: CampsSelect<false> | CampsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    tournaments: TournamentsSelect<false> | TournamentsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -1082,6 +1084,24 @@ export interface Camp {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tournaments".
+ */
+export interface Tournament {
+  id: number;
+  image: number | Media;
+  name: string;
+  description?: string | null;
+  date: string;
+  location: string;
+  /**
+   * Optional external link
+   */
+  link?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1288,6 +1308,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'testimonials';
         value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'tournaments';
+        value: number | Tournament;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1956,6 +1980,20 @@ export interface TestimonialsSelect<T extends boolean = true> {
   location?: T;
   generateSlug?: T;
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tournaments_select".
+ */
+export interface TournamentsSelect<T extends boolean = true> {
+  image?: T;
+  name?: T;
+  description?: T;
+  date?: T;
+  location?: T;
+  link?: T;
   updatedAt?: T;
   createdAt?: T;
 }

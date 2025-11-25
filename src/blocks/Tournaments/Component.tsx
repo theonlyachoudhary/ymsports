@@ -28,7 +28,6 @@ export function TournamentsBlock({
         {tournaments.map((t, i) => {
           const img = (t.image as any)?.url
 
-          // Entire card is clickable 
           const Wrapper = t.link ? 'a' : 'div'
           const wrapperProps = t.link ? { href: t.link } : {}
 
