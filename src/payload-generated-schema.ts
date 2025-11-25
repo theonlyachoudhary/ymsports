@@ -989,7 +989,6 @@ export const pages_rels = pgTable(
     index('pages_rels_programs_id_idx').on(columns.programsID),
     index('pages_rels_coaches_id_idx').on(columns.coachesID),
     index('pages_rels_testimonials_id_idx').on(columns.testimonialsID),
-    index('pages_rels_tournaments_id_idx').on(columns.tournamentsID),
     foreignKey({
       columns: [columns['parent']],
       foreignColumns: [pages.id],
@@ -1901,7 +1900,6 @@ export const _pages_v_rels = pgTable(
     index('_pages_v_rels_programs_id_idx').on(columns.programsID),
     index('_pages_v_rels_coaches_id_idx').on(columns.coachesID),
     index('_pages_v_rels_testimonials_id_idx').on(columns.testimonialsID),
-    index('_pages_v_rels_tournaments_id_idx').on(columns.tournamentsID),
     foreignKey({
       columns: [columns['parent']],
       foreignColumns: [_pages_v.id],
@@ -3087,7 +3085,6 @@ export const payload_locked_documents_rels = pgTable(
     index('payload_locked_documents_rels_programs_id_idx').on(columns.programsID),
     index('payload_locked_documents_rels_camps_id_idx').on(columns.campsID),
     index('payload_locked_documents_rels_testimonials_id_idx').on(columns.testimonialsID),
-    index('payload_locked_documents_rels_tournaments_id_idx').on(columns.tournamentsID),
     index('payload_locked_documents_rels_redirects_id_idx').on(columns.redirectsID),
     index('payload_locked_documents_rels_forms_id_idx').on(columns.formsID),
     index('payload_locked_documents_rels_form_submissions_id_idx').on(
