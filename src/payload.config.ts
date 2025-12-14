@@ -6,13 +6,14 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { s3Storage } from '@payloadcms/storage-s3'
+
 //Add your collections here
 import { Coaches } from './collections/Coaches'
 import { Programs } from './collections/Programs'
 import { Camps } from './collections/Camps'
 import { Tournaments } from './collections/Tournaments'
 import { Testimonials } from './collections/Testimonials'
-
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -70,6 +71,9 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
+    push: {
+      force: true
+    }
   }),
   collections: [Pages, Posts, Media, Categories, Users, Coaches, Programs, Camps, Testimonials, Tournaments],
   cors: [getServerSideURL()].filter(Boolean),
@@ -77,6 +81,23 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
+   s3Storage({
+  collections: {
+    media: {
+      prefix: 'media',
+      bucket: 'prod-bucket-000',
+      config: {
+        endpoint: 'https://sfo3.digitaloceanspaces.com',
+        region: 'sfo3',
+        credentials: {
+          accessKeyId: process.env.DO_SPACES_KEY!,
+          secretAccessKey: process.env.DO_SPACES_SECRET!,
+        },
+      },
+    },
+  },
+}),
+    
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,

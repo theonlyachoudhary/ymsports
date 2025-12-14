@@ -40,7 +40,9 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload
-    staticDir: path.resolve(dirname, '../../public/media'),
+    // staticDir: path.resolve(dirname, '../../public/media'),
+    // cdn url for media files storing in s3 bucket
+    staticURL: 'https://prod-bucket-000.sfo3.cdn.digitaloceanspaces.com',
     adminThumbnail: 'thumbnail',
     focalPoint: true,
     imageSizes: [
