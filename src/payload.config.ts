@@ -82,21 +82,21 @@ export default buildConfig({
     ...plugins,
     // storage-adapter-placeholder
    s3Storage({
-  collections: {
-    media: {
-      prefix: 'media',
-      bucket: 'prod-bucket-000',
-      config: {
-        endpoint: 'https://sfo3.digitaloceanspaces.com',
-        region: 'sfo3',
-        credentials: {
-          accessKeyId: process.env.DO_SPACES_KEY!,
-          secretAccessKey: process.env.DO_SPACES_SECRET!,
+    collections: {
+        media: {
+          prefix: 'media',
+          bucket: 'prod-bucket-000',
+          config: {
+            endpoint: 'https://sfo3.digitaloceanspaces.com',
+            region: 'sfo3',
+            credentials: {
+              accessKeyId: process.env.DO_SPACES_KEY!,
+              secretAccessKey: process.env.DO_SPACES_SECRET!,
+            },
+          },
         },
       },
-    },
-  },
-}),
+    }),
     
   ],
   secret: process.env.PAYLOAD_SECRET,
