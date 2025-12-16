@@ -20,6 +20,7 @@ services:
       - S3_PREFIX=${S3_PREFIX}
       - NEXT_PUBLIC_AWS_CDN=${NEXT_PUBLIC_AWS_CDN}
       - S3_CLIENT_UPLOADS=${S3_CLIENT_UPLOADS}
+      - NODE_EXTRA_CA_CERTS=/app/certs/ca-certificate.crt
     networks:
       - ymsports-network
     expose:

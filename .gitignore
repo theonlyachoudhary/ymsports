@@ -20,3 +20,4 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 certs/ca-certificate.crt
+ca-certificate.crt

@@ -41,6 +41,10 @@ COPY --from=builder /app/tsconfig.json ./
 # Copy built webapp
 COPY --from=builder /app/ymsports ./ymsports
 
+# Create certs directory and copy CA certificate if it exists (wildcard makes it optional)
+RUN mkdir -p /app/certs
+COPY ca-certificate.crt /app/certs/
+
 # Install production dependencies only
 RUN npm install --prod --frozen-lockfile
 
@@ -50,5 +54,6 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+ENV NODE_EXTRA_CA_CERTS=/app/certs/ca-certificate.crt
 
 CMD ["npm", "run", "start"]
