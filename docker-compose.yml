@@ -2,8 +2,8 @@ services:
   web:
     build:
       context: .
-      dockerfile: apps/webapp/Dockerfile
-    container_name: outreacher-web
+      dockerfile: Dockerfile
+    container_name: ymsports-web
     restart: unless-stopped
     environment:
       - NODE_ENV=production
@@ -21,7 +21,7 @@ services:
       - NEXT_PUBLIC_AWS_CDN=${NEXT_PUBLIC_AWS_CDN}
       - S3_CLIENT_UPLOADS=${S3_CLIENT_UPLOADS}
     networks:
-      - outreacher-network
+      - ymsports-network
     expose:
       - "3000"
     healthcheck:
@@ -37,7 +37,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: outreacher-nginx
+    container_name: ymsports-nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -46,7 +46,7 @@ services:
     depends_on:
       - web
     networks:
-      - outreacher-network
+      - ymsports-network
     healthcheck:
       test:
         [
@@ -62,5 +62,5 @@ services:
       retries: 3
 
 networks:
-  outreacher-network:
+  ymsports-network:
     driver: bridge
