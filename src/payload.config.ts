@@ -72,32 +72,40 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
     push: {
-      force: true
-    }
+      force: true,
+    },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Coaches, Programs, Camps, Testimonials, Tournaments],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    Coaches,
+    Programs,
+    Camps,
+    Testimonials,
+    Tournaments,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
-   s3Storage({
-    collections: {
-        media: {
-          prefix: 'media',
-          bucket: 'prod-bucket-000',
-          config: {
-            endpoint: 'https://sfo3.digitaloceanspaces.com',
-            region: 'sfo3',
-            credentials: {
-              accessKeyId: process.env.DO_SPACES_KEY!,
-              secretAccessKey: process.env.DO_SPACES_SECRET!,
-            },
-          },
+    s3Storage({
+      collections: {
+        media: true,
+      },
+      bucket: process.env.S3_BUCKET,
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
         },
+        region: process.env.S3_REGION,
+        // ... Other S3 configuration
       },
     }),
-    
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
