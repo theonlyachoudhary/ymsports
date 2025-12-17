@@ -31,20 +31,21 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
     offset: ['start end', 'end start'],
   })
 
-  const translateY = useTransform(scrollYProgress, [0, 1], [0, 120])
+  // map progress -> negative Y so background moves up on scroll (no white gap under header)
+  const translateY = useTransform(scrollYProgress, [0, 1], [0, -80])
 
   const hoverEffect = {
     y: -1,
     scale: 1.01,
     opacity: 1,
-    transition: { duration: 0.35, ease: "easeOut" }
+    transition: { duration: 0.35, ease: 'easeOut' },
   }
 
   const containerStagger = {
     hidden: {},
     show: {
-      transition: { staggerChildren: 0.05 }
-    }
+      transition: { staggerChildren: 0.05 },
+    },
   }
 
   const letterAnim = {
@@ -52,17 +53,16 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
   }
 
   return (
-    <section className="relative w-full min-h-screen">
+    <section className="relative mx-5 mt-5 pt-0 overflow-hidden">
       <div
         ref={containerRef}
-        className="relative w-full min-h-screen overflow-hidden"
+        className="relative mt-0 rounded-md h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] overflow-hidden"
       >
-
         {media && typeof media === 'object' && (
           <motion.div
             style={{ y: translateY }}
@@ -76,15 +76,13 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               imgClassName="absolute inset-0 w-full h-full object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute rounded-md inset-0 bg-black/30" />
           </motion.div>
         )}
 
-        <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10 lg:p-16 gap-10">
-
+        <div className="absolute inset-0 flex flex-col justify-center p-6 sm:p-10 lg:p-16">
           {/* TEXT */}
           <div className="text-white leading-none space-y-3">
-
             <motion.div
               variants={containerStagger}
               initial="hidden"
@@ -101,7 +99,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
                     className="inline-block cursor-default"
                   >
                     {char}
@@ -120,7 +118,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
                     className="inline-block cursor-default"
                   >
                     {char}
@@ -145,7 +143,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
                     className="inline-block cursor-default"
                   >
                     {char}
@@ -163,7 +161,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
                     className="inline-block cursor-default"
                   >
                     {char}
@@ -178,7 +176,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
               className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-6"
             >
               {/* BUTTON 1 */}
@@ -226,7 +224,6 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               )}
             </motion.div>
           )}
-
         </div>
       </div>
     </section>

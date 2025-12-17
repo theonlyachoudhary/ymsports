@@ -48,15 +48,21 @@ export default function HeaderClient({ data }: { data: Header }) {
       transition={{ duration: 0.35, ease: 'easeOut' }}
       className={`
         fixed top-0 left-0 z-50 w-full
-        border-b border-black/5
-        glass
-        transition-all duration-300
+        border-b transition-all duration-300
         ${shrink ? 'h-16' : 'h-20'}
-        ${isHome ? 'backdrop-blur-md bg-white/15 border-white/10' : 'bg-background'}
+        ${
+          isHome
+            ? shrink
+              ? 'bg-white/95 border-black/5 shadow-sm backdrop-blur-sm' // home + scrolled -> solid
+              : 'backdrop-blur-lg bg-white/15 border-white/10' // home top -> translucent
+            : shrink
+              ? 'bg-background/95 border-black/5 shadow-sm' // inner page + scrolled -> solid
+              : 'bg-background' // inner page top -> existing
+        }
+        transition-colors duration-300
       `}
     >
       <div className="max-w-[1320px] mx-auto h-full px-8 flex items-center justify-between">
-        
         {/* LOGO */}
         <motion.div
           initial={{ opacity: 0, y: -6 }}
@@ -77,7 +83,7 @@ export default function HeaderClient({ data }: { data: Header }) {
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle navigation"
         >
-        <Hamburger open={mobileOpen} />
+          <Hamburger open={mobileOpen} />
         </button>
       </div>
 
@@ -90,16 +96,14 @@ export default function HeaderClient({ data }: { data: Header }) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             className="
               md:hidden
               absolute
               top-full
               left-0
               w-full
-              bg-white
-              rounded-b-3xl
-              shadow-lg
+              bg-transparent
               pt-6 pb-8 px-8
               z-[200]
             "
@@ -108,7 +112,6 @@ export default function HeaderClient({ data }: { data: Header }) {
           </motion.div>
         )}
       </AnimatePresence>
-
     </motion.header>
   )
 }
