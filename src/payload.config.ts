@@ -7,6 +7,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { s3Storage } from '@payloadcms/storage-s3'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 //Add your collections here
 import { Coaches } from './collections/Coaches'
@@ -92,20 +93,32 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
-    s3Storage({
-      collections: {
-        media: true,
-      },
-      bucket: process.env.S3_BUCKET,
-      config: {
-        credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID,
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-        },
-        region: process.env.S3_REGION,
-        // ... Other S3 configuration
-      },
-    }),
+    // Use Vercel Blob storage when a read/write token is provided, otherwise fall back to S3.
+    ...(process.env.BLOB_READ_WRITE_TOKEN
+      ? [
+          vercelBlobStorage({
+            collections: {
+              media: true,
+            },
+            token: process.env.BLOB_READ_WRITE_TOKEN || '',
+          }),
+        ]
+      : [
+          s3Storage({
+            collections: {
+              media: true,
+            },
+            bucket: process.env.S3_BUCKET,
+            config: {
+              credentials: {
+                accessKeyId: process.env.S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+              },
+              region: process.env.S3_REGION,
+              // ... Other S3 configuration
+            },
+          }),
+        ]),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
