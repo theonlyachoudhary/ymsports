@@ -1,20 +1,19 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 export function FAQBlock({ title, description, image, faqs }) {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(null)
 
   const toggle = (i) => {
-    setOpenIndex(openIndex === i ? null : i);
-  };
+    setOpenIndex(openIndex === i ? null : i)
+  }
 
   return (
     <section className="w-full py-28 px-6 flex justify-center">
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
-
         {/* LEFT COLUMN */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -79,7 +78,7 @@ export function FAQBlock({ title, description, image, faqs }) {
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     className="text-3xl font-light text-neutral-700 group-hover:text-black"
                   >
-                    {openIndex === i ? "−" : "+"}
+                    {openIndex === i ? '−' : '+'}
                   </motion.span>
                 </button>
 
@@ -87,7 +86,7 @@ export function FAQBlock({ title, description, image, faqs }) {
                   {openIndex === i && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
+                      animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{
                         duration: 0.4,
@@ -126,10 +125,10 @@ export function FAQBlock({ title, description, image, faqs }) {
                 scale: 1.03,
                 rotateX: 4,
                 rotateY: -4,
-                boxShadow: "0 40px 90px rgba(0,0,0,0.25)",
+                boxShadow: '0 40px 90px rgba(0,0,0,0.25)',
               }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 stiffness: 180,
                 damping: 20,
               }}
@@ -152,5 +151,5 @@ export function FAQBlock({ title, description, image, faqs }) {
         )}
       </div>
     </section>
-  );
+  )
 }

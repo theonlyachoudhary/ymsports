@@ -6,21 +6,24 @@ RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
 WORKDIR /app
 
-# Copy workspace files first (these change less frequently)
+# Copy package files first (these change less frequently)
 COPY package.json package-lock.json ./
 COPY tsconfig.json ./
 
 # Install dependencies (this will be cached if package files don't change)
-RUN npm install --frozen-lockfile
+RUN npm install --force --frozen-lockfile
 
-# Copy source code (changes more frequently)
+# Copy all source code and configuration files
 COPY .env ./
+COPY src ./src
+COPY public ./public
+COPY next.config.js ./
+COPY redirects.js ./
+COPY tailwind.config.mjs ./
+COPY postcss.config.js ./
+COPY next-sitemap.config.cjs ./
 
-# Build packages first
-RUN npm run build
-
-# Build web app
-WORKDIR /app/ymsports
+# Build the application
 RUN npm run build
 
 # Production stage
@@ -36,19 +39,18 @@ ENV NODE_ENV=production
 # Copy necessary files from builder
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/package-lock.json ./
-COPY --from=builder /app/tsconfig.json ./
 
-# Copy built webapp
-COPY --from=builder /app/ymsports ./ymsports
+# Copy built Next.js app
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.js ./
 
-# Create certs directory and copy CA certificate if it exists (wildcard makes it optional)
+# Create certs directory and optionally copy CA certificate if it exists
 RUN mkdir -p /app/certs
-COPY ca-certificate.crt /app/certs/
+RUN if [ -f ca-certificate.crt ]; then cp ca-certificate.crt /app/certs/; fi || true
 
 # Install production dependencies only
-RUN npm install --prod --frozen-lockfile
-
-WORKDIR /app/ymsports
+RUN npm install --prod --force --frozen-lockfile
 
 EXPOSE 3000
 
