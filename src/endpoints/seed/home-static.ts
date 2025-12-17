@@ -80,8 +80,8 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
     },
   },
   meta: {
-    description: 'An open-source website built with Payload and Next.js.',
-    title: 'Payload Website Template',
+    description: 'Sports for all ages - Rooted in Islamic Values',
+    title: 'YMSports',
   },
   title: 'Home',
   layout: [],
