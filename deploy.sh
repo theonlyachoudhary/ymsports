@@ -45,38 +45,10 @@ deploy() {
     echo -e "${BLUE}🚀 Starting services...${NC}"
     docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
-    # Wait for database
-    echo ""
-    echo -e "${BLUE}⏳ Waiting for database...${NC}"
-    timeout=60
-    until docker compose exec -T postgres pg_isready -U postgres > /dev/null 2>&1 || [ $timeout -eq 0 ]; do
-      printf "."
-      sleep 2
-      timeout=$((timeout-2))
-    done
-    echo ""
-
-    if [ $timeout -eq 0 ]; then
-        echo -e "${RED}❌ Database failed to start${NC}"
-        echo "Check logs with: docker compose logs postgres"
-        exit 1
-    fi
-
-    echo -e "${GREEN}✅ Database is ready${NC}"
-
     # Wait for web service
     echo ""
     echo -e "${BLUE}⏳ Waiting for web service...${NC}"
     sleep 15
-
-    # Run migrations
-    echo ""
-    echo -e "${BLUE}🔄 Running database migrations...${NC}"
-    if docker compose exec -T web sh -c "cd /app && pnpm prisma:migrate:prod"; then
-        echo -e "${GREEN}✅ Migrations completed${NC}"
-    else
-        echo -e "${YELLOW}⚠️  Migrations failed or already applied${NC}"
-    fi
 
     # Health checks
     echo ""

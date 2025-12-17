@@ -43,7 +43,12 @@ COPY --from=builder /app/package-lock.json ./
 # Copy built Next.js app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+
+# Copy configuration files needed at runtime
 COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/redirects.js ./
+COPY --from=builder /app/tailwind.config.mjs ./
+COPY --from=builder /app/postcss.config.js ./
 
 # Create certs directory and optionally copy CA certificate if it exists
 RUN mkdir -p /app/certs
