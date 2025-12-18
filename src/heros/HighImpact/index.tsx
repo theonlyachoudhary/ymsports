@@ -58,29 +58,35 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   }
 
   return (
-    <section className="relative mx-5 mt-5 pt-0 overflow-hidden">
+    // section is the clipping container (no top margin) so rounded corners are respected
+    <section className="relative my-5 mx-5 overflow-hidden rounded-md">
       <div
         ref={containerRef}
-        className="relative mt-0 rounded-md h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] overflow-hidden"
+        // content remains in-flow; background layer is absolute inside this clipped section
+        className="relative p-10 min-h-[fit-content] xl:h-[70vh] overflow-visible"
       >
         {media && typeof media === 'object' && (
           <motion.div
-            style={{ y: translateY }}
+            style={{ y: translateY, clipPath: 'inset(0 round 6px)' }}
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
-            className="absolute inset-0 w-full h-full"
+            // transformed layer still has overflow-hidden and matching radius to avoid leaks
+            className="absolute inset-0 w-full h-full overflow-hidden will-change-transform"
           >
             <Media
               resource={media}
+              // remove rounding on the img itself — parent will clip it
               imgClassName="absolute inset-0 w-full h-full object-cover"
               priority
             />
-            <div className="absolute rounded-md inset-0 bg-black/30" />
+            {/* overlay kept inside the clipping container */}
+            <div className="absolute inset-0 bg-black/30" />
           </motion.div>
         )}
 
-        <div className="absolute inset-0 flex flex-col justify-center p-6 sm:p-10 lg:p-16">
+        {/* content is kept in-flow so container min-height can respond to it */}
+        <div className="relative z-10 w-full flex flex-col justify-center p-6 sm:p-10 lg:p-16">
           {/* TEXT */}
           <div className="text-white leading-none space-y-3">
             <motion.div
