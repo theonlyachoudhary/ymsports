@@ -38,10 +38,15 @@ export const Coaches: CollectionConfig = {
       relationTo: 'media',
       required: true,
     },
-     slugField({
+    {
+      name: 'contactEmail',
+      type: 'email',
+      required: false,
+    },
+    slugField({
       name: 'slug',
-      generateFrom: 'name', 
-      editable: true,     
+      generateFrom: 'name',
+      editable: true,
       admin: { position: 'sidebar' },
     }),
   ],
