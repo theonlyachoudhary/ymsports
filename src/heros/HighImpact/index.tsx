@@ -34,11 +34,13 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   // map progress -> negative Y so background moves up on scroll (no white gap under header)
   const translateY = useTransform(scrollYProgress, [0, 1], [0, -80])
 
+  // improved hover — stronger, uses transform-only changes and sets faster timing
   const hoverEffect = {
-    y: -1,
-    scale: 1.01,
+    y: -6,
+    scale: 1.06,
+    rotate: -2,
     opacity: 1,
-    transition: { duration: 0.35, ease: 'easeOut' },
+    transition: { duration: 0.28, ease: 'easeOut' },
   }
 
   const containerStagger = {
@@ -100,15 +102,17 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 className="font-heading uppercase tracking-tight 
                 text-8xl sm:text-9xl md:text-[9rem] lg:text-[10rem] xl:text-[11rem] cursor-default flex"
               >
-                {headlineTop.split('').map((char, i) => (
+                {(headlineTop ?? '').split('').map((char, i) => (
                   <motion.span
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="inline-block cursor-default"
+                    transition={{ duration: 0.28, ease: 'easeOut' }}
+                    className="inline-block cursor-default will-change-transform"
+                    style={{ transformOrigin: 'center bottom', backfaceVisibility: 'hidden' }}
+                    aria-hidden="true"
                   >
-                    {char}
+                    {char === ' ' ? '\u00A0' : char}
                   </motion.span>
                 ))}
               </motion.span>
@@ -119,15 +123,17 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 text-8xl sm:text-9xl md:text-[9rem] lg:text-[10rem] xl:text-[11rem]
                 inline-block text-[#F4E9C8] cursor-default flex"
               >
-                {headlineScript.split('').map((char, i) => (
+                {(headlineScript ?? '').split('').map((char, i) => (
                   <motion.span
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="inline-block cursor-default"
+                    transition={{ duration: 0.28, ease: 'easeOut' }}
+                    className="inline-block cursor-default will-change-transform"
+                    style={{ transformOrigin: 'center bottom', backfaceVisibility: 'hidden' }}
+                    aria-hidden="true"
                   >
-                    {char}
+                    {char === ' ' ? '\u00A0' : char}
                   </motion.span>
                 ))}
               </motion.span>
@@ -144,15 +150,17 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 className="font-heading uppercase tracking-tight
                 text-8xl sm:text-9xl md:text-[9rem] lg:text-[10rem] xl:text-[11rem] cursor-default flex"
               >
-                {headlineBottom.split('').map((char, i) => (
+                {(headlineBottom ?? '').split('').map((char, i) => (
                   <motion.span
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="inline-block cursor-default"
+                    transition={{ duration: 0.28, ease: 'easeOut' }}
+                    className="inline-block cursor-default will-change-transform"
+                    style={{ transformOrigin: 'center bottom', backfaceVisibility: 'hidden' }}
+                    aria-hidden="true"
                   >
-                    {char}
+                    {char === ' ' ? '\u00A0' : char}
                   </motion.span>
                 ))}
               </motion.span>
@@ -162,15 +170,17 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 text-8xl sm:text-9xl md:text-[9rem] lg:text-[10rem] xl:text-[11rem]
                 text-[#C7FDD3] cursor-default flex"
               >
-                {headlineEmphasis.split('').map((char, i) => (
+                {(headlineEmphasis ?? '').split('').map((char, i) => (
                   <motion.span
                     key={i}
                     variants={letterAnim}
                     whileHover={hoverEffect}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="inline-block cursor-default"
+                    transition={{ duration: 0.28, ease: 'easeOut' }}
+                    className="inline-block cursor-default will-change-transform"
+                    style={{ transformOrigin: 'center bottom', backfaceVisibility: 'hidden' }}
+                    aria-hidden="true"
                   >
-                    {char}
+                    {char === ' ' ? '\u00A0' : char}
                   </motion.span>
                 ))}
               </motion.span>

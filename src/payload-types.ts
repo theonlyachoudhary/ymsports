@@ -1012,6 +1012,7 @@ export interface Coach {
   bio: string;
   role: string;
   profilePicture: number | Media;
+  contactEmail?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -1940,6 +1941,7 @@ export interface CoachesSelect1<T extends boolean = true> {
   bio?: T;
   role?: T;
   profilePicture?: T;
+  contactEmail?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
