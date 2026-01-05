@@ -35,7 +35,14 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  allowedDevOrigins: ['*'],
+  allowedDevOrigins: [
+    process.env.REPLIT_DEV_DOMAIN,
+    '.replit.dev',
+    '.riker.replit.dev',
+    '.kirk.replit.dev',
+    '.janeway.replit.dev',
+    '.picard.replit.dev',
+  ].filter(Boolean),
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

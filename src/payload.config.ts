@@ -72,9 +72,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
-    push: {
-      force: true,
-    },
+    push: false,
   }),
   collections: [
     Pages,

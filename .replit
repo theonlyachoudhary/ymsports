@@ -1,4 +1,4 @@
-modules = ["nodejs-18", "web", "bash"]
+modules = ["web", "bash", "nodejs-20"]
 [agent]
 expertMode = true
 
@@ -8,6 +8,33 @@ channel = "stable-25_05"
 [userenv]
 
 [userenv.development]
-DATABASE_URI = "postgresql://postgres:password@helium/heliumdb?sslmode=disable"
-PAYLOAD_SECRET = "2a856730eb514460f217550dfcea4d3cb2b05f7c955a14ee68172a74d9fbd700"
+PAYLOAD_SECRET = "2f0bb9c81709c8a0320ed179"
 NEXT_PUBLIC_SERVER_URL = "https://${REPLIT_DEV_DOMAIN}"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Next.js Dev Server"
+
+[[workflows.workflow]]
+name = "Next.js Dev Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev -- -p 5000 -H 0.0.0.0"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
