@@ -1,0 +1,13 @@
+modules = ["nodejs-18", "web", "bash"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+
+[userenv]
+
+[userenv.development]
+DATABASE_URI = "postgresql://postgres:password@helium/heliumdb?sslmode=disable"
+PAYLOAD_SECRET = "2a856730eb514460f217550dfcea4d3cb2b05f7c955a14ee68172a74d9fbd700"
+NEXT_PUBLIC_SERVER_URL = "https://${REPLIT_DEV_DOMAIN}"
