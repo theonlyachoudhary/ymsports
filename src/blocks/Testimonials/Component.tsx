@@ -1,16 +1,16 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Testimonial } from '@/payload-types'
+import { Star } from 'lucide-react'
+import type { Testimonial } from '@/payload-types'
 
 type TestimonialsBlockProps = {
-  title: string
+  title?: string
   testimonials?: Testimonial[]
 }
 
 export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
-  title,
+  title = 'Community Voice',
   testimonials = [],
 }) => {
   const [merged, setMerged] = useState<Testimonial[]>([])
@@ -19,7 +19,6 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
 
   const DURATION = 5000
 
-  // LOAD & MERGE
   useEffect(() => {
     const load = async () => {
       try {
@@ -28,7 +27,7 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
 
         const all = json.docs || []
         const cmsIds = new Set(testimonials.map((t) => t.id))
-        const remaining = all.filter((t) => !cmsIds.has(t.id))
+        const remaining = all.filter((t: Testimonial) => !cmsIds.has(t.id))
 
         setMerged([...testimonials, ...remaining])
       } catch (e) {
@@ -39,8 +38,9 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
     load()
   }, [testimonials])
 
-  // AUTO ADVANCE
   useEffect(() => {
+    if (merged.length === 0) return
+    
     setProgress(0)
 
     const interval = setInterval(() => {
@@ -59,7 +59,7 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
 
   if (merged.length === 0) {
     return (
-      <section className="py-24 bg-[#FAF7EF] text-center">
+      <section className="py-24 bg-[#F9F9F9] text-center">
         <p className="text-neutral-500">No testimonials found.</p>
       </section>
     )
@@ -71,91 +71,46 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
   const t = merged[index]
 
   return (
-    <section className="py-24 bg-[#F5F1E8]">
-      {/* TITLE */}
-      <div className="text-center mb-16">
-        <div className="flex items-center justify-center gap-6">
-          <span className="h-[1px] w-12 bg-black" />
-          <p className="uppercase tracking-wide font-sans text-lg">
-            {title}
-          </p>
-          <span className="h-[1px] w-12 bg-black" />
-        </div>
-      </div>
-
-      {/* CARD + ARROWS */}
-      <div
-        className="
-          relative
-          max-w-4xl mx-auto 
-          flex items-center justify-center 
-          px-4 touch-pan-x
-        "
-        onTouchStart={(e) => (window as any).touchStartX = e.touches[0].clientX}
-        onTouchEnd={(e) => {
-          const startX = (window as any).touchStartX
-          const endX = e.changedTouches[0].clientX
-          if (startX - endX > 50) next()
-          if (endX - startX > 50) prev()
-        }}
-      >
-        {/* DESKTOP ARROWS ONLY */}
-        <button
-          onClick={prev}
-          className="
-            hidden md:flex
-            absolute left-0 -ml-12
-            w-12 h-12 rounded-full border border-black 
-            items-center justify-center 
-            hover:bg-black hover:text-white transition
-          "
+    <section className="py-20 bg-[#F9F9F9]">
+      <div className="max-w-4xl mx-auto px-4">
+        <div
+          className="bg-white rounded-2xl shadow-sm p-8 md:p-12 touch-pan-x"
+          onTouchStart={(e) => ((window as any).touchStartX = e.touches[0].clientX)}
+          onTouchEnd={(e) => {
+            const startX = (window as any).touchStartX
+            const endX = e.changedTouches[0].clientX
+            if (startX - endX > 50) next()
+            if (endX - startX > 50) prev()
+          }}
         >
-          <ChevronLeft size={22} />
-        </button>
-
-        <div className="bg-white rounded-2xl shadow-sm p-8 md:p-12 text-center max-w-2xl">
-          <p className="text-xl md:text-3xl text-neutral-700 leading-snug italic transition-opacity duration-500">
-            “{t.testimonial}”
-          </p>
-
-          <div className="mt-8">
-            <p className="font-semibold text-neutral-900">{t.name}</p>
-            {t.location && <p className="text-neutral-500 text-sm">{t.location}</p>}
-            {t.occupation && <p className="text-neutral-400 text-xs">{t.occupation}</p>}
+          <div className="flex items-center gap-2 text-green-600 mb-8">
+            <Star size={18} />
+            <span className="uppercase tracking-wide text-sm font-semibold">{title}</span>
           </div>
 
-          <div className="w-full bg-neutral-200 h-1 rounded-full mt-8 overflow-hidden">
-            <div
-              className="h-full bg-black transition-all duration-200"
-              style={{ width: `${progress}%` }}
-            />
+          <p className="text-xl md:text-2xl text-gray-700 leading-relaxed italic mb-8">
+            "{t?.testimonial || ''}"
+          </p>
+
+          <div className="border-t pt-6">
+            <p className="font-semibold text-gray-900">{t?.name || ''}</p>
+            {t?.occupation && (
+              <p className="text-green-600 text-sm uppercase tracking-wide">{t.occupation}</p>
+            )}
+          </div>
+
+          <div className="flex justify-center mt-8 gap-2">
+            {merged.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className={`h-2 rounded-full transition-all ${
+                  i === index ? 'bg-green-600 w-6' : 'bg-gray-300 w-2'
+                }`}
+              />
+            ))}
           </div>
         </div>
-
-        <button
-          onClick={next}
-          className="
-            hidden md:flex
-            absolute right-0 -mr-12
-            w-12 h-12 rounded-full border border-black 
-            items-center justify-center 
-            hover:bg-black hover:text-white transition
-          "
-        >
-          <ChevronRight size={22} />
-        </button>
-      </div>
-
-      {/* DOTS */}
-      <div className="flex justify-center mt-8 gap-2">
-        {merged.map((_, i) => (
-          <span
-            key={i}
-            className={`h-2 rounded-full transition-all ${
-              i === index ? 'bg-black w-4' : 'bg-neutral-400 w-2'
-            }`}
-          />
-        ))}
       </div>
     </section>
   )

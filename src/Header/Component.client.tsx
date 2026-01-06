@@ -69,8 +69,15 @@ export default function HeaderClient({ data }: { data: Header }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
         >
-          <Link href="/" className="font-heading text-[28px] tracking-wide">
-            YMS
+          <Link href="/" className="flex items-center gap-3">
+            <img
+              alt="YMS Logo"
+              width={40}
+              height={40}
+              className="w-10 h-10 rounded-md object-contain"
+              src="/yms-logo.jpg"
+            />
+            <span className="font-heading text-[24px] tracking-wide">YMS</span>
           </Link>
         </motion.div>
 

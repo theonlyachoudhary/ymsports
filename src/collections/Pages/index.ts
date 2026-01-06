@@ -29,6 +29,9 @@ import { HighlightsBlock } from '../../blocks/HighlightsBlock/config'
 import { SocialsBlock } from '../../blocks/SocialsBlock/config'
 import { FAQBlock } from '../../blocks/FAQBlock/config'
 import { InfoBlock } from '../../blocks/InfoBlock/config'
+import { Partners } from '../../blocks/Partners/config'
+import { WhySection } from '../../blocks/WhySection/config'
+import { FeaturedPrograms } from '../../blocks/FeaturedPrograms/config'
 
 import {
   MetaDescriptionField,
@@ -111,6 +114,9 @@ export const Pages: CollectionConfig<'pages'> = {
                 SocialsBlock,
                 FAQBlock,
                 InfoBlock,
+                Partners,
+                WhySection,
+                FeaturedPrograms,
               ],
               required: true,
               admin: {

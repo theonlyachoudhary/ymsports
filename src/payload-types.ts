@@ -368,6 +368,9 @@ export interface Page {
         blockName?: string | null;
         blockType: 'infoBlock';
       }
+    | PartnersBlock
+    | WhySectionBlock
+    | FeaturedProgramsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1056,6 +1059,56 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock".
+ */
+export interface PartnersBlock {
+  title?: string | null;
+  partners?:
+    | {
+        name: string;
+        logo?: (number | null) | Media;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partners';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhySectionBlock".
+ */
+export interface WhySectionBlock {
+  items?:
+    | {
+        icon?: ('shield' | 'heart' | 'star' | 'users') | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whySection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedProgramsBlock".
+ */
+export interface FeaturedProgramsBlock {
+  eyebrow?: string | null;
+  title?: string | null;
+  description?: string | null;
+  programsLimit?: number | null;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featuredPrograms';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "camps".
  */
 export interface Camp {
@@ -1606,6 +1659,9 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        partners?: T | PartnersBlockSelect<T>;
+        whySection?: T | WhySectionBlockSelect<T>;
+        featuredPrograms?: T | FeaturedProgramsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1762,6 +1818,53 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   testimonials?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock_select".
+ */
+export interface PartnersBlockSelect<T extends boolean = true> {
+  title?: T;
+  partners?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        url?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhySectionBlock_select".
+ */
+export interface WhySectionBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedProgramsBlock_select".
+ */
+export interface FeaturedProgramsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  programsLimit?: T;
+  ctaText?: T;
+  ctaLink?: T;
   id?: T;
   blockName?: T;
 }
