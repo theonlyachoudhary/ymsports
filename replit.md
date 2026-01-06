@@ -51,11 +51,24 @@ The site uses a modular block system allowing content editors to build pages by 
 - Content blocks (rich text columns)
 - Media blocks (images/video)
 - Call-to-action blocks
-- Programs, Coaches, Testimonials display blocks
+- Programs, Coaches, Testimonials display blocks (with auto-advancing carousel)
 - Custom form blocks
 - FAQ blocks
 - Image + text combinations
 - Dual feature banners
+- **Partners block**: Displays sponsor/partner logos in a grid
+- **FeaturedPrograms block**: Showcases 3 featured programs with auto-fetch from API
+- **WhySection block**: "Why We Exist / Who We Are" statements with icon support
+
+## Recent Changes (January 2026)
+
+- Updated header to display YMS logo image alongside "YMS" text
+- Created Partners block for sponsor/partner logo display
+- Created FeaturedPrograms block to showcase 3 featured programs
+- Created WhySection block for mission/vision statements
+- Refactored Testimonials block into auto-advancing carousel with "Community Voice" styling
+- Fixed Next.js configuration to handle Replit dev domain and cross-origin requests
+- Updated getURL utility to properly resolve server URLs in Replit environment
 
 ### Authentication & Access Control
 
