@@ -69,6 +69,26 @@ The site uses a modular block system allowing content editors to build pages by 
 - Refactored Testimonials block into auto-advancing carousel with "Community Voice" styling
 - Fixed Next.js configuration to handle Replit dev domain and cross-origin requests
 - Updated getURL utility to properly resolve server URLs in Replit environment
+- **Created Programs page** (`/programs`) with filterable listings:
+  - Filters by program type (Camp, Clinic, League, Tournament)
+  - Filters by location (Chicago IL, Dallas TX, Virginia)
+  - Responsive mobile filter UI
+  - Animated program cards with hover effects
+- **Created Program detail page** (`/programs/[slug]`):
+  - Hero section with featured image
+  - About the Program section
+  - What to Expect checklist
+  - Sidebar with price, location, schedule info
+  - Register Now CTA linking to external Fillout forms
+- **Extended Camps collection** with new fields:
+  - programType (camp/clinic/league/tournament)
+  - location (city + state)
+  - venue (name + address)
+  - whatToExpect array
+  - ageMin/ageMax
+  - schedule (days, startTime, endTime)
+  - registrationLink for Fillout integration
+  - featuredImage upload
 
 ### Authentication & Access Control
 
