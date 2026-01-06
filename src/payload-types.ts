@@ -1114,23 +1114,61 @@ export interface FeaturedProgramsBlock {
 export interface Camp {
   id: number;
   title: string;
-  subtitle: string;
+  subtitle?: string | null;
+  programType: 'camp' | 'clinic' | 'league' | 'tournament';
+  location: {
+    city: string;
+    state: 'IL' | 'TX' | 'VA';
+  };
+  venue?: {
+    name?: string | null;
+    address?: string | null;
+  };
   description: string;
+  fullDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  whatToExpect?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  ageMin: number;
+  ageMax: number;
   /**
    * Select the related coach
    */
-  coach: number | Coach;
+  coach?: (number | null) | Coach;
   price: number;
-  address: string;
-  dayOfWeek: string;
-  startDate: string;
-  endDate: string;
-  earlyBirdCode: string;
-  link: string;
+  schedule?: {
+    days?: string | null;
+    startTime?: string | null;
+    endTime?: string | null;
+  };
+  startDate?: string | null;
+  endDate?: string | null;
+  /**
+   * External Fillout form URL for registration
+   */
+  registrationLink: string;
+  featuredImage?: (number | null) | Media;
   /**
    * Select the related program
    */
-  program: number | Program;
+  program?: (number | null) | Program;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -2075,15 +2113,42 @@ export interface ProgramsSelect1<T extends boolean = true> {
 export interface CampsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  programType?: T;
+  location?:
+    | T
+    | {
+        city?: T;
+        state?: T;
+      };
+  venue?:
+    | T
+    | {
+        name?: T;
+        address?: T;
+      };
   description?: T;
+  fullDescription?: T;
+  whatToExpect?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  ageMin?: T;
+  ageMax?: T;
   coach?: T;
   price?: T;
-  address?: T;
-  dayOfWeek?: T;
+  schedule?:
+    | T
+    | {
+        days?: T;
+        startTime?: T;
+        endTime?: T;
+      };
   startDate?: T;
   endDate?: T;
-  earlyBirdCode?: T;
-  link?: T;
+  registrationLink?: T;
+  featuredImage?: T;
   program?: T;
   generateSlug?: T;
   slug?: T;
