@@ -5,9 +5,17 @@ import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import type { Header } from '@/payload-types'
 
+const defaultNavItems = [
+  { link: { label: 'Home', url: '/' } },
+  { link: { label: 'About Us', url: '/about' } },
+  { link: { label: 'Programs', url: '/programs' } },
+  { link: { label: 'Locations', url: '/locations' } },
+  { link: { label: 'Sponsors', url: '/sponsors' } },
+]
+
 export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boolean }) {
   const pathname = usePathname()
-  const navItems = data?.navItems || []
+  const navItems = data?.navItems?.length ? data.navItems : defaultNavItems
 
   // -------------------
   // MOBILE VERSION

@@ -1,0 +1,126 @@
+Objective
+Design and build a modern, minimalistic, interactive front-end website for a youth sports organization that hosts multiple program types across multiple locations.
+
+Audience
+Parents of children ages 5–17.
+
+Geographic Scope
+
+Primary locations: Chicago, IL and Dallas, TX
+
+Future-ready for expansion (e.g., Virginia)
+
+Core Website Requirements
+1. Overall Design
+
+Clean, modern, minimal aesthetic
+
+Interactive UI (smooth filtering, hover states, transitions)
+
+Mobile-first and responsive
+
+Parent-friendly, easy navigation
+
+No backend logic required beyond content structure (front-end focused)
+
+2. Programs Page (Primary Feature)
+
+Create a dedicated Programs page that displays all active offerings.
+
+Program Types (Filterable)
+
+Clinics
+
+Camps
+
+Leagues
+
+Tournaments
+
+Location Filters
+
+Chicago, IL
+
+Dallas, TX
+
+Virginia (placeholder / future-ready)
+
+Required Filters
+
+Program Type
+
+Location
+
+(Optional: Age group / Date if feasible)
+
+3. Program Card Structure
+
+Each program listing/card should display:
+
+Program Name
+
+Program Type (Clinic / Camp / League / Tournament)
+
+Location (City + State)
+
+Dates / Schedule
+
+Age Range
+
+Price / Registration Fee
+
+Short Description
+
+“Register Now” CTA button
+
+Clicking a program should either:
+
+Expand into a detailed view OR
+
+Open a dedicated program detail page
+
+4. Program Detail Content
+
+Each program detail view/page should support:
+
+Full program description
+
+What to expect
+
+Dates & times
+
+Location details
+
+Age range
+
+Pricing
+
+Any additional notes (equipment, experience level, etc.)
+
+5. Registration Integration (Critical)
+
+Register Now button must link externally to a Fillout form
+
+Each program should support a unique Fillout link
+
+No native checkout or form handling required on-site
+
+6. Admin / Content Flexibility (Front-End Friendly)
+
+Programs should be structured so new programs can be added easily
+
+Fields should be modular (name, type, location, link, dates, etc.)
+
+Future-ready for CMS or backend integration (but not required now)
+
+Deliverables
+
+Fully designed Programs page with filters
+
+Reusable program card component
+
+Program detail layout
+
+External Fillout integration via CTA buttons
+
+Clean, modern UI consistent across devices
