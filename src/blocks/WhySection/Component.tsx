@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Shield, Heart, Star, Users } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 type WhyItem = {
   icon?: 'shield' | 'heart' | 'star' | 'users'
@@ -39,27 +40,39 @@ export const WhySectionBlock: React.FC<WhySectionBlockProps> = ({ items = [] }) 
   const displayItems = items.length > 0 ? items : defaultItems
 
   return (
-    <section className="py-20 bg-[#F9F9F9]">
-      <div className="max-w-4xl mx-auto px-4 space-y-12">
-        {displayItems.map((item, i) => {
-          const IconComponent = iconMap[item.icon || 'shield']
+    <section className="py-32 bg-white overflow-hidden relative">
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-100 to-transparent" />
+      <div className="max-w-5xl mx-auto px-4 relative">
+        <div className="grid md:grid-cols-2 gap-16 md:gap-24">
+          {displayItems.map((item, i) => {
+            const IconComponent = iconMap[item.icon || 'shield']
 
-          return (
-            <div key={i} className="flex gap-4 items-start">
-              <div className="flex-shrink-0 text-green-600 mt-1">
-                <IconComponent size={24} strokeWidth={1.5} />
-              </div>
-              <div>
-                <h3 className="font-heading text-2xl md:text-3xl text-gray-900 italic mb-3">
+            return (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="relative"
+              >
+                <div className="absolute -top-12 -left-8 text-[12rem] font-black text-gray-50 select-none -z-10 leading-none">
+                  0{i + 1}
+                </div>
+                <div className="w-16 h-16 rounded-3xl bg-[#052B70] flex items-center justify-center text-white mb-8 shadow-xl shadow-[#052B70]/20 transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+                  <IconComponent size={32} strokeWidth={2} />
+                </div>
+                <h3 className="font-heading text-4xl md:text-5xl text-gray-900 uppercase tracking-tighter mb-6 leading-none">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                <p className="text-gray-500 leading-relaxed text-lg font-medium">
                   {item.description}
                 </p>
-              </div>
-            </div>
-          )
-        })}
+                <div className="mt-8 w-12 h-1.5 bg-[#3BD463] rounded-full" />
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

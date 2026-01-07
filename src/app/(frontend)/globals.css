@@ -25,18 +25,18 @@
     --font-script: 'Beau Rivage', cursive;
     --font-spartan: 'League Spartan', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 
-    /* Color variables (H S% L%) - primary set to #632713 */
-    --primary: 15 68% 23%; /* #632713 */
+    /* Color variables (H S% L%) - YMS Modern Branding */
+    --primary: 217 91% 23%; /* Deep Sports Blue #052B70 */
     --primary-foreground: 210 40% 98%;
 
-    /* Override white/blue/yellow/green as requested */
-    --white: 60 8% 98%; /* approx for #fbfaf6 */
-    --blue: 190 36% 50%; /* #519cab */
-    --yellow: 40.5 100% 66%; /* #ffc64f */
-    --green: 119 45% 38%; /* #628b35 */
+    /* Brand Palette */
+    --white: 60 20% 99%; /* Crisp Clean White #FDFDFD */
+    --blue: 217 91% 35%; /* Active Blue */
+    --green: 142 70% 45%; /* Action Green #22C55E */
+    --yellow: 45 93% 47%; /* Energy Yellow */
 
-    /* Map background/foreground to new white override */
-    --foreground: 222.2 12% 8%; /* keep a dark foreground for text */
+    --foreground: 222 47% 11%;
+    --background: 60 20% 99%;
 
     --card: 240 5% 96%;
     --card-foreground: var(--foreground);

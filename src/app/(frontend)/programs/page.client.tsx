@@ -47,53 +47,51 @@ export function ProgramsPageClient({ programs }: ProgramsPageClientProps) {
   const hasActiveFilters = typeFilter !== 'all' || locationFilter !== 'all'
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section className="relative py-20 bg-gradient-to-br from-[#1a365d] to-[#2d3748]">
-        <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-[#F8F9FB]">
+      <section className="relative py-32 bg-[#052B70] overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl text-white uppercase mb-4">
-              Programs
+            <h1 className="font-heading text-6xl md:text-8xl text-white uppercase mb-4 tracking-tight">
+              Our <span className="text-[#3BD463]">Programs</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Discover our youth sports programs designed to build skills, character, and champions.
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto font-medium">
+              Elite training for the next generation of athletes.
             </p>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-8 bg-white border-b sticky top-0 z-40">
+      <section className="py-6 bg-white border-b sticky top-0 z-40 shadow-sm">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-6">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-colors md:hidden"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-gray-100 font-bold hover:bg-gray-50 transition-all md:hidden text-[#052B70]"
             >
               <Filter className="w-5 h-5" />
-              Filters
-              {hasActiveFilters && (
-                <span className="bg-[#3BD463] text-white text-xs px-2 py-0.5 rounded-full">
-                  {(typeFilter !== 'all' ? 1 : 0) + (locationFilter !== 'all' ? 1 : 0)}
-                </span>
-              )}
+              Filter Programs
             </button>
 
-            <div className="hidden md:flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-600">Type:</span>
+            <div className="hidden md:flex items-center gap-8">
+              <div className="flex items-center gap-4">
+                <span className="text-xs uppercase tracking-widest font-bold text-gray-400">Type</span>
                 <div className="flex gap-2">
                   {programTypes.map((type) => (
                     <button
                       key={type}
                       onClick={() => setTypeFilter(type)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                      className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                         typeFilter === type
-                          ? 'bg-[#1a365d] text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-[#052B70] text-white shadow-lg'
+                          : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
                       }`}
                     >
                       {type === 'all' ? 'All' : programTypeLabels[type]}
@@ -102,22 +100,22 @@ export function ProgramsPageClient({ programs }: ProgramsPageClientProps) {
                 </div>
               </div>
 
-              <div className="w-px h-8 bg-gray-300" />
+              <div className="w-px h-10 bg-gray-100" />
 
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-600">Location:</span>
+              <div className="flex items-center gap-4">
+                <span className="text-xs uppercase tracking-widest font-bold text-gray-400">Location</span>
                 <div className="flex gap-2">
                   {locations.map((loc) => (
                     <button
                       key={loc}
                       onClick={() => setLocationFilter(loc)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                      className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                         locationFilter === loc
-                          ? 'bg-[#1a365d] text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-[#052B70] text-white shadow-lg'
+                          : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
                       }`}
                     >
-                      {loc === 'all' ? 'All' : locationLabels[loc]}
+                      {loc === 'all' ? 'All Locations' : locationLabels[loc]}
                     </button>
                   ))}
                 </div>
@@ -248,62 +246,66 @@ function ProgramCard({ program, index }: { program: Camp; index: number }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
     >
       <Link href={`/programs/${program.slug}`}>
-        <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group cursor-pointer border border-gray-100">
-          <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300">
+        <div className="bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden group cursor-pointer border-2 border-gray-50 hover:border-[#3BD463]/20">
+          <div className="relative h-64 overflow-hidden">
             {program.featuredImage && typeof program.featuredImage === 'object' && program.featuredImage.url ? (
               <img
                 src={program.featuredImage.url}
                 alt={program.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
             ) : (
               <img
                 src="/hero-sports.jpg"
                 alt={program.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
             )}
-            <div className="absolute top-4 left-4">
-              <span className="px-3 py-1.5 bg-[#1a365d] text-white text-sm font-medium rounded-full">
+            <div className="absolute top-6 left-6">
+              <span className="px-4 py-2 bg-[#052B70] text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-lg">
                 {programTypeLabels[program.programType || 'camp']}
               </span>
             </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#052B70]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
 
-          <div className="p-6">
-            <h3 className="font-heading text-xl font-bold text-gray-900 mb-2 group-hover:text-[#3BD463] transition-colors uppercase">
+          <div className="p-8 relative">
+            <h3 className="font-heading text-3xl font-bold text-gray-900 mb-3 group-hover:text-[#052B70] transition-colors uppercase leading-none tracking-tight">
               {program.title}
             </h3>
             
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+            <p className="text-gray-500 text-base mb-6 line-clamp-2 font-medium">
               {program.description}
             </p>
 
-            <div className="space-y-2 mb-4">
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <MapPin className="w-4 h-4" />
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#052B70]">
+                  <MapPin className="w-4 h-4" />
+                </div>
                 <span>{locationDisplay}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <Calendar className="w-4 h-4" />
-                <span>{dateDisplay}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <Trophy className="w-4 h-4" />
+              <div className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-[#3BD463]">
+                  <Trophy className="w-4 h-4" />
+                </div>
                 <span>{ageDisplay}</span>
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-              <span className="text-2xl font-bold text-[#1a365d]">
-                ${program.price}
-              </span>
-              <span className="text-sm font-medium text-[#3BD463] group-hover:translate-x-1 transition-transform">
-                Learn More →
-              </span>
+            <div className="flex items-center justify-between pt-6 border-t-2 border-gray-50">
+              <div>
+                <span className="text-xs uppercase tracking-widest font-bold text-gray-400 block mb-1">Registration</span>
+                <span className="text-3xl font-black text-[#052B70]">
+                  ${program.price}
+                </span>
+              </div>
+              <div className="w-12 h-12 rounded-2xl bg-[#3BD463] text-white flex items-center justify-center group-hover:translate-x-2 transition-transform shadow-lg shadow-[#3BD463]/20">
+                <ArrowRight className="w-6 h-6" />
+              </div>
             </div>
           </div>
         </div>

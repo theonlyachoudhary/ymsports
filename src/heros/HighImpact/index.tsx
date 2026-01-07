@@ -59,10 +59,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="text-center"
           >
-            <h1 className="font-heading uppercase tracking-tight text-white text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] leading-none">
+            <h1 className="font-heading uppercase tracking-tighter text-white text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] leading-[0.8] drop-shadow-2xl">
               {headline}
             </h1>
-            <h1 className="font-heading uppercase tracking-tight text-white text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] leading-none">
+            <h1 className="font-heading uppercase tracking-tighter text-[#3BD463] text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] leading-[0.8] drop-shadow-2xl mt-2">
               {subheadline}
             </h1>
           </motion.div>
@@ -72,18 +72,18 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-              className="mt-10 flex flex-col sm:flex-row gap-4"
+              className="mt-12 flex flex-col sm:flex-row gap-6"
             >
               {links[0]?.link && (
                 <CMSLink
                   {...links[0].link}
-                  className="px-10 py-4 rounded-full text-white font-semibold text-lg bg-[#3BD463] hover:bg-[#34BF58] transition-all duration-300 hover:scale-105"
+                  className="px-12 py-5 rounded-[2rem] text-white font-bold text-xl bg-[#3BD463] hover:bg-[#2EB854] transition-all duration-300 hover:scale-105 shadow-[0_10px_30px_rgba(59,212,99,0.4)]"
                 />
               )}
               {links[1]?.link && (
                 <CMSLink
                   {...links[1].link}
-                  className="px-10 py-4 rounded-full text-neutral-900 font-semibold text-lg bg-white hover:bg-neutral-100 transition-all duration-300 hover:scale-105"
+                  className="px-12 py-5 rounded-[2rem] text-white font-bold text-xl border-2 border-white/50 hover:border-white hover:bg-white/10 transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                 />
               )}
             </motion.div>
