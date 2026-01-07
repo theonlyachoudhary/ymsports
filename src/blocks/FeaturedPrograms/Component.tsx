@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Zap } from 'lucide-react'
+import { ArrowRight, Zap, Trophy, Star } from 'lucide-react'
 import type { Program } from '@/payload-types'
 
 type FeaturedProgramsBlockProps = {

@@ -81,14 +81,7 @@
   }
 }
 
-html {
-  opacity: 0;
-}
-
-/* Only reveal the page once the light theme is applied. Dark theme removed. */
-html[data-theme='light'] {
-  opacity: initial;
-}
+/* Page is always visible - no dark mode toggle needed */
 
 /* Apply heading font to headings globally */
 h1, h2, h3, h4, h5, h6 {

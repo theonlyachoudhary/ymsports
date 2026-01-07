@@ -32,7 +32,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   const subheadline = headlineBottom || 'Champions'
 
   return (
-    <section className="relative h-screen min-h-[700px] overflow-hidden">
+    <section className="relative h-[90vh] min-h-[600px] max-h-[900px] overflow-hidden">
       <div
         ref={containerRef}
         className="relative w-full h-full"
