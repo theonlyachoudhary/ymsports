@@ -69,11 +69,14 @@ The site uses a modular block system allowing content editors to build pages by 
 - Refactored Testimonials block into auto-advancing carousel with "Community Voice" styling
 - Fixed Next.js configuration to handle Replit dev domain and cross-origin requests
 - Updated getURL utility to properly resolve server URLs in Replit environment
-- **Created Programs page** (`/programs`) with filterable listings:
-  - Filters by program type (Camp, Clinic, League, Tournament)
-  - Filters by location (Chicago IL, Dallas TX, Virginia)
-  - Responsive mobile filter UI
-  - Animated program cards with hover effects
+- **Created Seasonal Sponsorship page** (`/sponsors`):
+  - Modern sports-themed layout with deep blue and action green accents
+  - Dynamic sponsorship tier cards (Franchise, Starting Five, Foundation)
+  - Seasonal clarity section highlighting the "One-time seasonal partnership" model
+  - Direct contact CTA for custom partnerships
+- **Updated FeaturedPrograms block**: 
+  - Fixed rendering issues and updated to match new high-energy branding
+  - Added modern hover effects and bento-style program cards
 - **Created Program detail page** (`/programs/[slug]`):
   - Hero section with featured image
   - About the Program section
