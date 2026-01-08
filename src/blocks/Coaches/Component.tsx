@@ -18,7 +18,6 @@ const CoachCard: React.FC<{
   index: number;
   onViewDetails: (coach: CoachDoc) => void;
 }> = ({ coach, index, onViewDetails }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [needsTruncation, setNeedsTruncation] = useState(false);
   const bioRef = useRef<HTMLParagraphElement>(null);
 
@@ -32,9 +31,9 @@ const CoachCard: React.FC<{
     }
   }, [coach.bio]);
 
-  const handleReadMore = (e: React.MouseEvent) => {
+  const handleViewProfile = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsExpanded(!isExpanded);
+    onViewDetails(coach);
   };
 
   return (
@@ -75,19 +74,16 @@ const CoachCard: React.FC<{
         <div className="flex-grow">
           <p
             ref={bioRef}
-            className={cn(
-              "text-gray-600 text-sm leading-relaxed transition-all duration-300",
-              !isExpanded && "line-clamp-3"
-            )}
+            className="text-gray-600 text-sm leading-relaxed line-clamp-3"
           >
             {coach.bio}
           </p>
           {needsTruncation && (
             <button
-              onClick={handleReadMore}
+              onClick={handleViewProfile}
               className="mt-2 text-[#052B70] text-sm font-semibold hover:text-[#3BD463] transition-colors"
             >
-              {isExpanded ? "Read less" : "Read more"}
+              View full profile
             </button>
           )}
         </div>
@@ -183,21 +179,21 @@ export const CoachesBlock: React.FC<Props> = ({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl"
+              className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
             >
               {activeCoach.profilePicture ? (
                 <img
                   src={(activeCoach.profilePicture as any).url}
                   alt={activeCoach.name}
-                  className="w-full h-72 object-cover"
+                  className="w-full h-72 object-cover flex-shrink-0"
                 />
               ) : (
-                <div className="w-full h-72 bg-gray-100 flex items-center justify-center">
+                <div className="w-full h-72 bg-gray-100 flex items-center justify-center flex-shrink-0">
                   <Users size={80} className="text-gray-300" />
                 </div>
               )}
 
-              <div className="p-8 text-center">
+              <div className="p-8 text-center overflow-y-auto flex-grow">
                 <h3 className="text-3xl font-heading font-bold text-[#052B70]">
                   {activeCoach.name}
                 </h3>
@@ -207,7 +203,7 @@ export const CoachesBlock: React.FC<Props> = ({
                 </p>
 
                 {activeCoach.bio && (
-                  <p className="mt-6 text-gray-600 leading-relaxed">
+                  <p className="mt-6 text-gray-600 leading-relaxed text-left">
                     {activeCoach.bio}
                   </p>
                 )}
