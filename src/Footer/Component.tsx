@@ -4,10 +4,9 @@ import React from 'react'
 
 import type { Footer } from '@/payload-types'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
-import { Instagram, Facebook, Youtube, Mail } from 'lucide-react'
+import { Instagram, Facebook, Youtube, Mail, Phone, MapPin } from 'lucide-react'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
@@ -16,153 +15,170 @@ export async function Footer() {
   const socialLinks = [
     {
       label: 'Instagram',
-      href: 'https://instagram.com/', // update to YMS insta
+      href: 'https://instagram.com/',
       Icon: Instagram,
     },
     {
       label: 'Facebook',
-      href: 'https://facebook.com/', // update
+      href: 'https://facebook.com/',
       Icon: Facebook,
     },
     {
       label: 'YouTube',
-      href: 'https://youtube.com/', // update
+      href: 'https://youtube.com/',
       Icon: Youtube,
-    },
-    {
-      label: 'Email',
-      href: 'mailto:info@youthmuslimsports.com', // update
-      Icon: Mail,
     },
   ]
 
   return (
-    <footer className="mt-auto relative overflow-hidden bg-[#050506] text-white">
-      {/* PARALLAX / GLOW BACKGROUND SHAPES */}
-      <div className="pointer-events-none absolute -top-32 -left-24 h-72 w-72 rounded-full bg-gradient-to-br from-amber-400/40 via-amber-200/10 to-transparent blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-24 -right-20 h-80 w-80 rounded-full bg-gradient-to-tl from-amber-500/35 via-amber-200/10 to-transparent blur-3xl" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
-
-      {/* LIGHT STREAKS */}
-      <div className="pointer-events-none absolute -top-10 left-1/3 h-0.5 w-64 -rotate-6 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent opacity-60" />
-      <div className="pointer-events-none absolute top-10 right-10 h-0.5 w-52 rotate-6 bg-gradient-to-r from-transparent via-amber-300/60 to-transparent opacity-60" />
-
-      {/* MAIN CONTENT */}
-      <div className="container relative z-10 py-16 lg:py-20 flex flex-col gap-12 lg:flex-row lg:justify-between lg:items-start">
-
-        {/* LEFT: LOGO + MISSION + SOCIALS */}
-        <div className="space-y-6 max-w-sm">
-          {/* 3D-ish logo hover */}
-          <Link
-            href="/"
-            className="inline-flex transform-gpu transition-transform duration-500 hover:-translate-y-1 hover:scale-[1.03] hover:drop-shadow-[0_20px_45px_rgba(0,0,0,0.6)]"
-          >
-            <Logo />
-          </Link>
-
-          <div className="space-y-1">
-            <p className="text-sm font-medium tracking-[0.2em] uppercase text-amber-300">
-              Youth Muslim Sports
+    <footer className="bg-[#052B70]/5 border-t border-gray-200 pt-16 pb-8">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+          {/* Logo & Mission */}
+          <div className="space-y-4 lg:col-span-1">
+            <Link href="/" className="inline-flex items-center gap-2">
+              <Logo />
+            </Link>
+            <p className="text-gray-600 text-sm max-w-xs leading-relaxed">
+              Every parent longs for their children&apos;s safety, to be surrounded by positive influences, and to have a strong sense of belonging.
             </p>
-            <p className="text-sm text-white/70 leading-relaxed">
-              Faith • Fitness • Community. Building the next generation of Muslim
-              athletes with excellence on and off the field.
-            </p>
+            {/* Social Icons */}
+            <div className="flex gap-3 pt-2">
+              {socialLinks.map(({ label, href, Icon }, i) => (
+                <a
+                  key={i}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#052B70]/20 bg-white hover:bg-[#3BD463] hover:border-[#3BD463] transition-all group"
+                >
+                  <Icon className="h-5 w-5 text-[#052B70] group-hover:text-white transition-colors" />
+                </a>
+              ))}
+            </div>
+          </div>
+          
+          {/* Programs */}
+          <div>
+            <h4 className="font-heading font-bold text-[#052B70] mb-4">Programs</h4>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li>
+                <Link href="/programs?type=Clinic" className="hover:text-[#3BD463] transition-colors">
+                  Clinics
+                </Link>
+              </li>
+              <li>
+                <Link href="/programs?type=Camp" className="hover:text-[#3BD463] transition-colors">
+                  Camps
+                </Link>
+              </li>
+              <li>
+                <Link href="/programs?type=League" className="hover:text-[#3BD463] transition-colors">
+                  Leagues
+                </Link>
+              </li>
+              <li>
+                <Link href="/programs?type=Tournament" className="hover:text-[#3BD463] transition-colors">
+                  Tournaments
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* SOCIAL ICONS */}
-          <div className="flex flex-wrap gap-3 pt-2">
-            {socialLinks.map(({ label, href, Icon }, i) => (
-              <a
-                key={i}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className="group relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/30 bg-white/5 backdrop-blur-md transition-all hover:-translate-y-1 hover:border-amber-300 hover:bg-amber-300/15"
-              >
-                <Icon className="h-5 w-5 text-amber-200 transition group-hover:text-amber-300" />
-                <span className="pointer-events-none absolute -bottom-6 text-[11px] text-white/60 opacity-0 transition group-hover:opacity-100">
-                  {label}
-                </span>
-              </a>
-            ))}
+          {/* Locations */}
+          <div>
+            <h4 className="font-heading font-bold text-[#052B70] mb-4">Locations</h4>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li>
+                <Link href="/locations" className="hover:text-[#3BD463] transition-colors flex items-center gap-1">
+                  <MapPin size={14} className="text-[#3BD463]" /> Chicago, IL
+                </Link>
+              </li>
+              <li>
+                <Link href="/locations" className="hover:text-[#3BD463] transition-colors flex items-center gap-1">
+                  <MapPin size={14} className="text-[#3BD463]" /> Dallas, TX
+                </Link>
+              </li>
+              <li>
+                <Link href="/locations" className="hover:text-[#3BD463] transition-colors flex items-center gap-1">
+                  <MapPin size={14} className="text-[#3BD463]" /> Richmond, VA
+                </Link>
+              </li>
+            </ul>
           </div>
-        </div>
 
-        {/* RIGHT: GLASS CARD – NEWSLETTER + NAV + THEME */}
-        <div className="w-full max-w-xl lg:max-w-lg">
-          <div className="rounded-3xl border border-white/10 bg-white/5 px-7 py-7 md:px-9 md:py-9 backdrop-blur-2xl shadow-[0_28px_80px_rgba(0,0,0,0.65)]">
-            {/* CALLOUT / NEWSLETTER */}
-            <div className="space-y-3 pb-6 border-b border-white/10">
-              <p className="text-xs font-semibold tracking-[0.3em] uppercase text-amber-300">
-                Stay in the loop
-              </p>
-              <h3 className="text-xl md:text-2xl font-semibold">
-                Camps, leagues & faith-first training in your inbox.
-              </h3>
-              <p className="text-sm text-white/70">
-                Be the first to hear about new programs, tournament slots, and
-                community updates for Youth Muslim Sports.
-              </p>
+          {/* Organization */}
+          <div>
+            <h4 className="font-heading font-bold text-[#052B70] mb-4">Organization</h4>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li>
+                <Link href="/about" className="hover:text-[#3BD463] transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/sponsors" className="hover:text-[#3BD463] transition-colors">
+                  Sponsorship
+                </Link>
+              </li>
+              {navItems.map(({ link }, i) => (
+                <li key={i}>
+                  <CMSLink
+                    {...link}
+                    className="hover:text-[#3BD463] transition-colors"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              {/* Simple newsletter form – wire up to your backend later */}
-              <form
-                action="#"
-                method="post"
-                className="mt-4 flex flex-col gap-3 sm:flex-row"
-              >
+          {/* Contact */}
+          <div>
+            <h4 className="font-heading font-bold text-[#052B70] mb-4">Contact</h4>
+            <ul className="space-y-3 text-sm text-gray-600">
+              <li className="flex items-center gap-2">
+                <Mail size={16} className="text-[#3BD463]" />
+                <a href="mailto:info@ymsports.org" className="hover:text-[#3BD463] transition-colors">
+                  info@ymsports.org
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone size={16} className="text-[#3BD463]" />
+                <span>(555) 123-4567</span>
+              </li>
+            </ul>
+
+            {/* Newsletter Mini Form */}
+            <div className="mt-6 p-4 rounded-2xl bg-white border border-gray-200 shadow-sm">
+              <p className="text-xs font-semibold text-[#052B70] uppercase tracking-wide mb-2">
+                Stay Updated
+              </p>
+              <form action="#" method="post" className="flex flex-col gap-2">
                 <input
                   type="email"
                   required
-                  placeholder="Your email address"
-                  className="flex-1 rounded-full border border-white/15 bg-black/40 px-4 py-2.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-amber-300 focus:ring-1 focus:ring-amber-300/70"
+                  placeholder="Your email"
+                  className="w-full rounded-full border border-gray-300 px-4 py-2 text-sm text-gray-800 placeholder:text-gray-400 outline-none focus:border-[#3BD463] focus:ring-1 focus:ring-[#3BD463]"
                 />
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-full bg-amber-400 px-6 py-2.5 text-sm font-semibold text-black shadow-[0_14px_40px_rgba(245,196,79,0.65)] transition hover:bg-amber-300 hover:-translate-y-0.5"
+                  className="w-full rounded-full bg-[#3BD463] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2EB854] transition-colors"
                 >
-                  Join newsletter
+                  Subscribe
                 </button>
               </form>
             </div>
-
-            {/* NAV + THEME */}
-            <div className="pt-6 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              {/* NAVIGATION – from CMS */}
-              <nav className="flex flex-wrap gap-x-7 gap-y-3 text-sm md:justify-end">
-                {navItems.map(({ link }, i) => (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    className="text-white/75 hover:text-amber-300 transition-colors border-b border-transparent hover:border-amber-300 pb-0.5"
-                  />
-                ))}
-              </nav>
-
-              {/* THEME SELECTOR */}
-              <div className="flex items-center gap-2 text-xs text-white/60">
-                <span className="hidden md:inline">Theme</span>
-                <div className="opacity-80 hover:opacity-100 transition">
-                  <ThemeSelector />
-                </div>
-              </div>
-            </div>
           </div>
         </div>
-      </div>
-
-      {/* BOTTOM BAR */}
-      <div className="border-t border-white/10 bg-black/60">
-        <div className="container py-5 flex flex-col gap-2 text-[11px] text-white/55 md:flex-row md:items-center md:justify-between">
-          <span>
-            © {new Date().getFullYear()} Youth Muslim Sports. All rights
-            reserved.
-          </span>
-          <span className="md:text-right">
-            Designed for elevated Muslim youth — blending faith, discipline, and
-            elite sport.
-          </span>
+        
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+          <p>© {new Date().getFullYear()} Youth Muslim Sports. All rights reserved.</p>
+          <div className="flex gap-4 mt-4 md:mt-0">
+            <a href="#" className="hover:text-[#3BD463] transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-[#3BD463] transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>
