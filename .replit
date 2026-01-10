@@ -8,7 +8,7 @@ channel = "stable-25_05"
 [userenv]
 
 [userenv.shared]
-DATABASE_URI = "postgresql://postgres:password@helium/heliumdb?sslmode=disable"
+DATABASE_URI = "postgresql://neondb_owner:npg_Sdq6x4pazBJi@ep-nameless-bush-ahuzecgx-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
 PAYLOAD_SECRET = "c0fc51fe3188c54d68ce5c6ed2456385435e15df6d688501e6e087721b3c5ab3"
 
 [workflows]
