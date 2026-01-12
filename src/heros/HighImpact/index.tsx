@@ -46,7 +46,7 @@ const FeaturedProgramCard: React.FC<{ program: typeof FEATURED_PROGRAMS[0] }> = 
       animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={{ opacity: 0, x: -50, scale: 0.95 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-md w-full"
+      className="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-2xl w-full"
     >
       <div className="relative h-48 bg-gradient-to-br from-[#052B70] to-[#0a3d8f] overflow-hidden">
         <div className="absolute inset-0 bg-[url('/pattern-dots.svg')] opacity-10" />
