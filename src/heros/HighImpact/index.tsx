@@ -10,7 +10,7 @@ const FEATURED_PROGRAMS = [
   {
     id: 1,
     title: 'Elite Basketball Camp',
-    description: 'Intensive skills training with professional coaches. Perfect for players looking to elevate their game to the next level.',
+    description: 'Intensive skills training with professional coaches. Perfect for players looking to elevate their game to the next level. Intensive skills training with professional coaches. Perfect for players looking to elevate their game to the next level. Intensive skills training with professional coaches. Perfect for players looking to elevate their game to the next level. Intensive skills training with professional coaches. Perfect for players looking to elevate their game to the next level.',
     cost: '$249',
     location: 'Chicago, IL',
     duration: '2 Weeks',
@@ -47,7 +47,7 @@ const FeaturedProgramCard: React.FC<{ program: typeof FEATURED_PROGRAMS[0] }> = 
       exit={{ opacity: 0, x: -50, scale: 0.95 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="bg-white rounded-3xl shadow-2xl overflow-hidden w-full flex flex-row"
-      style={{ minWidth: '500px', maxWidth: '700px' }}
+      style={{ minWidth: '700px', maxWidth: '700px' }}
     >
       <div className="relative w-2/5 min-h-[320px] bg-gradient-to-br from-[#052B70] to-[#0a3d8f] overflow-hidden flex-shrink-0">
         <div className="absolute inset-0 bg-[url('/pattern-dots.svg')] opacity-10" />
@@ -152,7 +152,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentProgramIndex((prev) => (prev + 1) % FEATURED_PROGRAMS.length)
-    }, 5000)
+    }, 10000)
     return () => clearInterval(interval)
   }, [])
 
