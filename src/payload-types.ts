@@ -224,11 +224,22 @@ export interface Page {
     | {
         left: {
           title: string;
+          description?: string | null;
+          duration?: string | null;
+          link: string;
+          image: number | Media;
+        };
+        center: {
+          title: string;
+          description?: string | null;
+          duration?: string | null;
           link: string;
           image: number | Media;
         };
         right: {
           title: string;
+          description?: string | null;
+          duration?: string | null;
           link: string;
           image: number | Media;
         };
@@ -1537,6 +1548,17 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     title?: T;
+                    description?: T;
+                    duration?: T;
+                    link?: T;
+                    image?: T;
+                  };
+              center?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    duration?: T;
                     link?: T;
                     image?: T;
                   };
@@ -1544,6 +1566,8 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     title?: T;
+                    description?: T;
+                    duration?: T;
                     link?: T;
                     image?: T;
                   };
