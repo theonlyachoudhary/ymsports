@@ -32,6 +32,33 @@ export const Programs: CollectionConfig = {
       required: true,
     },
     {
+      name: 'price',
+      label: 'Price',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'e.g. $249 or $150/month',
+      },
+    },
+    {
+      name: 'location',
+      label: 'Location',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'e.g. Chicago, IL',
+      },
+    },
+    {
+      name: 'duration',
+      label: 'Duration',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'e.g. 8 Weeks or 2 Hours/Session',
+      },
+    },
+    {
       name: 'ageGroup',
       label: 'Age Group',
       type: 'radio',

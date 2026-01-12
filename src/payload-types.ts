@@ -949,6 +949,18 @@ export interface Program {
   title: string;
   subtitle: string;
   description: string;
+  /**
+   * e.g. $249 or $150/month
+   */
+  price?: string | null;
+  /**
+   * e.g. Chicago, IL
+   */
+  location?: string | null;
+  /**
+   * e.g. 8 Weeks or 2 Hours/Session
+   */
+  duration?: string | null;
   ageGroup: 'u6' | 'u8' | 'u10' | 'u12';
   /**
    * Enter a HEX code like #C4571B
@@ -2096,6 +2108,9 @@ export interface ProgramsSelect1<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   description?: T;
+  price?: T;
+  location?: T;
+  duration?: T;
   ageGroup?: T;
   themeColor?: T;
   buttonText?: T;
