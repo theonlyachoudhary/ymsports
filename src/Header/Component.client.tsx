@@ -53,10 +53,10 @@ export default function HeaderClient({ data }: { data: Header }) {
         ${
           isHome
             ? shrink
-              ? 'bg-white/95 border-black/5 shadow-sm backdrop-blur-sm' // home + scrolled -> solid
-              : 'backdrop-blur-lg bg-white/15 border-white/10' // home top -> translucent
+              ? 'bg-white border-black/5 shadow-sm backdrop-blur-sm' // home + scrolled -> solid
+              : 'backdrop-blur-lg bg-white border-white/10' // home top -> translucent
             : shrink
-              ? 'bg-background/95 border-black/5 shadow-sm' // inner page + scrolled -> solid
+              ? 'bg-background border-black/5 shadow-sm' // inner page + scrolled -> solid
               : 'bg-background' // inner page top -> existing
         }
         transition-colors duration-300
@@ -110,7 +110,6 @@ export default function HeaderClient({ data }: { data: Header }) {
               top-full
               left-0
               w-full
-              bg-transparent
               pt-6 pb-8 px-8
               z-[200]
             "
