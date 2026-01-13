@@ -372,6 +372,7 @@ export interface Page {
     | WhySectionBlock
     | FeaturedProgramsBlock
     | SponsorshipBlock
+    | LocationsBlockType
   )[];
   meta?: {
     title?: string | null;
@@ -1181,6 +1182,44 @@ export interface SponsorshipBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LocationsBlockType".
+ */
+export interface LocationsBlockType {
+  hero?: {
+    badge?: string | null;
+    title?: string | null;
+    titleAccent?: string | null;
+    subtitle?: string | null;
+    backgroundImage?: (number | null) | Media;
+  };
+  locations?:
+    | {
+        city: string;
+        state: string;
+        description?: string | null;
+        statusBadge?: string | null;
+        athleteCount?: number | null;
+        image?: (number | null) | Media;
+        sports?:
+          | {
+              sport: string;
+              id?: string | null;
+            }[]
+          | null;
+        address?: string | null;
+        phoneNumber?: string | null;
+        email?: string | null;
+        buttonText?: string | null;
+        buttonLink?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'locationsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "camps".
  */
 export interface Camp {
@@ -1773,6 +1812,7 @@ export interface PagesSelect<T extends boolean = true> {
         whySection?: T | WhySectionBlockSelect<T>;
         featuredPrograms?: T | FeaturedProgramsBlockSelect<T>;
         sponsorship?: T | SponsorshipBlockSelect<T>;
+        locationsBlock?: T | LocationsBlockTypeSelect<T>;
       };
   meta?:
     | T
@@ -2027,6 +2067,45 @@ export interface SponsorshipBlockSelect<T extends boolean = true> {
               text?: T;
               id?: T;
             };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LocationsBlockType_select".
+ */
+export interface LocationsBlockTypeSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        badge?: T;
+        title?: T;
+        titleAccent?: T;
+        subtitle?: T;
+        backgroundImage?: T;
+      };
+  locations?:
+    | T
+    | {
+        city?: T;
+        state?: T;
+        description?: T;
+        statusBadge?: T;
+        athleteCount?: T;
+        image?: T;
+        sports?:
+          | T
+          | {
+              sport?: T;
+              id?: T;
+            };
+        address?: T;
+        phoneNumber?: T;
+        email?: T;
+        buttonText?: T;
+        buttonLink?: T;
+        id?: T;
       };
   id?: T;
   blockName?: T;
