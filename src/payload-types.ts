@@ -1185,13 +1185,6 @@ export interface SponsorshipBlock {
  * via the `definition` "LocationsBlockType".
  */
 export interface LocationsBlockType {
-  hero?: {
-    badge?: string | null;
-    title?: string | null;
-    titleAccent?: string | null;
-    subtitle?: string | null;
-    backgroundImage?: (number | null) | Media;
-  };
   locations?:
     | {
         city: string;
@@ -2076,15 +2069,6 @@ export interface SponsorshipBlockSelect<T extends boolean = true> {
  * via the `definition` "LocationsBlockType_select".
  */
 export interface LocationsBlockTypeSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        badge?: T;
-        title?: T;
-        titleAccent?: T;
-        subtitle?: T;
-        backgroundImage?: T;
-      };
   locations?:
     | T
     | {

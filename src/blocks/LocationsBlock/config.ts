@@ -9,43 +9,6 @@ export const LocationsBlock: Block = {
   },
   fields: [
     {
-      name: 'hero',
-      type: 'group',
-      label: 'Hero Section',
-      fields: [
-        {
-          name: 'badge',
-          type: 'text',
-          defaultValue: 'Find Your Home Field',
-          label: 'Badge Text',
-        },
-        {
-          name: 'title',
-          type: 'text',
-          defaultValue: 'OUR',
-          label: 'Title (first part)',
-        },
-        {
-          name: 'titleAccent',
-          type: 'text',
-          defaultValue: 'LOCATIONS',
-          label: 'Title Accent (highlighted)',
-        },
-        {
-          name: 'subtitle',
-          type: 'text',
-          defaultValue: 'We operate across Chicago, Dallas, and Virginia. Find a YMS community near you.',
-          label: 'Subtitle',
-        },
-        {
-          name: 'backgroundImage',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Background Image',
-        },
-      ],
-    },
-    {
       name: 'locations',
       type: 'array',
       label: 'Locations',
