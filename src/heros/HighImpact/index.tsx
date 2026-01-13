@@ -191,9 +191,9 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="text-left"
               >
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#3BD463] text-xs font-black uppercase tracking-[0.3em] mb-8 animate-fadeUp">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white backdrop-blur-md border border-white/20 text-[#3BD463] text-xs font-black uppercase tracking-[0.3em] mb-8 animate-fadeUp">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3BD463] opacity-75"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3BD463]"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3BD463]"></span>
                   </span>
                   Youth Athletics Redefined

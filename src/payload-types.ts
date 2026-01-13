@@ -930,11 +930,19 @@ export interface Form {
 export interface Programs {
   title: string;
   description: string;
-  ageGroups: {
-    label: string;
-    color?: string | null;
-    id?: string | null;
-  }[];
+  /**
+   * Add filter buttons for the programs grid (e.g. All, Basketball, Soccer)
+   */
+  filters?:
+    | {
+        label: string;
+        /**
+         * Use "all" for showing all programs, or match program subtitles/categories
+         */
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
   programs: (number | Program)[];
   id?: string | null;
   blockName?: string | null;
@@ -1818,11 +1826,11 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface ProgramsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  ageGroups?:
+  filters?:
     | T
     | {
         label?: T;
-        color?: T;
+        value?: T;
         id?: T;
       };
   programs?: T;

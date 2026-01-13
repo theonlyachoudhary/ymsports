@@ -7,12 +7,25 @@ export const Programs: Block = {
     { name: 'title', type: 'text', required: true },
     { name: 'description', type: 'textarea', required: true },
     {
-      name: 'ageGroups',
+      name: 'filters',
       type: 'array',
-      required: true,
+      label: 'Filter Categories',
+      admin: {
+        description: 'Add filter buttons for the programs grid (e.g. All, Basketball, Soccer)',
+      },
       fields: [
         { name: 'label', type: 'text', required: true },
-        { name: 'color', type: 'text', defaultValue: 'orange' },
+        { 
+          name: 'value', 
+          type: 'text', 
+          required: true,
+          admin: {
+            description: 'Use "all" for showing all programs, or match program subtitles/categories',
+          },
+        },
+      ],
+      defaultValue: [
+        { label: 'All', value: 'all' },
       ],
     },
     {

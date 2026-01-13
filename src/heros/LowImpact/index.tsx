@@ -28,7 +28,7 @@ export const LowImpactHero: React.FC<Page['hero']> = ({ tagline, headline, subte
           </h1>
         )}
         {subtext && (
-          <p className="text-xl text-white/70 max-w-2xl mx-auto font-medium mb-8">
+          <p className="text-xl text-white max-w-2xl mx-auto font-medium mb-8">
             {subtext}
           </p>
         )}

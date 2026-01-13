@@ -12,16 +12,6 @@ export function TournamentsBlock({
 
   return (
     <section className="w-full py-24 px-6">
-
-      {/* HEADER */}
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="font-heading uppercase tracking-tight text-black
-                       text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-          {title}
-        </h2>
-      </div>
-
-      {/* GRID */}
       <div className="mt-20 max-w-7xl mx-auto 
                       grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
                       gap-12">
