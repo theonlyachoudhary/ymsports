@@ -162,7 +162,11 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'featuredProgram';
+    /**
+     * Select a program to feature in the hero section
+     */
+    featuredProgram?: (number | null) | Program;
     tagline?: string | null;
     headline?: string | null;
     subtext?: string | null;
@@ -394,45 +398,50 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "programs".
  */
-export interface Post {
+export interface Program {
   id: number;
   title: string;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
+  /**
+   * Select the type of program
+   */
+  programType: 'camp' | 'clinic' | 'tournament';
+  /**
+   * Check this to display the program in featured sections and hero areas
+   */
+  featured?: boolean | null;
+  subtitle: string;
+  description: string;
+  /**
+   * e.g. $249 or $150/month
+   */
+  price?: string | null;
+  /**
+   * e.g. Chicago, IL
+   */
+  location?: string | null;
+  /**
+   * e.g. 8 Weeks or 2 Hours/Session
+   */
+  duration?: string | null;
+  ageGroup: 'u6' | 'u8' | 'u10' | 'u12';
+  /**
+   * Enter a HEX code like #C4571B
+   */
+  themeColor: string;
+  /**
+   * e.g. Register Now For Ages 5 to 7
+   */
+  buttonText?: string | null;
+  /**
+   * e.g. /register#5-7
+   */
+  buttonLink?: string | null;
+  /**
+   * Upload side pattern. Replaces default rectangles in design.
+   */
+  sideImage?: (number | null) | Media;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -440,7 +449,6 @@ export interface Post {
   slug: string;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -533,6 +541,56 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -952,52 +1010,6 @@ export interface Programs {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "programs".
- */
-export interface Program {
-  id: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  /**
-   * e.g. $249 or $150/month
-   */
-  price?: string | null;
-  /**
-   * e.g. Chicago, IL
-   */
-  location?: string | null;
-  /**
-   * e.g. 8 Weeks or 2 Hours/Session
-   */
-  duration?: string | null;
-  ageGroup: 'u6' | 'u8' | 'u10' | 'u12';
-  /**
-   * Enter a HEX code like #C4571B
-   */
-  themeColor: string;
-  /**
-   * e.g. Register Now For Ages 5 to 7
-   */
-  buttonText?: string | null;
-  /**
-   * e.g. /register#5-7
-   */
-  buttonLink?: string | null;
-  /**
-   * Upload side pattern. Replaces default rectangles in design.
-   */
-  sideImage?: (number | null) | Media;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Values".
  */
 export interface Values {
@@ -1122,6 +1134,10 @@ export interface FeaturedProgramsBlock {
   eyebrow?: string | null;
   title?: string | null;
   description?: string | null;
+  /**
+   * Optionally filter programs by type
+   */
+  programTypeFilter?: ('all' | 'camp' | 'clinic' | 'tournament') | null;
   programsLimit?: number | null;
   ctaText?: string | null;
   ctaLink?: string | null;
@@ -1597,6 +1613,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
+        featuredProgram?: T;
         tagline?: T;
         headline?: T;
         subtext?: T;
@@ -2006,6 +2023,7 @@ export interface FeaturedProgramsBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   description?: T;
+  programTypeFilter?: T;
   programsLimit?: T;
   ctaText?: T;
   ctaLink?: T;
@@ -2282,6 +2300,8 @@ export interface CoachesSelect1<T extends boolean = true> {
  */
 export interface ProgramsSelect1<T extends boolean = true> {
   title?: T;
+  programType?: T;
+  featured?: T;
   subtitle?: T;
   description?: T;
   price?: T;

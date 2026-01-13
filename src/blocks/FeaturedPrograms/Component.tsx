@@ -9,6 +9,7 @@ type FeaturedProgramsBlockProps = {
   eyebrow?: string
   title?: string
   description?: string
+  programTypeFilter?: 'all' | 'camp' | 'clinic' | 'tournament'
   programsLimit?: number
   ctaText?: string
   ctaLink?: string
@@ -71,6 +72,7 @@ export const FeaturedProgramsBlock: React.FC<FeaturedProgramsBlockProps> = ({
   eyebrow = 'Upcoming Seasons',
   title = 'Featured Programs',
   description = 'Discover our most popular upcoming clinics and camps. Designed for every age and skill level.',
+  programTypeFilter = 'all',
   programsLimit = 3,
   ctaText = 'View All Programs',
   ctaLink = '/programs',
@@ -81,7 +83,11 @@ export const FeaturedProgramsBlock: React.FC<FeaturedProgramsBlockProps> = ({
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const res = await fetch(`/api/programs?limit=${programsLimit}&depth=1`)
+        let url = `/api/programs?limit=${programsLimit}&depth=1&where[featured][equals]=true`
+        if (programTypeFilter && programTypeFilter !== 'all') {
+          url += `&where[programType][equals]=${programTypeFilter}`
+        }
+        const res = await fetch(url)
         if (res.ok) {
           const data = await res.json()
           setPrograms(data.docs || [])
@@ -94,7 +100,7 @@ export const FeaturedProgramsBlock: React.FC<FeaturedProgramsBlockProps> = ({
     }
 
     fetchPrograms()
-  }, [programsLimit])
+  }, [programsLimit, programTypeFilter])
 
   return (
     <section className="py-24 bg-white">

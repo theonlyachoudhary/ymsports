@@ -1,45 +1,23 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import type { Page } from '@/payload-types'
+import type { Page, Program } from '@/payload-types'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { CMSLink } from '@/components/Link'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 
-const FEATURED_PROGRAMS = [
-  {
-    id: 1,
-    title: 'Elite Basketball Camp',
-    description: 'Intensive skills training with professional coaches. Perfect for players looking to elevate their game to the next level.',
-    cost: '$249',
-    location: 'Chicago, IL',
-    duration: '2 Weeks',
-    image: '/programs/basketball.jpg',
-    registerLink: '#register',
-  },
-  {
-    id: 2,
-    title: 'Soccer Development League',
-    description: 'Year-round competitive league for all skill levels. Build teamwork, technique, and game intelligence.',
-    cost: '$189',
-    location: 'Dallas, TX',
-    duration: '12 Weeks',
-    image: '/programs/soccer.jpg',
-    registerLink: '#register',
-  },
-  {
-    id: 3,
-    title: 'Flag Football Academy',
-    description: 'Learn the fundamentals of football in a safe, non-contact environment. Great for beginners and experienced players alike.',
-    cost: '$159',
-    location: 'Richmond, VA',
-    duration: '8 Weeks',
-    image: '/programs/football.jpg',
-    registerLink: '#register',
-  },
-]
+type FeaturedProgram = {
+  id: number | string
+  title: string
+  description: string
+  cost?: string
+  location?: string
+  duration?: string
+  slug?: string
+  registerLink?: string
+}
 
-const FeaturedProgramCard: React.FC<{ program: typeof FEATURED_PROGRAMS[0] }> = ({ program }) => {
+const FeaturedProgramCard: React.FC<{ program: FeaturedProgram; totalPrograms: number; currentIndex: number }> = ({ program, totalPrograms, currentIndex }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: 50, scale: 0.95 }}
@@ -73,36 +51,42 @@ const FeaturedProgramCard: React.FC<{ program: typeof FEATURED_PROGRAMS[0] }> = 
           <h3 className="font-heading text-2xl text-[#052B70] uppercase tracking-tight mb-2">
             {program.title}
           </h3>
-          <p className="text-gray-600 text-sm leading-relaxed mb-4">
+          <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
             {program.description}
           </p>
 
           <div className="flex flex-wrap gap-2 mb-4">
-            <div className="flex items-center gap-2 px-3 py-2 bg-[#052B70]/5 rounded-xl">
-              <svg className="w-4 h-4 text-[#3BD463]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className="text-sm font-bold text-[#052B70]">{program.cost}</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-2 bg-[#052B70]/5 rounded-xl">
-              <svg className="w-4 h-4 text-[#3BD463]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span className="text-sm font-bold text-[#052B70]">{program.location}</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-2 bg-[#052B70]/5 rounded-xl">
-              <svg className="w-4 h-4 text-[#3BD463]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className="text-sm font-bold text-[#052B70]">{program.duration}</span>
-            </div>
+            {program.cost && (
+              <div className="flex items-center gap-2 px-3 py-2 bg-[#052B70]/5 rounded-xl">
+                <svg className="w-4 h-4 text-[#3BD463]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-sm font-bold text-[#052B70]">{program.cost}</span>
+              </div>
+            )}
+            {program.location && (
+              <div className="flex items-center gap-2 px-3 py-2 bg-[#052B70]/5 rounded-xl">
+                <svg className="w-4 h-4 text-[#3BD463]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span className="text-sm font-bold text-[#052B70]">{program.location}</span>
+              </div>
+            )}
+            {program.duration && (
+              <div className="flex items-center gap-2 px-3 py-2 bg-[#052B70]/5 rounded-xl">
+                <svg className="w-4 h-4 text-[#3BD463]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-sm font-bold text-[#052B70]">{program.duration}</span>
+              </div>
+            )}
           </div>
         </div>
 
         <div>
           <a
-            href={program.registerLink}
+            href={program.registerLink || (program.slug ? `/programs/${program.slug}` : '#')}
             className="group relative w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl text-white font-bold text-lg bg-gradient-to-r from-[#3BD463] to-[#2EB854] hover:from-[#2EB854] hover:to-[#25a048] transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#3BD463]/30 transform hover:-translate-y-0.5 overflow-hidden"
           >
             <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
@@ -112,16 +96,18 @@ const FeaturedProgramCard: React.FC<{ program: typeof FEATURED_PROGRAMS[0] }> = 
             </svg>
           </a>
 
-          <div className="flex justify-center gap-2 mt-4">
-            {FEATURED_PROGRAMS.map((p) => (
-              <div
-                key={p.id}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  p.id === program.id ? 'bg-[#3BD463] w-6' : 'bg-gray-300'
-                }`}
-              />
-            ))}
-          </div>
+          {totalPrograms > 1 && (
+            <div className="flex justify-center gap-2 mt-4">
+              {Array.from({ length: totalPrograms }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === currentIndex ? 'bg-[#3BD463] w-6' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
@@ -137,6 +123,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   const { setHeaderTheme } = useHeaderTheme()
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentProgramIndex, setCurrentProgramIndex] = useState(0)
+  const [programs, setPrograms] = useState<FeaturedProgram[]>([])
+  const [loading, setLoading] = useState(true)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -150,11 +138,43 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
   }, [setHeaderTheme])
 
   useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        let res = await fetch('/api/programs?limit=5&depth=1&where[featured][equals]=true')
+        let data = res.ok ? await res.json() : { docs: [] }
+        
+        if (!data.docs || data.docs.length === 0) {
+          res = await fetch('/api/programs?limit=5&depth=1')
+          data = res.ok ? await res.json() : { docs: [] }
+        }
+        
+        const fetchedPrograms: FeaturedProgram[] = (data.docs || []).map((p: Program) => ({
+          id: p.id,
+          title: p.title,
+          description: p.description,
+          cost: p.price || undefined,
+          location: p.location || undefined,
+          duration: p.duration || undefined,
+          slug: p.slug || undefined,
+          registerLink: p.buttonLink || undefined,
+        }))
+        setPrograms(fetchedPrograms)
+      } catch (e) {
+        console.error('Failed to fetch programs', e)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchPrograms()
+  }, [])
+
+  useEffect(() => {
+    if (programs.length === 0) return
     const interval = setInterval(() => {
-      setCurrentProgramIndex((prev) => (prev + 1) % FEATURED_PROGRAMS.length)
+      setCurrentProgramIndex((prev) => (prev + 1) % programs.length)
     }, 5000)
     return () => clearInterval(interval)
-  }, [])
+  }, [programs.length])
 
   if (type !== 'highImpact') return null
 
@@ -237,12 +257,21 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="hidden lg:flex justify-end"
               >
-                <AnimatePresence mode="wait">
-                  <FeaturedProgramCard
-                    key={FEATURED_PROGRAMS[currentProgramIndex].id}
-                    program={FEATURED_PROGRAMS[currentProgramIndex]}
-                  />
-                </AnimatePresence>
+                {programs.length > 0 && (
+                  <AnimatePresence mode="wait">
+                    <FeaturedProgramCard
+                      key={programs[currentProgramIndex]?.id}
+                      program={programs[currentProgramIndex]}
+                      totalPrograms={programs.length}
+                      currentIndex={currentProgramIndex}
+                    />
+                  </AnimatePresence>
+                )}
+                {programs.length === 0 && !loading && (
+                  <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 text-center text-white">
+                    <p className="text-lg opacity-70">No featured programs available</p>
+                  </div>
+                )}
               </motion.div>
             </div>
           </div>

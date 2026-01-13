@@ -22,6 +22,31 @@ export const Programs: CollectionConfig = {
       required: true,
     },
     {
+      name: 'programType',
+      type: 'select',
+      label: 'Program Type',
+      required: true,
+      defaultValue: 'camp',
+      options: [
+        { label: 'Camp', value: 'camp' },
+        { label: 'Clinic', value: 'clinic' },
+        { label: 'Tournament', value: 'tournament' },
+      ],
+      admin: {
+        description: 'Select the type of program',
+      },
+    },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      label: 'Featured Program',
+      defaultValue: false,
+      admin: {
+        description: 'Check this to display the program in featured sections and hero areas',
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'subtitle',
       type: 'text',
       required: true,

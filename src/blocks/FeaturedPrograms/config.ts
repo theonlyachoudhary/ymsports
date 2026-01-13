@@ -20,6 +20,21 @@ export const FeaturedPrograms: Block = {
       defaultValue: 'Discover our most popular upcoming clinics and camps. Designed for every age and skill level.',
     },
     {
+      name: 'programTypeFilter',
+      type: 'select',
+      label: 'Filter by Program Type',
+      defaultValue: 'all',
+      options: [
+        { label: 'All Types', value: 'all' },
+        { label: 'Camps Only', value: 'camp' },
+        { label: 'Clinics Only', value: 'clinic' },
+        { label: 'Tournaments Only', value: 'tournament' },
+      ],
+      admin: {
+        description: 'Optionally filter programs by type',
+      },
+    },
+    {
       name: 'programsLimit',
       type: 'number',
       defaultValue: 3,
