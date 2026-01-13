@@ -92,6 +92,20 @@ The site uses a modular block system allowing content editors to build pages by 
   - schedule (days, startTime, endTime)
   - registrationLink for Fillout integration
   - featuredImage upload
+- **Enhanced Programs collection**:
+  - Added `programType` select field (camp/clinic/tournament)
+  - Added `featured` checkbox to mark programs for hero and featured sections
+- **Updated FeaturedPrograms block**:
+  - Now filters to show only featured programs
+  - Added optional `programTypeFilter` to filter by camp/clinic/tournament
+- **New Hero type - Featured Program**:
+  - Added "Featured Program" hero option in page hero settings
+  - Select a specific program to showcase in the hero section
+  - Creates dynamic program-focused hero with details and CTA
+- **Updated HighImpactHero**:
+  - Now fetches real programs from the Programs collection API
+  - Prioritizes featured programs, falls back to all programs if none are featured
+  - Auto-rotating carousel of program cards
 
 ### Authentication & Access Control
 
