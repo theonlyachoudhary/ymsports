@@ -371,6 +371,7 @@ export interface Page {
     | PartnersBlock
     | WhySectionBlock
     | FeaturedProgramsBlock
+    | SponsorshipBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1129,6 +1130,57 @@ export interface FeaturedProgramsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorshipBlock".
+ */
+export interface SponsorshipBlock {
+  tiers?:
+    | {
+        name: string;
+        price: string;
+        pricePeriod?: string | null;
+        description?: string | null;
+        featured?: boolean | null;
+        featuredLabel?: string | null;
+        benefits?:
+          | {
+              benefit: string;
+              id?: string | null;
+            }[]
+          | null;
+        buttonText?: string | null;
+        buttonLink?: string | null;
+        phoneNumber?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  guidelines?: {
+    title?: string | null;
+    paragraphs?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    highlightTitle?: string | null;
+    highlightItems?:
+      | {
+          item: string;
+          id?: string | null;
+        }[]
+      | null;
+    closingParagraphs?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sponsorship';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "camps".
  */
 export interface Camp {
@@ -1720,6 +1772,7 @@ export interface PagesSelect<T extends boolean = true> {
         partners?: T | PartnersBlockSelect<T>;
         whySection?: T | WhySectionBlockSelect<T>;
         featuredPrograms?: T | FeaturedProgramsBlockSelect<T>;
+        sponsorship?: T | SponsorshipBlockSelect<T>;
       };
   meta?:
     | T
@@ -1923,6 +1976,58 @@ export interface FeaturedProgramsBlockSelect<T extends boolean = true> {
   programsLimit?: T;
   ctaText?: T;
   ctaLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorshipBlock_select".
+ */
+export interface SponsorshipBlockSelect<T extends boolean = true> {
+  tiers?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        pricePeriod?: T;
+        description?: T;
+        featured?: T;
+        featuredLabel?: T;
+        benefits?:
+          | T
+          | {
+              benefit?: T;
+              id?: T;
+            };
+        buttonText?: T;
+        buttonLink?: T;
+        phoneNumber?: T;
+        id?: T;
+      };
+  guidelines?:
+    | T
+    | {
+        title?: T;
+        paragraphs?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        highlightTitle?: T;
+        highlightItems?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        closingParagraphs?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+      };
   id?: T;
   blockName?: T;
 }

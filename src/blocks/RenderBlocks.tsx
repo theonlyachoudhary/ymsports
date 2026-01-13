@@ -28,6 +28,7 @@ import { InfoBlock } from '@/blocks/InfoBlock/Component'
 import { PartnersBlock } from '@/blocks/Partners/Component'
 import { WhySectionBlock } from '@/blocks/WhySection/Component'
 import { FeaturedProgramsBlock } from '@/blocks/FeaturedPrograms/Component'
+import { SponsorshipBlock } from '@/blocks/Sponsorship/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -53,6 +54,7 @@ const blockComponents = {
   partners: PartnersBlock,
   whySection: WhySectionBlock,
   featuredPrograms: FeaturedProgramsBlock,
+  sponsorship: SponsorshipBlock,
 }
 
 export const RenderBlocks: React.FC<{

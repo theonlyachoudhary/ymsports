@@ -32,6 +32,7 @@ import { InfoBlock } from '../../blocks/InfoBlock/config'
 import { Partners } from '../../blocks/Partners/config'
 import { WhySection } from '../../blocks/WhySection/config'
 import { FeaturedPrograms } from '../../blocks/FeaturedPrograms/config'
+import { Sponsorship } from '../../blocks/Sponsorship/config'
 
 import {
   MetaDescriptionField,
@@ -117,6 +118,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Partners,
                 WhySection,
                 FeaturedPrograms,
+                Sponsorship,
               ],
               required: true,
               admin: {
