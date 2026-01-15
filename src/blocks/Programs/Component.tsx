@@ -22,6 +22,12 @@ type Props = {
   programs?: (number | Program)[]
   className?: string
 }
+const MS_PER_WEEK = 1000 * 60 * 60 * 24 * 7;
+
+function weeksBetween(start: Date, end: Date): number {
+  const diffMs = end.getTime() - start.getTime();
+  return diffMs / MS_PER_WEEK;
+}
 
 const ProgramCard: React.FC<{ program: Program }> = ({ program }) => {
   const color = program.themeColor || '#052B70'
@@ -66,18 +72,20 @@ const ProgramCard: React.FC<{ program: Program }> = ({ program }) => {
             {program.duration && (
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <Clock size={16} className="text-gray-400" />
-                <span>{program.duration}</span>
+                <span>{
+                  weeksBetween(new Date(program.startDate), new Date(program.endDate))
+                }</span>
               </div>
             )}
           </div>
           
-          {program.buttonText && program.buttonLink && (
+          {program.buttonLink && (
             <Link href={program.buttonLink}>
               <Button 
                 className="w-full font-semibold text-white transition-all"
                 style={{ backgroundColor: color }}
               >
-                {program.buttonText}
+                Register Now
               </Button>
             </Link>
           )}
@@ -106,7 +114,18 @@ export const ProgramsBlock: React.FC<Props> = ({
         if (!res.ok) {
           throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`)
         }
-        setPrograms((await res.json()).docs)
+
+        const json = await res.json()
+        const now = new Date()
+
+        const filteredPrograms = json.docs.filter((program: any) => {
+          const start = new Date(program.startRegistrationDate)
+          const end = new Date(program.endRegistrationDate)
+
+          return now >= start && now <= end
+        })
+
+        setPrograms(filteredPrograms)
       } catch (err) {
         console.error('Error fetching programs:', err)
         setError(err instanceof Error ? err.message : 'Unknown error')
@@ -117,7 +136,6 @@ export const ProgramsBlock: React.FC<Props> = ({
 
     fetchPrograms()
   }, [])
-
   const filteredPrograms = useMemo(() => {
     if (activeFilter === 'all') return programs
     return programs.filter(p => 

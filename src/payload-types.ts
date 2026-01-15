@@ -402,46 +402,53 @@ export interface Page {
  */
 export interface Program {
   id: number;
-  title: string;
   /**
-   * Select the type of program
+   * Select the type of your program
    */
   programType: 'camp' | 'clinic' | 'tournament';
   /**
    * Check this to display the program in featured sections and hero areas
    */
   featured?: boolean | null;
-  subtitle: string;
+  title: string;
+  subtitle?: string | null;
   description: string;
   /**
    * e.g. $249 or $150/month
    */
-  price?: string | null;
+  price: string;
   /**
    * e.g. Chicago, IL
    */
   location?: string | null;
+  startDate: string;
+  endDate: string;
+  startRegistrationDate: string;
+  endRegistrationDate: string;
   /**
-   * e.g. 8 Weeks or 2 Hours/Session
+   * e.g. Wednesdays 5pm to 7pm
    */
-  duration?: string | null;
-  ageGroup: 'u6' | 'u8' | 'u10' | 'u12';
+  weeklySchedule?: string | null;
   /**
-   * Enter a HEX code like #C4571B
+   * e.g. 5
    */
-  themeColor: string;
+  minAge: string;
   /**
-   * e.g. Register Now For Ages 5 to 7
+   * e.g. 7
    */
-  buttonText?: string | null;
+  maxAge: string;
   /**
-   * e.g. /register#5-7
+   * Is this program for boys, girls, or both?
    */
-  buttonLink?: string | null;
+  gender: 'boys' | 'girls' | 'coed';
   /**
-   * Upload side pattern. Replaces default rectangles in design.
+   * e.g. /register
    */
-  sideImage?: (number | null) | Media;
+  buttonLink: string;
+  /**
+   * Optional Image for the Program.
+   */
+  programImage?: (number | null) | Media;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -2299,19 +2306,23 @@ export interface CoachesSelect1<T extends boolean = true> {
  * via the `definition` "programs_select".
  */
 export interface ProgramsSelect1<T extends boolean = true> {
-  title?: T;
   programType?: T;
   featured?: T;
+  title?: T;
   subtitle?: T;
   description?: T;
   price?: T;
   location?: T;
-  duration?: T;
-  ageGroup?: T;
-  themeColor?: T;
-  buttonText?: T;
+  startDate?: T;
+  endDate?: T;
+  startRegistrationDate?: T;
+  endRegistrationDate?: T;
+  weeklySchedule?: T;
+  minAge?: T;
+  maxAge?: T;
+  gender?: T;
   buttonLink?: T;
-  sideImage?: T;
+  programImage?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
