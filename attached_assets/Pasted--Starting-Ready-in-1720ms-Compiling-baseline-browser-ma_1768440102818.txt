@@ -1,0 +1,78 @@
+ ✓ Starting...
+ ✓ Ready in 1720ms
+ ○ Compiling / ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+
+warn - The `darkMode` option in your Tailwind CSS configuration is set to `false`, which now behaves the same as `media`.
+warn - Change `darkMode` to `media` or remove it entirely.
+warn - https://tailwindcss.com/docs/upgrade-guide#remove-dark-mode-configuration
+ ✓ Compiled / in 17.3s (3058 modules)
+ ✓ Compiled in 3.5s (913 modules)
+[✓] Pulling schema from database...
+ ⨯ [Error: Failed query: ALTER TABLE "pages_blocks_sponsorship_guidelines_highlight_items" ADD CONSTRAINT "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_sponsorship"("id") ON DELETE cascade ON UPDATE no action;
+params: ] {
+  query: 'ALTER TABLE "pages_blocks_sponsorship_guidelines_highlight_items" ADD CONSTRAINT "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_sponsorship"("id") ON DELETE cascade ON UPDATE no action;',
+  params: [],
+  payloadInitError: true,
+  digest: '262712192',
+  [cause]: [error: insert or update on table "pages_blocks_sponsorship_guidelines_highlight_items" violates foreign key constraint "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_f"] {
+    length: 469,
+    severity: 'ERROR',
+    code: '23503',
+    detail: 'Key (_parent_id)=(696672c3b6c6987845eb0a0c) is not present in table "pages_blocks_sponsorship".',
+    hint: undefined,
+    position: undefined,
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: 'public',
+    table: 'pages_blocks_sponsorship_guidelines_highlight_items',
+    column: undefined,
+    dataType: undefined,
+    constraint: 'pages_blocks_sponsorship_guidelines_highlight_items_parent_id_f',
+    file: 'ri_triggers.c',
+    line: '2599',
+    routine: 'ri_ReportViolation'
+  }
+}
+ ⨯ [Error: Failed query: ALTER TABLE "pages_blocks_sponsorship_guidelines_highlight_items" ADD CONSTRAINT "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_sponsorship"("id") ON DELETE cascade ON UPDATE no action;
+params: ] {
+  query: 'ALTER TABLE "pages_blocks_sponsorship_guidelines_highlight_items" ADD CONSTRAINT "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_sponsorship"("id") ON DELETE cascade ON UPDATE no action;',
+  params: [],
+  payloadInitError: true,
+  digest: '262712192',
+  [cause]: [error: insert or update on table "pages_blocks_sponsorship_guidelines_highlight_items" violates foreign key constraint "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_f"] {
+    length: 469,
+    severity: 'ERROR',
+    code: '23503',
+    detail: 'Key (_parent_id)=(696672c3b6c6987845eb0a0c) is not present in table "pages_blocks_sponsorship".',
+    hint: undefined,
+    position: undefined,
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: 'public',
+    table: 'pages_blocks_sponsorship_guidelines_highlight_items',
+    column: undefined,
+    dataType: undefined,
+    constraint: 'pages_blocks_sponsorship_guidelines_highlight_items_parent_id_f',
+    file: 'ri_triggers.c',
+    line: '2599',
+    routine: 'ri_ReportViolation'
+  }
+}
+ ⨯ [Error: Failed query: ALTER TABLE "pages_blocks_sponsorship_guidelines_highlight_items" ADD CONSTRAINT "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_sponsorship"("id") ON DELETE cascade ON UPDATE no action;
+params: ] {
+  environmentName: 'Server',
+  digest: '3100482284'
+}
+ ⨯ [Error: Failed query: ALTER TABLE "pages_blocks_sponsorship_guidelines_highlight_items" ADD CONSTRAINT "pages_blocks_sponsorship_guidelines_highlight_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_sponsorship"("id") ON DELETE cascade ON UPDATE no action;
+params: ] {
+  environmentName: 'Server',
+  digest: '3100482284'
+}
+[01:20:04] WARN: No email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.
+ GET / 500 in 36639ms
+ GET / 500 in 25867ms
+ ⚠ Blocked cross-origin request from c59c1eb3-7769-4fdc-97dd-05ce078167af-00-112grunjw687q.picard.replit.dev to /_next/* resource. To allow this, configure "allowedDevOrigins" in next.config
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
