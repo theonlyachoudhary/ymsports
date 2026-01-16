@@ -68,11 +68,12 @@ export const Programs: CollectionConfig = {
     {
       name: 'location',
       label: 'Location',
-      type: 'text',
+      type: 'select',
       required: false,
-      admin: {
-        description: 'e.g. Chicago, IL',
-      },
+      options: [
+        { label: 'Chicago, IL', value: 'chicago' },
+        { label: 'Dallas, TX', value: 'dallas' },
+      ],
     },
     {
       name: 'startDate',
@@ -160,7 +161,8 @@ export const Programs: CollectionConfig = {
       },
     },
     slugField({
-      position: undefined,
-    }),
+      name: 'slug',
+    })
+
   ],
 }

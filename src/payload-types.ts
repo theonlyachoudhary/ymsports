@@ -74,9 +74,7 @@ export interface Config {
     users: User;
     coaches: Coach;
     programs: Program;
-    camps: Camp;
     testimonials: Testimonial;
-    tournaments: Tournament;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -96,9 +94,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     coaches: CoachesSelect1<false> | CoachesSelect1<true>;
     programs: ProgramsSelect1<false> | ProgramsSelect1<true>;
-    camps: CampsSelect<false> | CampsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
-    tournaments: TournamentsSelect<false> | TournamentsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -417,10 +413,7 @@ export interface Program {
    * e.g. $249 or $150/month
    */
   price: string;
-  /**
-   * e.g. Chicago, IL
-   */
-  location?: string | null;
+  location?: ('chicago' | 'dallas') | null;
   startDate: string;
   endDate: string;
   startRegistrationDate: string;
@@ -1236,94 +1229,6 @@ export interface LocationsBlockType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "camps".
- */
-export interface Camp {
-  id: number;
-  title: string;
-  subtitle?: string | null;
-  programType: 'camp' | 'clinic' | 'league' | 'tournament';
-  location: {
-    city: string;
-    state: 'IL' | 'TX' | 'VA';
-  };
-  venue?: {
-    name?: string | null;
-    address?: string | null;
-  };
-  description: string;
-  fullDescription?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  whatToExpect?:
-    | {
-        item: string;
-        id?: string | null;
-      }[]
-    | null;
-  ageMin: number;
-  ageMax: number;
-  /**
-   * Select the related coach
-   */
-  coach?: (number | null) | Coach;
-  price: number;
-  schedule?: {
-    days?: string | null;
-    startTime?: string | null;
-    endTime?: string | null;
-  };
-  startDate?: string | null;
-  endDate?: string | null;
-  /**
-   * External Fillout form URL for registration
-   */
-  registrationLink: string;
-  featuredImage?: (number | null) | Media;
-  /**
-   * Select the related program
-   */
-  program?: (number | null) | Program;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tournaments".
- */
-export interface Tournament {
-  id: number;
-  image: number | Media;
-  name: string;
-  description?: string | null;
-  date: string;
-  location: string;
-  /**
-   * Optional external link
-   */
-  link?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1541,16 +1446,8 @@ export interface PayloadLockedDocument {
         value: number | Program;
       } | null)
     | ({
-        relationTo: 'camps';
-        value: number | Camp;
-      } | null)
-    | ({
         relationTo: 'testimonials';
         value: number | Testimonial;
-      } | null)
-    | ({
-        relationTo: 'tournaments';
-        value: number | Tournament;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -2330,55 +2227,6 @@ export interface ProgramsSelect1<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "camps_select".
- */
-export interface CampsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  programType?: T;
-  location?:
-    | T
-    | {
-        city?: T;
-        state?: T;
-      };
-  venue?:
-    | T
-    | {
-        name?: T;
-        address?: T;
-      };
-  description?: T;
-  fullDescription?: T;
-  whatToExpect?:
-    | T
-    | {
-        item?: T;
-        id?: T;
-      };
-  ageMin?: T;
-  ageMax?: T;
-  coach?: T;
-  price?: T;
-  schedule?:
-    | T
-    | {
-        days?: T;
-        startTime?: T;
-        endTime?: T;
-      };
-  startDate?: T;
-  endDate?: T;
-  registrationLink?: T;
-  featuredImage?: T;
-  program?: T;
-  generateSlug?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials_select".
  */
 export interface TestimonialsSelect<T extends boolean = true> {
@@ -2388,20 +2236,6 @@ export interface TestimonialsSelect<T extends boolean = true> {
   location?: T;
   generateSlug?: T;
   slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tournaments_select".
- */
-export interface TournamentsSelect<T extends boolean = true> {
-  image?: T;
-  name?: T;
-  description?: T;
-  date?: T;
-  location?: T;
-  link?: T;
   updatedAt?: T;
   createdAt?: T;
 }

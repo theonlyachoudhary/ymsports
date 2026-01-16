@@ -12,8 +12,6 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 //Add your collections here
 import { Coaches } from './collections/Coaches'
 import { Programs } from './collections/Programs'
-import { Camps } from './collections/Camps'
-import { Tournaments } from './collections/Tournaments'
 import { Testimonials } from './collections/Testimonials'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -84,9 +82,9 @@ export default buildConfig({
     Users,
     Coaches,
     Programs,
-    Camps,
+
     Testimonials,
-    Tournaments,
+
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
