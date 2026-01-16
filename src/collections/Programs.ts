@@ -26,6 +26,7 @@ export const Programs: CollectionConfig = {
         { label: 'Camp', value: 'camp' },
         { label: 'Clinic', value: 'clinic' },
         { label: 'Tournament', value: 'tournament' },
+        { label: 'League', value: 'league' },
       ],
       admin: {
         description: 'Select the type of your program',
