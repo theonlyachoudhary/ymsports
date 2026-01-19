@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import type { Header } from '@/payload-types'
+import type { Header, Page, Post } from '@/payload-types'
+import { CTAButton } from '@/components/CTAButton'
 
 const defaultNavItems = [
   { link: { label: 'Home', url: '/' } },
@@ -13,9 +14,30 @@ const defaultNavItems = [
   { link: { label: 'Sponsors', url: '/sponsors' } },
 ]
 
+function getCtaHref(ctaButton: Header['ctaButton']): string {
+  if (!ctaButton) return '/register'
+
+  if (ctaButton.linkType === 'reference' && ctaButton.reference) {
+    const ref = ctaButton.reference as { relationTo: string; value: Page | Post | string | number }
+    if (typeof ref.value === 'object' && ref.value?.slug) {
+      const prefix = ref.relationTo !== 'pages' ? `/${ref.relationTo}` : ''
+      return `${prefix}/${ref.value.slug}`
+    }
+  }
+
+  return ctaButton.url || '/register'
+}
+
 export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boolean }) {
   const pathname = usePathname()
   const navItems = data?.navItems?.length ? data.navItems : defaultNavItems
+
+  // CTA Button config with defaults
+  const ctaButton = data?.ctaButton
+  const showCta = ctaButton?.enabled !== false
+  const ctaLabel = ctaButton?.label || 'Register'
+  const ctaHref = getCtaHref(ctaButton)
+  const ctaNewTab = ctaButton?.newTab || false
 
   // -------------------
   // MOBILE VERSION
@@ -53,19 +75,26 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
           )
         })}
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.05 * navItems.length }}
-          className="mt-4"
-        >
-          <Link
-            href="/register"
-            className="mt-6 w-full text-center font-heading text-[18px] tracking-wide bg-green text-primary-foreground py-3 px-6 rounded-full shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
+        {showCta && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.05 * navItems.length }}
+            className="mt-4"
           >
-            Register
-          </Link>
-        </motion.div>
+            <CTAButton
+              href={ctaHref}
+              newTab={ctaNewTab}
+              variant="primary"
+              size="lg"
+              fullWidth
+              animate={false}
+              icon="arrow"
+            >
+              {ctaLabel}
+            </CTAButton>
+          </motion.div>
+        )}
       </motion.nav>
     )
   }
@@ -104,18 +133,24 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
         )
       })}
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.05 * navItems.length }}
-      >
-        <Link
-          href="/register"
-          className="yms-cta font-heading text-[16px] tracking-wide px-8 py-2 rounded-full bg-green text-primary-foreground shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
+      {showCta && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.05 * navItems.length }}
         >
-          Register
-        </Link>
-      </motion.div>
+          <CTAButton
+            href={ctaHref}
+            newTab={ctaNewTab}
+            variant="primary"
+            size="md"
+            animate={false}
+            icon="arrow"
+          >
+            {ctaLabel}
+          </CTAButton>
+        </motion.div>
+      )}
     </motion.nav>
   )
 }
