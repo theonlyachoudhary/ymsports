@@ -23,21 +23,9 @@ export const hero: Field = {
         { label: 'High Impact', value: 'highImpact' },
         { label: 'Medium Impact', value: 'mediumImpact' },
         { label: 'Low Impact', value: 'lowImpact' },
-        { label: 'Featured Program', value: 'featuredProgram' },
       ],
       required: true,
     },
-    {
-      name: 'featuredProgram',
-      type: 'relationship',
-      relationTo: 'programs',
-      label: 'Select Featured Program',
-      admin: {
-        description: 'Select a program to feature in the hero section',
-        condition: (_, { type } = {}) => type === 'featuredProgram',
-      },
-    },
-
     {
       name: 'tagline',
       type: 'text',

@@ -1,8 +1,10 @@
+'use client'
+
 import { cn } from '@/utilities/ui'
-import { SectionHeader } from '@/components/SectionHeader'
-import { Card } from '@/components/ui/card'
 import Image from 'next/image'
 import React from 'react'
+import { motion } from 'framer-motion'
+import { Sparkles } from 'lucide-react'
 
 type Props = {
   className?: string
@@ -20,81 +22,73 @@ type Props = {
 
 export const ValuesBlock: React.FC<Props> = ({
   className,
-  title,
+  title = 'Our Values',
   description,
   valueCards = [],
 }) => {
   return (
-    <section className={cn('mx-auto my-8 w-full', className)}>
-      <SectionHeader
-        heading={title ?? ''}
-        subheading={description ?? ''}
-        align="center"
-        spacing="sm"
-        containerClassName="w-full ml-0"
-      />
-      <div className="flex flex-wrap justify-center items-center gap-8">
-        {valueCards.map((values, idx) =>
-          values ? (
-            <Card
-              key={values.title ?? idx}
-              className="bg-white shadow-lg flex flex-col items-center justify-between transition-shadow duration-300 hover:shadow-[0_0_24px_4px_theme(colors.primary.DEFAULT)]"
-              style={{
-                width: '15rem',
-                height: '15rem',
-                border: 'none',
-                borderRadius: '0.75rem',
-                overflow: 'hidden',
-              }}
-            >
-              <div
-                style={{
-                  height: '75%',
-                  width: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '1rem',
-                }}
+    <section className={cn('py-20 md:py-28 relative overflow-hidden', className)}>
+      {/* Background with subtle gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#3BD463]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#052B70]/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-[#3BD463]/10 rounded-full">
+            <Sparkles size={16} className="text-[#3BD463]" />
+            <span className="text-[#3BD463] font-bold uppercase tracking-widest text-sm">What We Stand For</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-[#052B70] uppercase tracking-tight mb-4">
+            {title}
+          </h2>
+          {description && (
+            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+              {description}
+            </p>
+          )}
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {valueCards.map((values, idx) =>
+            values ? (
+              <motion.div
+                key={values.title ?? idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                className="bg-white rounded-3xl shadow-lg p-8 flex flex-col items-center justify-center text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 {values.icon?.url && (
-                  <Image
-                    src={values.icon.url}
-                    alt={values.icon.alt ?? values.title ?? 'icon'}
-                    width={0}
-                    height={0}
-                    unoptimized
-                    style={{
-                      objectFit: 'contain',
-                      borderRadius: '0.5rem',
-                      width: '6rem',
-                      height: '6rem',
-                      aspectRatio: '1 / 1',
-                      maxHeight: '100%',
-                      maxWidth: '100%',
-                    }}
-                  />
+                  <div className="mb-6">
+                    <Image
+                      src={values.icon.url}
+                      alt={values.icon.alt ?? values.title ?? 'icon'}
+                      width={80}
+                      height={80}
+                      unoptimized
+                      className="object-contain"
+                    />
+                  </div>
                 )}
-              </div>
-
-              <div
-                className="flex flex-col items-start pb-2 px-4"
-                style={{
-                  height: '25%',
-                  width: '100%',
-                  justifyContent: 'flex-start',
-                }}
-              >
                 {values.title && (
-                  <h3 className="font-semibold text-center w-full">{values.title}</h3>
+                  <h3 className="font-heading font-bold text-xl text-[#052B70] mb-2">{values.title}</h3>
                 )}
                 {values.description && (
-                  <p className="text-center w-full text-sm">{values.description}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">{values.description}</p>
                 )}
-              </div>
-            </Card>
-          ) : null,
-        )}
+              </motion.div>
+            ) : null,
+          )}
+        </div>
       </div>
     </section>
   )

@@ -158,11 +158,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'featuredProgram';
-    /**
-     * Select a program to feature in the hero section
-     */
-    featuredProgram?: (number | null) | Program;
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
     tagline?: string | null;
     headline?: string | null;
     subtext?: string | null;
@@ -394,54 +390,45 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "programs".
+ * via the `definition` "posts".
  */
-export interface Program {
+export interface Post {
   id: number;
-  /**
-   * Select the type of your program
-   */
-  programType: 'camp' | 'clinic' | 'tournament';
-  /**
-   * Check this to display the program in featured sections and hero areas
-   */
-  featured?: boolean | null;
   title: string;
-  subtitle?: string | null;
-  description: string;
-  /**
-   * e.g. $249 or $150/month
-   */
-  price: string;
-  location?: ('chicago' | 'dallas') | null;
-  startDate: string;
-  endDate: string;
-  startRegistrationDate: string;
-  endRegistrationDate: string;
-  /**
-   * e.g. Wednesdays 5pm to 7pm
-   */
-  weeklySchedule?: string | null;
-  /**
-   * e.g. 5
-   */
-  minAge: string;
-  /**
-   * e.g. 7
-   */
-  maxAge: string;
-  /**
-   * Is this program for boys, girls, or both?
-   */
-  gender: 'boys' | 'girls' | 'coed';
-  /**
-   * e.g. /register
-   */
-  buttonLink: string;
-  /**
-   * Optional Image for the Program.
-   */
-  programImage?: (number | null) | Media;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -449,6 +436,7 @@ export interface Program {
   slug: string;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -541,56 +529,6 @@ export interface Media {
       filename?: string | null;
     };
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1007,6 +945,71 @@ export interface Programs {
   id?: string | null;
   blockName?: string | null;
   blockType: 'programs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "programs".
+ */
+export interface Program {
+  id: number;
+  /**
+   * Select the type of your program
+   */
+  programType: 'camp' | 'clinic' | 'tournament' | 'league';
+  /**
+   * Check this to display the program in featured sections and hero areas
+   */
+  featured?: boolean | null;
+  title: string;
+  subtitle?: string | null;
+  /**
+   * This is for a quick summary of the program. Strict word limit enforced.
+   */
+  summary: string;
+  /**
+   * This is where you will put a full, comprehensive description.
+   */
+  description: string;
+  /**
+   * e.g. $249 or $150/month
+   */
+  price: string;
+  location?: ('chicago' | 'dallas') | null;
+  startDate: string;
+  endDate: string;
+  startRegistrationDate: string;
+  endRegistrationDate: string;
+  /**
+   * e.g. Wednesdays 5pm to 7pm
+   */
+  weeklySchedule?: string | null;
+  /**
+   * e.g. 5
+   */
+  minAge: string;
+  /**
+   * e.g. 7
+   */
+  maxAge: string;
+  /**
+   * Is this program for boys, girls, or both?
+   */
+  gender: 'boys' | 'girls' | 'coed';
+  /**
+   * e.g. /register
+   */
+  buttonLink: string;
+  /**
+   * Optional Image for the Program.
+   */
+  programImage?: (number | null) | Media;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1517,7 +1520,6 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        featuredProgram?: T;
         tagline?: T;
         headline?: T;
         subtext?: T;
@@ -2207,6 +2209,7 @@ export interface ProgramsSelect1<T extends boolean = true> {
   featured?: T;
   title?: T;
   subtitle?: T;
+  summary?: T;
   description?: T;
   price?: T;
   location?: T;
@@ -2537,26 +2540,71 @@ export interface Header {
  */
 export interface Footer {
   id: number;
-  navItems?:
+  /**
+   * Brief description shown below the logo
+   */
+  missionStatement?: string | null;
+  socialLinks?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        platform: 'instagram' | 'facebook' | 'youtube' | 'twitter' | 'linkedin' | 'tiktok';
+        url: string;
         id?: string | null;
       }[]
     | null;
+  programsColumn?: {
+    title?: string | null;
+    links?:
+      | {
+          label: string;
+          href: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  locationsColumn?: {
+    title?: string | null;
+    locations?:
+      | {
+          name: string;
+          href?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  organizationColumn?: {
+    title?: string | null;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contactColumn?: {
+    title?: string | null;
+    email?: string | null;
+    phone?: string | null;
+  };
+  bottomBar?: {
+    /**
+     * Year will be automatically prepended (e.g., "© 2024 Your Text")
+     */
+    copyrightText?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2588,19 +2636,68 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  missionStatement?: T;
+  socialLinks?:
     | T
     | {
-        link?:
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  programsColumn?:
+    | T
+    | {
+        title?: T;
+        links?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
               label?: T;
+              href?: T;
+              id?: T;
             };
-        id?: T;
+      };
+  locationsColumn?:
+    | T
+    | {
+        title?: T;
+        locations?:
+          | T
+          | {
+              name?: T;
+              href?: T;
+              id?: T;
+            };
+      };
+  organizationColumn?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+      };
+  contactColumn?:
+    | T
+    | {
+        title?: T;
+        email?: T;
+        phone?: T;
+      };
+  bottomBar?:
+    | T
+    | {
+        copyrightText?: T;
       };
   updatedAt?: T;
   createdAt?: T;

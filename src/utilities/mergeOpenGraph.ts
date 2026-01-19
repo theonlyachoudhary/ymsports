@@ -3,14 +3,15 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description:
+    'Youth Muslim Sports - Building community through athletics. Camps, clinics, leagues, and tournaments for youth of all ages.',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${getServerSideURL()}/yms-logo.jpg`,
     },
   ],
-  siteName: 'YMSports',
-  title: 'YMSports',
+  siteName: 'Youth Muslim Sports',
+  title: 'Youth Muslim Sports',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

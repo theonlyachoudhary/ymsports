@@ -5,6 +5,10 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 export function DualFeatureBanner({ left, right }) {
+  // Extract images with type guards for null safety
+  const leftImage = left?.image && typeof left.image === 'object' ? left.image : null
+  const rightImage = right?.image && typeof right.image === 'object' ? right.image : null
+
   // hover presets
   const panelHover = {
     scale: 1.03,
@@ -20,7 +24,7 @@ export function DualFeatureBanner({ left, right }) {
   };
 
   return (
-    <div className="w-full py-6 md:py-10 px-4 md:px-6 lg:px-12">
+    <div className="w-full py-12 md:py-20 px-4 md:px-6 lg:px-12">
       <div className="max-w-[1500px] mx-auto relative h-[300px] sm:h-[400px] md:h-[550px] lg:h-[580px]">
 
         {/* LEFT SIDE */}
@@ -49,13 +53,15 @@ export function DualFeatureBanner({ left, right }) {
               transition={{ duration: 1.3, ease: "easeOut" }}
               whileHover={imgHover}
             >
-              <Image
-                src={left.image.url}
-                alt={left.title}
-                fill
-                className="object-cover"
-                priority
-              />
+              {leftImage?.url && (
+                <Image
+                  src={leftImage.url}
+                  alt={leftImage.alt || left.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              )}
             </motion.div>
 
             {/* LENS SWEEP */}
@@ -125,13 +131,15 @@ export function DualFeatureBanner({ left, right }) {
               transition={{ duration: 1.3, ease: "easeOut" }}
               whileHover={imgHover}
             >
-              <Image
-                src={right.image.url}
-                alt={right.title}
-                fill
-                className="object-cover"
-                priority
-              />
+              {rightImage?.url && (
+                <Image
+                  src={rightImage.url}
+                  alt={rightImage.alt || right.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              )}
             </motion.div>
 
             {/* LENS SWEEP */}

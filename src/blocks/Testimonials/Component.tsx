@@ -86,8 +86,13 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
   }
 
   return (
-    <section className="py-24">
-      <div className="container mx-auto px-4">
+    <section className="py-20 md:py-28 relative overflow-hidden">
+      {/* Background with subtle gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#3BD463]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#052B70]/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left Column - About Content */}
           <motion.div 

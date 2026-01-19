@@ -26,6 +26,11 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
   if (resource && typeof resource === 'object') {
     const { filename } = resource
 
+    // Guard against missing filename
+    if (!filename) {
+      return null
+    }
+
     return (
       <video
         autoPlay

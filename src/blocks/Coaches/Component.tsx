@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users } from "lucide-react";
+import { Users, Zap } from "lucide-react";
 import type { Coach as CoachDoc, Coaches as CoachesBlockDoc } from "@/payload-types";
 import { cn } from "@/utilities/ui";
 
@@ -44,10 +44,10 @@ const CoachCard: React.FC<{
       viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration: 0.5,
-        delay: index * 0.1,
+        delay: index * 0.05,
       }}
       onClick={() => onViewDetails(coach)}
-      className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col"
+      className="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col"
     >
       <div className="w-full aspect-square bg-gray-100 rounded-xl mb-6 overflow-hidden relative flex-shrink-0">
         {img ? (
@@ -133,26 +133,35 @@ export const CoachesBlock: React.FC<Props> = ({
   if (!coaches?.length) return null;
 
   return (
-    <section className={cn("py-24 bg-[#052B70]/5", className)}>
-      <div className="container mx-auto px-4">
+    <section className={cn("py-20 md:py-28 relative overflow-hidden", className)}>
+      {/* Background with subtle gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#3BD463]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#052B70]/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-[#052B70] mb-6">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-[#3BD463]/10 rounded-full">
+            <Zap size={16} className="text-[#3BD463]" />
+            <span className="text-[#3BD463] font-bold uppercase tracking-widest text-sm">Our Team</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-[#052B70] uppercase tracking-tight mb-4">
             {title}
           </h2>
           {description && (
-            <p className="text-xl text-gray-600">
+            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
               {description}
             </p>
           )}
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
           {coaches.map((c, i) => (
             <CoachCard
               key={c.id ?? i}

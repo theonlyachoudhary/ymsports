@@ -53,9 +53,21 @@ export const Programs: CollectionConfig = {
       required: false,
     },
     {
+      name: 'summary',
+      type: 'textarea',
+      required: true,
+      maxLength: 300,
+      admin: {
+        description: 'This is for a quick summary of the program. Strict word limit enforced.',
+      },
+    },
+    {
       name: 'description',
       type: 'textarea',
       required: true,
+      admin: {
+        description: 'This is where you will put a full, comprehensive description.',
+      },
     },
     {
       name: 'price',
@@ -107,7 +119,7 @@ export const Programs: CollectionConfig = {
       required: false,
       admin: {
         description: 'e.g. Wednesdays 5pm to 7pm',
-      }
+      },
     },
     {
       name: 'minAge',
@@ -115,8 +127,8 @@ export const Programs: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'e.g. 5'
-      }
+        description: 'e.g. 5',
+      },
     },
     {
       name: 'maxAge',
@@ -124,8 +136,8 @@ export const Programs: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-         description: 'e.g. 7'
-      }
+        description: 'e.g. 7',
+      },
     },
     {
       name: 'gender',
@@ -138,8 +150,8 @@ export const Programs: CollectionConfig = {
         { label: 'Coed', value: 'coed' },
       ],
       admin: {
-        description: 'Is this program for boys, girls, or both?'
-      }
+        description: 'Is this program for boys, girls, or both?',
+      },
     },
     {
       name: 'buttonLink',
@@ -157,13 +169,11 @@ export const Programs: CollectionConfig = {
       relationTo: 'media',
       required: false,
       admin: {
-        description:
-          'Optional Image for the Program.',
+        description: 'Optional Image for the Program.',
       },
     },
     slugField({
       name: 'slug',
-    })
-
+    }),
   ],
 }
