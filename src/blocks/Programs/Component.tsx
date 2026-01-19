@@ -1,8 +1,8 @@
 'use client'
 
-import type { Program } from 'src/payload-types'
+import type { Program, ProgramsBlock as ProgramsBlockType } from 'src/payload-types'
 import { cn } from '@/utilities/ui'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ProgramCard } from '@/components/ProgramCard'
 import {
@@ -19,18 +19,16 @@ import {
 type ProgramType = 'camp' | 'clinic' | 'tournament' | 'league'
 type Location = 'chicago' | 'dallas'
 
-type Props = {
-  title?: string
-  summary?: string
+type Props = ProgramsBlockType & {
   className?: string
 }
 
-const tabs: { key: ProgramType; label: string; icon: React.ReactNode; color: string }[] = [
-  { key: 'camp', label: 'Camps', icon: <Calendar size={18} />, color: '#3BD463' },
-  { key: 'clinic', label: 'Clinics', icon: <Target size={18} />, color: '#FF6B35' },
-  { key: 'tournament', label: 'Tournaments', icon: <Trophy size={18} />, color: '#FFD700' },
-  { key: 'league', label: 'Leagues', icon: <Users size={18} />, color: '#00BFFF' },
-]
+const tabConfig: Record<ProgramType, { label: string; icon: React.ReactNode; color: string }> = {
+  camp: { label: 'Camps', icon: <Calendar size={18} />, color: '#3BD463' },
+  clinic: { label: 'Clinics', icon: <Target size={18} />, color: '#FF6B35' },
+  tournament: { label: 'Tournaments', icon: <Trophy size={18} />, color: '#FFD700' },
+  league: { label: 'Leagues', icon: <Users size={18} />, color: '#00BFFF' },
+}
 
 const locations: { key: Location; label: string }[] = [
   { key: 'chicago', label: 'Chicago' },
@@ -43,8 +41,32 @@ const fetchPrograms = async (type: ProgramType, location: Location) => {
   return res.json()
 }
 
-export const ProgramsBlock: React.FC<Props> = ({ title, summary, className }) => {
-  const [activeTab, setActiveTab] = useState<ProgramType>('camp')
+export const ProgramsBlock: React.FC<Props> = ({ title, summary, programTypeTabs, className }) => {
+  // Build tabs array from config, preserving order
+  const tabs = useMemo(() => {
+    if (!programTypeTabs || programTypeTabs.length === 0) {
+      // Default fallback if no tabs configured
+      return Object.entries(tabConfig).map(([key, config]) => ({
+        key: key as ProgramType,
+        ...config,
+      }))
+    }
+    return programTypeTabs
+      .map((tab) => {
+        const config = tabConfig[tab.programType as ProgramType]
+        if (!config) return null
+        return {
+          key: tab.programType as ProgramType,
+          ...config,
+        }
+      })
+      .filter(Boolean) as { key: ProgramType; label: string; icon: React.ReactNode; color: string }[]
+  }, [programTypeTabs])
+
+  // Default to first tab in the configured order
+  const defaultTab = tabs[0]?.key || 'camp'
+
+  const [activeTab, setActiveTab] = useState<ProgramType>(defaultTab)
   const [locationFilter, setLocationFilter] = useState<Location>('chicago')
   const [programs, setPrograms] = useState<Program[]>([])
   const [loading, setLoading] = useState(true)

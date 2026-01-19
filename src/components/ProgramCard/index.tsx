@@ -127,8 +127,8 @@ const StandardVariant: React.FC<ProgramCardProps> = ({
           )}
         </div>
 
-        {program.slug && (
-          <Link href={`/programs/${program.slug}`}>
+        {program.buttonLink && (
+          <Link href={program.buttonLink}>
             <Button
               className="w-full font-semibold text-white transition-all"
               style={{ backgroundColor: color }}
@@ -171,7 +171,7 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
       ? calculateDuration(program.startDate, program.endDate)
       : null
 
-  const href = program.slug ? `/programs/${program.slug}` : '#'
+  const href = program.buttonLink || '#'
   const programImage = program.programImage as Media | null
 
   const content = (

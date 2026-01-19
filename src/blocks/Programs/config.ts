@@ -2,38 +2,45 @@ import type { Block } from 'payload'
 
 export const Programs: Block = {
   slug: 'programs',
-  interfaceName: 'Programs',
+  interfaceName: 'ProgramsBlock',
   fields: [
-    { name: 'title', type: 'text', required: true },
-    { name: 'description', type: 'textarea', required: true },
+    { name: 'title', type: 'text', required: false },
     {
-      name: 'filters',
-      type: 'array',
-      label: 'Filter Categories',
+      name: 'summary',
+      type: 'textarea',
+      required: false,
       admin: {
-        description: 'Add filter buttons for the programs grid (e.g. All, Basketball, Soccer)',
+        description: 'Optional summary text displayed below the title',
+      },
+    },
+    {
+      name: 'programTypeTabs',
+      type: 'array',
+      label: 'Program Type Tabs',
+      minRows: 1,
+      admin: {
+        description:
+          'Select and order the program type tabs. Drag to reorder. The first tab will be the default.',
       },
       fields: [
-        { name: 'label', type: 'text', required: true },
-        { 
-          name: 'value', 
-          type: 'text', 
+        {
+          name: 'programType',
+          type: 'select',
           required: true,
-          admin: {
-            description: 'Use "all" for showing all programs, or match program subtitles/categories',
-          },
+          options: [
+            { label: 'Camps', value: 'camp' },
+            { label: 'Clinics', value: 'clinic' },
+            { label: 'Tournaments', value: 'tournament' },
+            { label: 'Leagues', value: 'league' },
+          ],
         },
       ],
       defaultValue: [
-        { label: 'All', value: 'all' },
+        { programType: 'camp' },
+        { programType: 'clinic' },
+        { programType: 'tournament' },
+        { programType: 'league' },
       ],
-    },
-    {
-      name: 'programs',
-      type: 'relationship',
-      relationTo: 'programs',
-      hasMany: true,
-      required: true,
     },
   ],
 }

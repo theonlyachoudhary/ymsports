@@ -93,7 +93,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     coaches: CoachesSelect1<false> | CoachesSelect1<true>;
-    programs: ProgramsSelect1<false> | ProgramsSelect1<true>;
+    programs: ProgramsSelect<false> | ProgramsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -213,7 +213,7 @@ export interface Page {
     | MediaBlock
     | ArchiveBlock
     | FormBlock
-    | Programs
+    | ProgramsBlock
     | Values
     | Coaches
     | TestimonialsBlock
@@ -923,93 +923,26 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Programs".
+ * via the `definition` "ProgramsBlock".
  */
-export interface Programs {
-  title: string;
-  description: string;
+export interface ProgramsBlock {
+  title?: string | null;
   /**
-   * Add filter buttons for the programs grid (e.g. All, Basketball, Soccer)
+   * Optional summary text displayed below the title
    */
-  filters?:
+  summary?: string | null;
+  /**
+   * Select and order the program type tabs. Drag to reorder. The first tab will be the default.
+   */
+  programTypeTabs?:
     | {
-        label: string;
-        /**
-         * Use "all" for showing all programs, or match program subtitles/categories
-         */
-        value: string;
+        programType: 'camp' | 'clinic' | 'tournament' | 'league';
         id?: string | null;
       }[]
     | null;
-  programs: (number | Program)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'programs';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "programs".
- */
-export interface Program {
-  id: number;
-  /**
-   * Select the type of your program
-   */
-  programType: 'camp' | 'clinic' | 'tournament' | 'league';
-  /**
-   * Check this to display the program in featured sections and hero areas
-   */
-  featured?: boolean | null;
-  title: string;
-  subtitle?: string | null;
-  /**
-   * This is for a quick summary of the program. Strict word limit enforced.
-   */
-  summary: string;
-  /**
-   * This is where you will put a full, comprehensive description.
-   */
-  description: string;
-  /**
-   * e.g. $249 or $150/month
-   */
-  price: string;
-  location?: ('chicago' | 'dallas') | null;
-  startDate: string;
-  endDate: string;
-  startRegistrationDate: string;
-  endRegistrationDate: string;
-  /**
-   * e.g. Wednesdays 5pm to 7pm
-   */
-  weeklySchedule?: string | null;
-  /**
-   * e.g. 5
-   */
-  minAge: string;
-  /**
-   * e.g. 7
-   */
-  maxAge: string;
-  /**
-   * Is this program for boys, girls, or both?
-   */
-  gender: 'boys' | 'girls' | 'coed';
-  /**
-   * e.g. /register
-   */
-  buttonLink: string;
-  /**
-   * Optional Image for the Program.
-   */
-  programImage?: (number | null) | Media;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1229,6 +1162,71 @@ export interface LocationsBlockType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'locationsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "programs".
+ */
+export interface Program {
+  id: number;
+  /**
+   * Select the type of your program
+   */
+  programType: 'camp' | 'clinic' | 'tournament' | 'league';
+  /**
+   * Check this to display the program in featured sections and hero areas
+   */
+  featured?: boolean | null;
+  title: string;
+  subtitle?: string | null;
+  /**
+   * This is for a quick summary of the program. Strict word limit enforced.
+   */
+  summary: string;
+  /**
+   * This is where you will put a full, comprehensive description.
+   */
+  description: string;
+  /**
+   * e.g. $249 or $150/month
+   */
+  price: string;
+  location?: ('chicago' | 'dallas') | null;
+  startDate: string;
+  endDate: string;
+  startRegistrationDate: string;
+  endRegistrationDate: string;
+  /**
+   * e.g. Wednesdays 5pm to 7pm
+   */
+  weeklySchedule?: string | null;
+  /**
+   * e.g. 5
+   */
+  minAge: string;
+  /**
+   * e.g. 7
+   */
+  maxAge: string;
+  /**
+   * Is this program for boys, girls, or both?
+   */
+  gender: 'boys' | 'girls' | 'coed';
+  /**
+   * e.g. /register
+   */
+  buttonLink: string;
+  /**
+   * Optional Image for the Program.
+   */
+  programImage?: (number | null) | Media;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1553,7 +1551,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        programs?: T | ProgramsSelect<T>;
+        programs?: T | ProgramsBlockSelect<T>;
         values?: T | ValuesSelect<T>;
         coaches?: T | CoachesSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
@@ -1830,19 +1828,17 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Programs_select".
+ * via the `definition` "ProgramsBlock_select".
  */
-export interface ProgramsSelect<T extends boolean = true> {
+export interface ProgramsBlockSelect<T extends boolean = true> {
   title?: T;
-  description?: T;
-  filters?:
+  summary?: T;
+  programTypeTabs?:
     | T
     | {
-        label?: T;
-        value?: T;
+        programType?: T;
         id?: T;
       };
-  programs?: T;
   id?: T;
   blockName?: T;
 }
@@ -2204,7 +2200,7 @@ export interface CoachesSelect1<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "programs_select".
  */
-export interface ProgramsSelect1<T extends boolean = true> {
+export interface ProgramsSelect<T extends boolean = true> {
   programType?: T;
   featured?: T;
   title?: T;
