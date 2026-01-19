@@ -172,6 +172,7 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
       : null
 
   const href = program.slug ? `/programs/${program.slug}` : '#'
+  const programImage = program.programImage as Media | null
 
   const content = (
     <Link
@@ -179,11 +180,21 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
       className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 block h-full hover:-translate-y-1"
     >
       <div className="relative h-48 bg-gradient-to-br from-[#052B70] to-[#0a3d8f] overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/pattern-dots.svg')] opacity-10" />
-        <div className="absolute bottom-0 right-0 w-24 h-24 bg-[#3BD463]/20 rounded-tl-full" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Trophy size={64} className="text-white/20" />
-        </div>
+        {programImage?.url ? (
+          <img
+            src={programImage.url}
+            alt={programImage.alt || program.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-[url('/pattern-dots.svg')] opacity-10" />
+            <div className="absolute bottom-0 right-0 w-24 h-24 bg-[#3BD463]/20 rounded-tl-full" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Trophy size={64} className="text-white/20" />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="p-6">

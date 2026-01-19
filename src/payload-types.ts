@@ -2531,6 +2531,25 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Configure the call-to-action button in the header
+   */
+  ctaButton?: {
+    enabled?: boolean | null;
+    label?: string | null;
+    linkType?: ('reference' | 'custom') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    newTab?: boolean | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2626,6 +2645,16 @@ export interface HeaderSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  ctaButton?:
+    | T
+    | {
+        enabled?: T;
+        label?: T;
+        linkType?: T;
+        reference?: T;
+        url?: T;
+        newTab?: T;
       };
   updatedAt?: T;
   createdAt?: T;
