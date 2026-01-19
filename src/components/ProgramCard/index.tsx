@@ -71,11 +71,11 @@ const StandardVariant: React.FC<ProgramCardProps> = ({
   const content = (
     <Card className="group relative rounded-2xl border border-gray-200 shadow-md bg-white overflow-hidden hover:shadow-xl transition-all duration-300 h-full hover:-translate-y-1">
       {programImage?.url && (
-        <div className="h-48 w-full overflow-hidden">
+        <div className="h-96 w-full overflow-hidden">
           <img
             src={programImage.url}
             alt={programImage.alt || program.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       )}
@@ -179,12 +179,12 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
       href={href}
       className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 block h-full hover:-translate-y-1"
     >
-      <div className="relative h-48 bg-gradient-to-br from-[#052B70] to-[#0a3d8f] overflow-hidden">
+      <div className="relative h-96 bg-gradient-to-br from-[#052B70] to-[#0a3d8f] overflow-hidden">
         {programImage?.url ? (
           <img
             src={programImage.url}
             alt={programImage.alt || program.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <>
