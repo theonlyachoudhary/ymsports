@@ -14,4 +14,6 @@ export interface ProgramCardProps {
   showAgeRange?: boolean
   showGender?: boolean
   showSchedule?: boolean
+  showAgeRangeLabel?: boolean
+  showSportTypeLabel?: boolean
 }

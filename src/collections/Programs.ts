@@ -89,6 +89,15 @@ export const Programs: CollectionConfig = {
       ],
     },
     {
+      name: 'address',
+      label: 'Address',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'e.g. Ackerman Sports Center, Glen Ellyn',
+      },
+    },
+    {
       name: 'startDate',
       label: 'Program Start Date',
       type: 'date',
@@ -122,21 +131,18 @@ export const Programs: CollectionConfig = {
       },
     },
     {
-      name: 'minAge',
-      label: 'Minimum Age',
-      type: 'text',
+      name: 'ageRange',
+      label: 'Age Range',
+      type: 'select',
       required: true,
+      options: [
+        { label: '6 to 7', value: '6to7' },
+        { label: '8 to 10', value: '8to10' },
+        { label: '11 to 13', value: '11to13' },
+        { label: '14 to 16', value: '14to16' },
+      ],
       admin: {
-        description: 'e.g. 5',
-      },
-    },
-    {
-      name: 'maxAge',
-      label: 'Maximum Age',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'e.g. 7',
+        description: 'Please select the age range for the program.',
       },
     },
     {
@@ -151,6 +157,22 @@ export const Programs: CollectionConfig = {
       ],
       admin: {
         description: 'Is this program for boys, girls, or both?',
+      },
+    },
+    {
+      name: 'sportType',
+      label: 'Type of Sport',
+      type: 'select',
+      required: true,
+      options: [
+        { label: 'Football', value: 'football' },
+        { label: 'Basketball', value: 'basketball' },
+        { label: 'Soccer', value: 'soccer' },
+        { label: 'Tennis', value: 'tennis' },
+        { label: 'Volleyball', value: 'volleyball' },
+      ],
+      admin: {
+        description: 'Please select the type of sport :)',
       },
     },
     {

@@ -1192,6 +1192,10 @@ export interface Program {
    */
   price: string;
   location?: ('chicago' | 'dallas') | null;
+  /**
+   * e.g. Ackerman Sports Center, Glen Ellyn
+   */
+  address: string;
   startDate: string;
   endDate: string;
   startRegistrationDate: string;
@@ -1201,17 +1205,17 @@ export interface Program {
    */
   weeklySchedule?: string | null;
   /**
-   * e.g. 5
+   * Please select the age range for the program.
    */
-  minAge: string;
-  /**
-   * e.g. 7
-   */
-  maxAge: string;
+  ageRange: '6to7' | '8to10' | '11to13' | '14to16';
   /**
    * Is this program for boys, girls, or both?
    */
   gender: 'boys' | 'girls' | 'coed';
+  /**
+   * Please select the type of sport :)
+   */
+  sportType: 'football' | 'basketball' | 'soccer' | 'tennis' | 'volleyball';
   /**
    * e.g. /register
    */
@@ -2209,14 +2213,15 @@ export interface ProgramsSelect<T extends boolean = true> {
   description?: T;
   price?: T;
   location?: T;
+  address?: T;
   startDate?: T;
   endDate?: T;
   startRegistrationDate?: T;
   endRegistrationDate?: T;
   weeklySchedule?: T;
-  minAge?: T;
-  maxAge?: T;
+  ageRange?: T;
   gender?: T;
+  sportType?: T;
   buttonLink?: T;
   programImage?: T;
   generateSlug?: T;

@@ -8,7 +8,16 @@ import { Button } from '@/components/ui/button'
 import { MapPin, Clock, DollarSign, ArrowRight, Trophy } from 'lucide-react'
 import type { Media } from '@/payload-types'
 import type { ProgramCardProps } from './types'
-import { calculateDuration, formatAgeRange, formatGender, formatLocation } from './utils'
+import {
+  calculateDuration,
+  formatAgeRange,
+  formatGender,
+  formatLocation,
+  getAgeRangeColors,
+  getSportTypeColors,
+  formatAgeRangeLabel,
+  formatSportTypeLabel,
+} from './utils'
 
 export const ProgramCard: React.FC<ProgramCardProps> = ({
   program,
@@ -22,6 +31,8 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({
   showAgeRange = true,
   showGender = true,
   showSchedule = true,
+  showAgeRangeLabel = true,
+  showSportTypeLabel = true,
 }) => {
   if (variant === 'featured') {
     return (
@@ -33,6 +44,8 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({
         showPrice={showPrice}
         showLocation={showLocation}
         showDuration={showDuration}
+        showAgeRangeLabel={showAgeRangeLabel}
+        showSportTypeLabel={showSportTypeLabel}
       />
     )
   }
@@ -49,6 +62,8 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({
       showAgeRange={showAgeRange}
       showGender={showGender}
       showSchedule={showSchedule}
+      showAgeRangeLabel={showAgeRangeLabel}
+      showSportTypeLabel={showSportTypeLabel}
     />
   )
 }
@@ -64,12 +79,15 @@ const StandardVariant: React.FC<ProgramCardProps> = ({
   showAgeRange,
   showGender,
   showSchedule,
+  showAgeRangeLabel,
+  showSportTypeLabel,
 }) => {
-  const color = program.featured ? '#052B70' : '#4B5563'
   const programImage = program.programImage as Media | null
+  const sportTypeColors = program.sportType ? getSportTypeColors(program.sportType) : null
+  const ageRangeColors = program.ageRange ? getAgeRangeColors(program.ageRange) : null
 
   const content = (
-    <Card className="group relative rounded-2xl border border-gray-200 shadow-md bg-white overflow-hidden hover:shadow-xl transition-all duration-300 h-full hover:-translate-y-1">
+    <Card className="group relative rounded-2xl border border-[#052B70]/10 shadow-md bg-white overflow-hidden hover:shadow-xl transition-all duration-300 h-full hover:-translate-y-1">
       {programImage?.url && (
         <div className="h-96 w-full overflow-hidden">
           <img
@@ -81,7 +99,7 @@ const StandardVariant: React.FC<ProgramCardProps> = ({
       )}
       <CardContent className="p-6 flex flex-col flex-1">
         <div className="mb-4">
-          <h3 className="text-xl font-bold uppercase tracking-tight" style={{ color }}>
+          <h3 className="text-xl font-bold uppercase tracking-tight text-[#052B70]">
             {program.title}
           </h3>
           {program.subtitle && (
@@ -89,8 +107,31 @@ const StandardVariant: React.FC<ProgramCardProps> = ({
           )}
         </div>
 
-        <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">{program.description}</p>
+        <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">{program.summary}</p>
 
+        {/* Distinctive Labels - Sport Type & Age Range */}
+        {(showSportTypeLabel || showAgeRangeLabel) && (program.sportType || program.ageRange) && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {showSportTypeLabel && program.sportType && sportTypeColors && (
+              <span
+                className="rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide shadow-sm"
+                style={{ backgroundColor: sportTypeColors.bg, color: sportTypeColors.text }}
+              >
+                {formatSportTypeLabel(program.sportType)}
+              </span>
+            )}
+            {showAgeRangeLabel && program.ageRange && ageRangeColors && (
+              <span
+                className="rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide shadow-sm"
+                style={{ backgroundColor: ageRangeColors.bg, color: ageRangeColors.text }}
+              >
+                {formatAgeRangeLabel(program.ageRange)}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Metadata Labels */}
         <div className="space-y-2 mb-4">
           {showPrice && program.price && (
             <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -129,10 +170,7 @@ const StandardVariant: React.FC<ProgramCardProps> = ({
 
         {program.buttonLink && (
           <Link href={program.buttonLink}>
-            <Button
-              className="w-full font-semibold text-white transition-all"
-              style={{ backgroundColor: color }}
-            >
+            <Button className="w-full font-semibold text-white transition-all bg-[#052B70] hover:bg-[#052B70]/90">
               {ctaText}
             </Button>
           </Link>
@@ -165,6 +203,8 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
   showPrice,
   showLocation,
   showDuration,
+  showAgeRangeLabel,
+  showSportTypeLabel,
 }) => {
   const duration =
     program.startDate && program.endDate
@@ -173,6 +213,8 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
 
   const href = program.buttonLink || '#'
   const programImage = program.programImage as Media | null
+  const sportTypeColors = program.sportType ? getSportTypeColors(program.sportType) : null
+  const ageRangeColors = program.ageRange ? getAgeRangeColors(program.ageRange) : null
 
   const content = (
     <Link
@@ -202,10 +244,31 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
           {program.title}
         </h3>
 
-        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
-          {program.description}
-        </p>
+        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">{program.summary}</p>
 
+        {/* Distinctive Labels - Sport Type & Age Range */}
+        {(showSportTypeLabel || showAgeRangeLabel) && (program.sportType || program.ageRange) && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {showSportTypeLabel && program.sportType && sportTypeColors && (
+              <span
+                className="rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide shadow-sm"
+                style={{ backgroundColor: sportTypeColors.bg, color: sportTypeColors.text }}
+              >
+                {formatSportTypeLabel(program.sportType)}
+              </span>
+            )}
+            {showAgeRangeLabel && program.ageRange && ageRangeColors && (
+              <span
+                className="rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide shadow-sm"
+                style={{ backgroundColor: ageRangeColors.bg, color: ageRangeColors.text }}
+              >
+                {formatAgeRangeLabel(program.ageRange)}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Metadata Labels */}
         <div className="flex flex-wrap gap-2 mb-4">
           {showPrice && program.price && (
             <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#052B70]/5 rounded-full text-xs font-bold text-[#052B70]">
@@ -252,4 +315,16 @@ const FeaturedVariant: React.FC<ProgramCardProps> = ({
 }
 
 export type { ProgramCardProps, ProgramCardVariant } from './types'
-export { calculateDuration, formatAgeRange, formatGender, formatLocation, getProgramTypeLabel } from './utils'
+export {
+  calculateDuration,
+  formatAgeRange,
+  formatGender,
+  formatLocation,
+  getProgramTypeLabel,
+  getAgeRangeColors,
+  getSportTypeColors,
+  formatAgeRangeLabel,
+  formatSportTypeLabel,
+  AGE_RANGE_COLORS,
+  SPORT_TYPE_COLORS,
+} from './utils'

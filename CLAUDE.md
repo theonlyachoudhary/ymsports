@@ -24,9 +24,9 @@ npm lint                   # Run ESLint
 npm lint:fix               # Fix linting issues
 
 # Payload CMS
-npm payload generate:types # Regenerate TypeScript types from collections
-npm payload migrate:create # Create database migration
-npm payload migrate        # Run pending migrations
+npx payload generate:types # Regenerate TypeScript types from collections
+npx payload migrate:create # Create database migration
+npx payload migrate        # Run pending migrations
 ```
 
 ## Architecture
