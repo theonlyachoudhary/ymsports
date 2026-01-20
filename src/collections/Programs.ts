@@ -138,6 +138,7 @@ export const Programs: CollectionConfig = {
       options: [
         { label: '6 to 7', value: '6to7' },
         { label: '8 to 10', value: '8to10' },
+        { label: '8 to 12', value: '8to12' },
         { label: '11 to 13', value: '11to13' },
         { label: '14 to 16', value: '14to16' },
       ],
