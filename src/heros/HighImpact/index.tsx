@@ -3,8 +3,21 @@
 import React, { useEffect } from 'react'
 import type { Page } from '@/payload-types'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
-import { CMSLink } from '@/components/Link'
+import { CTAButton } from '@/components/CTAButton'
 import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
+
+const getLinkHref = (link: NonNullable<NonNullable<Page['hero']>['links']>[number]['link']) => {
+  if (
+    link.type === 'reference' &&
+    link.reference?.value &&
+    typeof link.reference.value === 'object'
+  ) {
+    const prefix = link.reference.relationTo !== 'pages' ? `/${link.reference.relationTo}` : ''
+    return `${prefix}/${link.reference.value.slug}`
+  }
+  return link.url || '#'
+}
 
 export const HighImpactHero: React.FC<Page['hero']> = ({
   type,
@@ -20,11 +33,11 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
 
   if (type !== 'highImpact') return null
 
-  const headline = (headlineTop && headlineTop !== 'Play') ? headlineTop : 'Building'
+  const headline = headlineTop && headlineTop !== 'Play' ? headlineTop : 'Building'
   const subheadline = headlineBottom || 'Champions'
 
   return (
-    <section className="relative h-[90vh] min-h-[600px] max-h-[900px] overflow-hidden">
+    <section className="relative h-[80vh] min-h-[600px] max-h-[900px] overflow-hidden">
       <div className="relative w-full h-full">
         <motion.div
           initial={{ scale: 1.15 }}
@@ -56,10 +69,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                 </span>
                 Youth Athletics Redefined
               </div>
-              <h1 className="font-heading uppercase tracking-tighter text-white text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.75] drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+              <h1 className="font-heading uppercase tracking-tighter text-white text-8xl md:text-9xl leading-[0.75] drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                 {headline}
               </h1>
-              <h1 className="font-heading uppercase tracking-tighter text-[#3BD463] text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.75] drop-shadow-[0_20px_50px_rgba(59,212,99,0.3)] mt-2">
+              <h1 className="font-heading uppercase tracking-tighter text-[#3BD463] text-8xl md:text-9xl leading-[0.75] drop-shadow-[0_20px_50px_rgba(59,212,99,0.3)] mt-2">
                 {subheadline}
               </h1>
 
@@ -71,19 +84,30 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
                   className="mt-10 flex flex-col sm:flex-row gap-4"
                 >
                   {links[0]?.link && (
-                    <div className="relative group">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-[#3BD463] to-[#2EB854] rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                      <CMSLink
-                        {...links[0].link}
-                        className="relative px-10 py-5 rounded-xl text-white font-black text-lg bg-[#3BD463] hover:bg-[#2EB854] transition-all duration-300 hover:scale-[1.05] flex items-center gap-3 shadow-[0_20px_40px_rgba(59,212,99,0.4)] active:scale-95 uppercase tracking-wider"
+                    <CTAButton
+                      href={getLinkHref(links[0].link)}
+                      newTab={links[0].link.newTab || false}
+                      variant="default"
+                      size="lg"
+                      className="uppercase tracking-wider h-[60px] text-lg"
+                    >
+                      {links[0].link.label}{' '}
+                      <ArrowRight
+                        className="group-hover:translate-x-2 ml-3 transition-transform"
+                        size={18}
                       />
-                    </div>
+                    </CTAButton>
                   )}
                   {links[1]?.link && (
-                    <CMSLink
-                      {...links[1].link}
-                      className="px-10 py-5 rounded-xl text-white font-black text-lg border-2 border-white/30 hover:border-white/80 hover:bg-white/10 transition-all duration-300 hover:scale-[1.05] backdrop-blur-xl flex items-center gap-3 active:scale-95 uppercase tracking-wider"
-                    />
+                    <CTAButton
+                      href={getLinkHref(links[1].link)}
+                      newTab={links[1].link.newTab || false}
+                      variant="outline"
+                      size="lg"
+                      className="uppercase tracking-wider text-lg h-[60px] border-white/30 text-white hover:border-white hover:bg-white/10 hover:text-white"
+                    >
+                      {links[1].link.label}
+                    </CTAButton>
                   )}
                 </motion.div>
               )}

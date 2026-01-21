@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { ArrowRight, Zap, Trophy } from 'lucide-react'
 import type { Program } from '@/payload-types'
 import { ProgramCard } from '@/components/ProgramCard'
+import { Button } from '@/components/ui/button'
 
 type FeaturedProgramsBlockProps = {
   eyebrow?: string
@@ -71,11 +71,9 @@ export const FeaturedProgramsBlock: React.FC<FeaturedProgramsBlockProps> = ({
               {description}
             </p>
           </div>
-          <Link href={ctaLink}>
-            <button className="hidden md:flex gap-2 items-center group rounded-full px-6 py-3 border-2 border-[#052B70] text-[#052B70] hover:bg-[#052B70] hover:text-white font-bold transition-all duration-300">
-              {ctaText} <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
-            </button>
-          </Link>
+          <Button href={ctaLink} variant="outline" className="hidden md:flex gap-2 items-center group">
+            {ctaText} <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
+          </Button>
         </div>
 
         {loading ? (
@@ -103,11 +101,9 @@ export const FeaturedProgramsBlock: React.FC<FeaturedProgramsBlockProps> = ({
         )}
 
         <div className="mt-12 text-center md:hidden">
-          <Link href={ctaLink}>
-            <button className="w-full rounded-full py-4 px-6 bg-[#3BD463] text-white font-bold hover:bg-[#2EB854] transition-all">
-              {ctaText}
-            </button>
-          </Link>
+          <Button href={ctaLink} size="lg" className="w-full">
+            {ctaText}
+          </Button>
         </div>
       </div>
     </section>

@@ -1207,7 +1207,7 @@ export interface Program {
   /**
    * Please select the age range for the program.
    */
-  ageRange: '6to7' | '8to10' | '11to13' | '14to16';
+  ageRange: '6to7' | '8to10' | '8to12' | '11to13' | '14to16';
   /**
    * Is this program for boys, girls, or both?
    */

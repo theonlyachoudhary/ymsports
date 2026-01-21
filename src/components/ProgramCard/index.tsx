@@ -151,11 +151,6 @@ const StandardVariant: React.FC<ProgramCardProps> = ({
               <span>{calculateDuration(program.startDate, program.endDate)}</span>
             </div>
           )}
-          {showAgeRange && program.minAge && program.maxAge && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <span>{formatAgeRange(program.minAge, program.maxAge)}</span>
-            </div>
-          )}
           {showGender && program.gender && (
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <span>{formatGender(program.gender)}</span>

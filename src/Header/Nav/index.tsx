@@ -49,7 +49,7 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -12 }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="flex flex-col gap-4 pt-4"
+        className="flex flex-col gap-2"
       >
         {navItems.map((item, i) => {
           const href = item.link?.url || '#'
@@ -61,13 +61,14 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.05 * i }}
-              className="mb-4"
             >
               <Link
                 href={href}
-                className={`text-lg font-sans drop-shadow-sm ${
-                  active ? 'text-white' : 'text-white/70'
-                } hover:text-white transition`}
+                className={`block py-3 px-4 rounded-xl text-lg font-semibold transition-colors ${
+                  active
+                    ? 'text-[#052B70] bg-[#3BD463]/10'
+                    : 'text-gray-700 hover:text-[#052B70] hover:bg-gray-50'
+                }`}
               >
                 {item.link?.label}
               </Link>
@@ -80,16 +81,14 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.05 * navItems.length }}
-            className="mt-4"
+            className="mt-4 pt-4 border-t border-gray-100"
           >
             <CTAButton
               href={ctaHref}
               newTab={ctaNewTab}
-              variant="primary"
+              variant="default"
               size="lg"
-              fullWidth
-              animate={false}
-              icon="arrow"
+              className="w-full"
             >
               {ctaLabel}
             </CTAButton>
@@ -142,10 +141,9 @@ export function HeaderNav({ data, mobile = false }: { data: Header; mobile?: boo
           <CTAButton
             href={ctaHref}
             newTab={ctaNewTab}
-            variant="primary"
-            size="md"
-            animate={false}
-            icon="arrow"
+            variant="default"
+            size="default"
+            className="text-sm"
           >
             {ctaLabel}
           </CTAButton>

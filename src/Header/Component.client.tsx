@@ -112,6 +112,9 @@ export default function HeaderClient({ data }: { data: Header }) {
               w-full
               pt-6 pb-8 px-8
               z-[200]
+              bg-white
+              shadow-lg
+              border-t border-gray-100
             "
           >
             <HeaderNav data={data} mobile />

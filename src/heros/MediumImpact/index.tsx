@@ -2,14 +2,22 @@ import React from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { CMSLink } from '@/components/Link'
+import { CTAButton } from '@/components/CTAButton'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+
+const getLinkHref = (link: NonNullable<NonNullable<Page['hero']>['links']>[number]['link']) => {
+  if (link.type === 'reference' && link.reference?.value && typeof link.reference.value === 'object') {
+    const prefix = link.reference.relationTo !== 'pages' ? `/${link.reference.relationTo}` : ''
+    return `${prefix}/${link.reference.value.slug}`
+  }
+  return link.url || '#'
+}
 
 export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   return (
     <div className="">
-      <div className="container mb-8">
+      <div className="container mb-4">
         {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
 
         {Array.isArray(links) && links.length > 0 && (
@@ -17,7 +25,14 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
             {links.map(({ link }, i) => {
               return (
                 <li key={i}>
-                  <CMSLink {...link} />
+                  <CTAButton
+                    href={getLinkHref(link)}
+                    newTab={link.newTab || false}
+                    variant={link.appearance === 'link' ? 'link' : i === 0 ? 'default' : 'outline'}
+                    size="lg"
+                  >
+                    {link.label}
+                  </CTAButton>
                 </li>
               )
             })}
